@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: psono-nginx-proxy
+  namespace: psono
+  labels:
+    app: psono-nginx-proxy
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: psono-nginx-proxy
+  template:
+    metadata:
+      labels:
+        app: psono-nginx-proxy
+      annotations:
+        diun.enable: "true"
+        diun.watch_repo: "true"
+    spec:
+      containers:
+        - name: psono-nginx-proxy
+          image: nginx:1.21.3-alpine
+          imagePullPolicy: "IfNotPresent"
+          resources:
+            limits:
+              memory: 100Mi
+              cpu: "0.1"
+            requests:
+              memory: 64Mi
+              cpu: "0.05"
+          ports:
+            - containerPort: 80
+              protocol: TCP
+              name: http
+            - containerPort: 443
+              protocol: TCP
+              name: https
+          volumeMounts:
+            - mountPath: /etc/nginx/conf.d/default.conf
+              name: psono
+              subPath: default.conf
+            - mountPath: /etc/ssl/
+              name: psono
+              subPath: certif/
+      restartPolicy: Always
+      volumes:
+        - name: psono
+          persistentVolumeClaim:
+            claimName: pvc-psono

@@ -1,0 +1,34 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-telegraf
+  namespace: tig
+  labels:
+    type: nfs
+    app: telegraf
+spec:
+  storageClassName: managed-nfs-storage
+  capacity:
+    storage: 10Mi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /mnt/pool1/nfskube/telegraf
+    server: truenas.houseofus.eu
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-telegraf
+  namespace: tig
+  labels:
+    app: telegraf
+    type: nfs
+spec:
+  storageClassName: managed-nfs-storage
+  volumeName: pv-telegraf
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Mi

@@ -1,0 +1,19 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: gandi-dns
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: mem-limit-range
+  namespace: gandi-dns
+spec:
+  limits:
+  - default:
+      memory: 256Mi
+      cpu: "0.5"
+    defaultRequest:
+      memory: 128Mi
+      cpu: "0.1"
+    type: Container

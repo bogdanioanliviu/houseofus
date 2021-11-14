@@ -1,0 +1,39 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    app: gandi-dns
+  namespace: gandi-dns
+  name: gandi-dns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gandi-dns
+  template:
+    metadata:
+      labels:
+        app: gandi-dns
+      annotations:
+        diun.enable: "true"
+        diun.watch_repo: "true"
+    spec:
+      containers:
+        - name: gandi-dns
+          image: jbbodart/gandi-livedns
+          imagePullPolicy: "IfNotPresent"
+          resources:
+            limits:
+              memory: 10Mi
+              cpu: "0.10"
+            requests:
+              memory: 10Mi
+              cpu: "0.10"
+          env:
+            - name: APIKEY
+              value: 'GANDI_APIKEY'
+            - name: RECORD_LIST
+              value: 'cloud;doc;psono;ha'
+            - name: DOMAIN
+              value: 'houseofus.eu'
+      restartPolicy: Always

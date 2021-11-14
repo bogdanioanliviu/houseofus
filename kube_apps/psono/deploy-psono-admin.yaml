@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: psono-admin
+  namespace: psono
+  labels:
+    app: psono-admin
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: psono-admin
+  template:
+    metadata:
+      labels:
+        app: psono-admin
+      annotations:
+        diun.enable: "true"
+        diun.watch_repo: "true"
+    spec:
+      containers:
+        - name: psono-admin
+          image: psono/psono-admin-client:1.4.0
+          imagePullPolicy: "IfNotPresent"
+          resources:
+            limits:
+              memory: 60Mi
+              cpu: "0.05"
+            requests:
+              memory: 30Mi
+              cpu: "0.05"
+          ports:
+            - containerPort: 80
+              protocol: TCP
+              name: http
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html/portal/config.json
+              name: psono
+              subPath: config.json
+      restartPolicy: Always
+      volumes:
+        - name: psono
+          persistentVolumeClaim:
+            claimName: pvc-psono

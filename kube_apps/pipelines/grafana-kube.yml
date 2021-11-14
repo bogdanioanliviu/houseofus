@@ -1,0 +1,29 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+ paths:
+   include:
+     - kube_apps/tig/deploy-grafana.yaml
+
+pool:
+  name: Default
+
+steps:
+
+- task: Bash@3
+  inputs:
+    filePath: '$(System.DefaultWorkingDirectory)/kube_apps/tig/template_yq_grafana.sh'
+    failOnStderr: true
+    noProfile: false
+  env:
+    Grafana_Admin_pass: $(Grafana-Admin-Pass)
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/tig/deploy-grafana.yaml'
+    failOnStderr: true
+    noProfile: false

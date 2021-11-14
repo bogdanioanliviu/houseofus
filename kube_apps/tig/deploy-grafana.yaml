@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: tig
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: grafana
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+        - name: grafana
+          image: grafana/grafana:7.5.10-ubuntu
+          imagePullPolicy: "IfNotPresent"
+          resources:
+            limits:
+              memory: 80Mi
+              cpu: "0.10"
+            requests:
+              memory: 50Mi
+              cpu: "0.10"
+          env:
+            - name: GF_INSTALL_PLUGINS
+              value: grafana-piechart-panel, blackmirror1-singlestat-math-panel, grafana-worldmap-panel, grafana-clock-panel, grafana-simple-json-datasource
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              value: replace_value
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+              name: http
+          volumeMounts:
+            - mountPath: /var/lib/grafana
+              name: grafana-volume
+              subPath: data/
+            -  mountPath: /etc/grafana/provisioning
+               name: grafana-volume
+               subPath: provisioning/
+            - mountPath: /etc/grafana/grafana.ini
+              name: grafana-volume
+              subPath: grafana.ini
+              readOnly: true
+      restartPolicy: Always
+      volumes:
+        - name: grafana-volume
+          persistentVolumeClaim:
+            claimName: pvc-grafana

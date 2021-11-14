@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud
+  namespace: nextcloud
+  labels:
+    app: nextcloud
+spec:
+  replicas: 2
+  revisionHistoryLimit: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: nextcloud
+  template:
+    metadata:
+      labels:
+        app: nextcloud
+      annotations:
+        diun.enable: "true"
+        diun.watch_repo: "true"
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - nextcloud
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: nextcloud
+          image: ghcr.io/linuxserver/nextcloud:version-22.2.2
+          imagePullPolicy: "IfNotPresent"
+          resources:
+            limits:
+              memory: 1024Mi
+              cpu: "1"
+            requests:
+              memory: 256Mi
+              cpu: "0.50"
+          ports:
+            - containerPort: 443
+              protocol: TCP
+              name: https
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Europe/Madrid"
+          volumeMounts:
+            - mountPath: /config
+              name: nextcloud-data
+              subPath: nextcloud-config
+            - mountPath: /data
+              name: nextcloud-data
+              subPath: nextcloud-data
+      restartPolicy: Always
+      volumes:
+        - name: nextcloud-data
+          persistentVolumeClaim:
+            claimName: pvc-nextcloud

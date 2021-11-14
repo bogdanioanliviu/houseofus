@@ -1,0 +1,28 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- '*'
+
+pool:
+  name: Default
+
+steps:
+#- task: AzureKeyVault@1
+#  inputs:
+#    azureSubscription: 'Free Trial(12a254f9-c670-470e-a9de-4d0cc4df5d09)'
+#    KeyVaultName: 'kv-first-test'
+#    SecretsFilter: '*'
+#    RunAsPreJob: false
+
+- task: PythonScript@0
+  inputs:
+    scriptSource: 'filePath'
+    scriptPath: '$(System.DefaultWorkingDirectory)/azure_work/rg_examples.py'
+  env:
+    AZURE_CLIENT_ID: $(AZURE-CLIENT-ID)
+    AZURE_CLIENT_SECRET: $(AZURE-CLIENT-SECRET)
+    AZURE_TENANT_ID: $(AZURE-TENANT-ID)
+    AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)

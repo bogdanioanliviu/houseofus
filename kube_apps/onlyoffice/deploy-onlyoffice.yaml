@@ -1,0 +1,72 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    app: onlyoffice
+  name: onlyoffice
+  namespace: onlyoffice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: onlyoffice
+  template:
+    metadata:
+      labels:
+        app: onlyoffice
+      annotations:
+        diun.enable: "true"
+        diun.watch_repo: "true"
+    spec:
+      containers:
+        - name: onlyoffice
+          image: onlyoffice/documentserver:6.4.2
+          imagePullPolicy: "IfNotPresent"
+          resources:
+            limits:
+              memory: 1524Mi
+              cpu: "0.30"
+            requests:
+              memory: 1024Mi
+              cpu: "0.30"
+          env:
+            - name: JWT_ENABLED
+              value: "true"
+            - name: JWT_SECRET
+              value: "key"
+            - name: DB_HOST
+              value: "haproxy.houseofus.eu"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_NAME
+              value: "onlyoffice"
+            - name: DB_USER
+              value: "user"
+            - name: DB_PWD
+              value: "password"
+          ports:
+            - containerPort: 443
+              protocol: TCP
+              name: https
+          volumeMounts:
+            - mountPath: /var/www/onlyoffice/Data
+              name: onlyoffice-data
+              subPath: data
+            - mountPath: /var/log/onlyoffice
+              name: onlyoffice-data
+              subPath: logs
+            - mountPath: /var/lib/onlyoffice
+              name: onlyoffice-data
+              subPath: logs
+      restartPolicy: Always
+      volumes:
+        - name: onlyoffice-data
+          persistentVolumeClaim:
+            claimName: pvc-onlyoffice
+
+
+
+
+
+
+

@@ -1,0 +1,20 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-homeassist
+  namespace: home-assist
+  labels:
+    app: homeassist
+spec:
+  selector:
+    app: homeassist
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8123
+      targetPort: 8123
+    - name: occp
+      protocol: TCP
+      port: 9000
+      targetPort: 9000
+  type: NodePort

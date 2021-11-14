@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influx
+  namespace: tig
+  labels:
+    app: influx
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: influx
+  template:
+    metadata:
+      labels:
+        app: influx
+    spec:
+      containers:
+        - name: influxdb
+          image: influxdb:2.0.7
+          imagePullPolicy: "IfNotPresent"
+          resources:
+            limits:
+              memory: 350Mi
+              cpu: "0.10"
+            requests:
+              memory: 256Mi
+              cpu: "0.10"
+          ports:
+            - containerPort: 8086
+              protocol: TCP
+              name: http
+          envFrom:
+            - configMapRef:
+                name: influx-secrets
+          volumeMounts:
+            - mountPath: /var/lib/influxdb2
+              name: influx-data
+      volumes:
+        - name: influx-data
+          persistentVolumeClaim:
+            claimName: pvc-influx

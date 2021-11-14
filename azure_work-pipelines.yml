@@ -1,0 +1,19 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+
+pool:
+  name: Default
+
+steps:
+
+- task: PythonScript@0
+  inputs:
+    scriptSource: 'filePath'
+    scriptPath: '$(System.DefaultWorkingDirectory)/azure_work/rotate_secret.py'
+  env:
+    AZURE_CLIENT_ID: $(AZURE-CLIENT-ID)
+    AZURE_CLIENT_SECRET: $(AZURE-CLIENT-SECRET)
+    AZURE_TENANT_ID: $(AZURE-TENANT-ID)

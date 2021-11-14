@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres11
+  namespace: postgres11
+  labels:
+    app: postgres11
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres11
+  template:
+    metadata:
+      labels:
+        app: postgres11
+      annotations:
+        diun.enable: "true"
+        diun.watch_repo: "true"
+    spec:
+      containers:
+        - name: postgres11
+          image: postgres:11.13-alpine3.14
+          imagePullPolicy: "Always"
+          resources:
+            limits:
+              memory: 126Mi
+              cpu: "0.1"
+            requests:
+              memory: 100Mi
+              cpu: "0.1"
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - secretRef:
+                name: postgres11-secret
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgredb
+      volumes:
+        - name: postgredb
+          persistentVolumeClaim:
+            claimName: pvc-postgres11

@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-nodered
+  namespace: nodered
+  labels:
+    app: nodered
+spec:
+  selector:
+    app: nodered
+  ports:
+    - name: http
+      protocol: TCP
+      port: 1880
+      targetPort: 1880
+  type: NodePort

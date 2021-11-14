@@ -1,0 +1,17 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-homeassist
+  namespace: home-assist
+  labels:
+    app: homeassist
+    type: nfs
+spec:
+  storageClassName: managed-nfs-storage
+  capacity:
+    storage: 50Mi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /mnt/pool1/nfskube/homeassist
+    server: truenas.houseofus.eu

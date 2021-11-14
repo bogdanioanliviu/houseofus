@@ -1,0 +1,39 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+ paths:
+   include:
+     - kube_apps/diun/*
+
+pool:
+  name: Default
+
+steps:
+- task: Bash@3
+  inputs:
+    filePath: '$(System.DefaultWorkingDirectory)/kube_apps/diun/template_yq.sh'
+    failOnStderr: true
+    noProfile: false
+  env:
+    telegram_token: $(telegram-token)
+  displayName: "Generate env var with new img name and prepare deploy file."
+    
+- task: Ansible@0
+  inputs:
+    ansibleInterface: 'agentMachine'
+    playbookPathOnAgentMachine: '/home/bil/ansible/playbooks/download_img_ha.yml'
+    inventoriesAgentMachine: 'noInventory'
+    args: '--extra-vars "ha_img=$(diun_img) tele_token=$(telegram-token)"'
+  env:
+    diun_img : $(diun_img)
+  displayName: "Download $(diun_img) ha img to knodes."
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/diun/deploy-diun.yaml'
+    failOnStderr: true
+    noProfile: false

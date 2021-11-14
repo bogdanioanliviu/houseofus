@@ -1,0 +1,34 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-postgres
+  namespace: postgres
+  labels:
+    type: nfs
+    app: postgres
+spec:
+  storageClassName: managed-nfs-storage
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /mnt/pool1/nfskube/postgresql
+    server: truenas.houseofus.eu
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-postgres
+  namespace: postgres
+  labels:
+    app: postgres
+    type: nfs
+spec:
+  storageClassName: managed-nfs-storage
+  volumeName: pv-postgres
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi

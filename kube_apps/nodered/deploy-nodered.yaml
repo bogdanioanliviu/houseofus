@@ -1,0 +1,46 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    app: nodered
+  namespace: nodered
+  name: nodered
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: nodered
+  template:
+    metadata:
+      labels:
+        app: nodered
+    spec:
+      containers:
+        - name: nodered
+          image: nodered/node-red
+          imagePullPolicy: "Always"
+          resources:
+            limits:
+              memory: 160Mi
+              cpu: "0.15"
+            requests:
+              memory: 128Mi
+              cpu: "0.10"
+          ports:
+            - containerPort: 1880
+              protocol: TCP
+              name: http
+          volumeMounts:
+            - mountPath: /data
+              name: nodered-data
+          env:
+            - name: TZ
+              value: 'Europe/Madrid'
+      restartPolicy: Always
+      volumes:
+        - name: nodered-data
+          persistentVolumeClaim:
+            claimName: pvc-nodered

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telegraf
+  namespace: tig
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: telegraf
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: telegraf
+    spec:
+      containers:
+        - image: telegraf:1.20.0
+          imagePullPolicy: "IfNotPresent"
+          resources:
+            limits:
+              memory: 60Mi
+              cpu: "0.10"
+            requests:
+              memory: 40Mi
+              cpu: "0.10"
+          name: telegraf
+          volumeMounts:
+            - mountPath: /etc/telegraf/telegraf.conf
+              name: telegraf-config
+              subPath: telegraf.conf
+              readOnly: true
+          env:
+            - name: INFLUX_TOKEN
+              value: "ijz3ljyxFBJ7XNXrIPkUpRavWip2gSVJ9Icntz-1DhptJircKOxtDH1uEmL2d_0XFiXAFjTzcAuCkMKmNX92wQ=="
+      restartPolicy: Always
+      volumes:
+        - name: telegraf-config
+          persistentVolumeClaim:
+            claimName: pvc-telegraf

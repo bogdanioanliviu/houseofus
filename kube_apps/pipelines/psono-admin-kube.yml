@@ -1,0 +1,49 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+ paths:
+   include:
+     - kube_apps/psono/deploy-psono-admin.yaml
+
+pool:
+  name: Default
+
+steps:  
+
+- task: Bash@3
+  inputs:
+    filePath: '$(System.DefaultWorkingDirectory)/kube_apps/psono/download_img_yq.sh'
+    arguments: 'deploy-psono-admin.yaml'
+    failOnStderr: true
+    noProfile: false
+  displayName: "Generate env var with new img name."
+
+- task: Ansible@0
+  inputs:
+    ansibleInterface: 'agentMachine'
+    playbookPathOnAgentMachine: '/home/bil/ansible/playbooks/download_img_ha.yml'
+    inventoriesAgentMachine: 'noInventory'
+    args: '--extra-vars "ha_img=$(ha_img) tele_token=$(telegram-token)"'
+  env:
+    ha_img : $(ha_img)
+  displayName: "Download new psono admin img to knodes."
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/psono/deploy-psono-admin.yaml'
+    failOnStderr: true
+    noProfile: false
+  displayName: "Deploy new img."
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'kubectl -n psono rollout restart deployment psono-nginx-proxy'
+    failOnStderr: true
+    noProfile: false
+  displayName: 'Restart psono nginx.'
+

@@ -1,0 +1,20 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-ha-nginx
+  namespace: home-assist
+  labels:
+    app: ha-nginx
+spec:
+  selector:
+    app: ha-nginx
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+  type: NodePort

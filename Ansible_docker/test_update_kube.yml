@@ -1,0 +1,45 @@
+---
+- hosts: kube_cluster
+  become: true
+  become_method: sudo
+  become_user: root
+  vars:
+    telegram_token: "{{ tele_token }}"
+  tasks:
+    - name: check for updates (yum)
+      yum:
+        list: updates
+        update_cache: true
+      register: yumoutput
+    - name: Send message to telegram Group if docker-ce updates exist
+      telegram:
+        token: '{{ telegram_token }}'
+        chat_id: '-320842825'
+        msg: "Exista actualizare de docker pentru {{ inventory_hostname }}"
+      when: yumoutput.results | select ('search', 'docker-ce') | list | length > 0
+    - name: update servers without docker
+      yum:
+        name: "*"
+        state: latest
+        exclude: docker-ce*
+    - name: Send message to telegram Group if updates exist
+      telegram:
+        token: '{{ telegram_token }}'
+        chat_id: '-320842825'
+        msg: "Sau actualizat pachetele urmatoarele {{ yumoutput.results | map(attribute='name') | list }} pentru {{ inventory_hostname }}"
+      when: yumoutput.results | length > 0
+    - name: check to see if we need a reboot
+      command: needs-restarting -r
+      register: result
+      ignore_errors: yes
+    - name: Send message to telegram Group if restart needed
+      telegram:
+        token: '{{ telegram_token }}'
+        chat_id: '-320842825'
+        msg: "E nevoie de un reinicio pentru {{ inventory_hostname }}"
+      when: result.rc == 1
+#    - name: printout
+#      debug:
+#        msg:
+#          - "{{ yumoutput.results | map(attribute='name') | list }}"
+#          - "{{ yumoutput.results | length > 0}}"

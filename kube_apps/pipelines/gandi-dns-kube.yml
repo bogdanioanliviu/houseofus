@@ -1,0 +1,28 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  paths:
+   include:
+     - kube_apps/gandi-dns/*
+
+pool:
+  name: Default
+
+steps: 
+- task: Bash@3
+  inputs:
+    filePath: '$(System.DefaultWorkingDirectory)/kube_apps/gandi-dns/template_yq.sh'
+    failOnStderr: true
+    noProfile: false
+  env:
+    GANDI_APIKEY: $(GANDI_APIKEY)
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/gandi-dns/deploy-gandi-dns.yaml'
+    failOnStderr: true
+    noProfile: false

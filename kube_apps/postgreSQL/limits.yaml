@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: mem-limit-range
+  namespace: postgres
+spec:
+  limits:
+  - default:
+      memory: 256Mi
+      cpu: 0.2
+    defaultRequest:
+      memory: 100Mi
+      cpu: 0.13
+    type: Container
