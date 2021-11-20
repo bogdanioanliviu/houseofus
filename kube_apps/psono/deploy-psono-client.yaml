@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: psono-client
-          image: psono/psono-client:1.25.0
+          image: psono/psono-client:1.26.0
           imagePullPolicy: "Always"
           resources:
             limits:
