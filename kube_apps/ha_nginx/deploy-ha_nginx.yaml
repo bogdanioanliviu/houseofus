@@ -6,8 +6,13 @@ metadata:
   name: ha-nginx
   namespace: home-assist
 spec:
-  replicas: 1
-  revisionHistoryLimit: 1
+  replicas: 2
+  revisionHistoryLimit: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
   selector:
     matchLabels:
       app: ha-nginx
@@ -19,9 +24,19 @@ spec:
         diun.enable: "true"
         diun.watch_repo: "true"
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - ha-nginx
+              topologyKey: "kubernetes.io/hostname"
       containers:
         - name: ha-nginx
-          image: linuxserver/nginx:1.20.2
+          image: linuxserver/nginx:latest
           imagePullPolicy: "Always"
           resources:
             limits:
