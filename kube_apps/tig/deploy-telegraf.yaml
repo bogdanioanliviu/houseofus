@@ -16,12 +16,12 @@ spec:
         app: telegraf
     spec:
       containers:
-        - image: telegraf:1.21.1
+        - image: telegraf:1.20.4
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
               memory: 60Mi
-              cpu: "0.10"
+              cpu: "0.20"
             requests:
               memory: 40Mi
               cpu: "0.10"
