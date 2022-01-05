@@ -7,7 +7,7 @@ metadata:
   namespace: home-assist
 spec:
   replicas: 2
-  revisionHistoryLimit: 2
+  revisionHistoryLimit: 1
   strategy:
     type: RollingUpdate
     rollingUpdate:
