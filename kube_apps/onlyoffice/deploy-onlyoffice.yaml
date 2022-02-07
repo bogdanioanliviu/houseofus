@@ -24,11 +24,11 @@ spec:
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
-              memory: 1524Mi
-              cpu: "0.30"
+              memory: 1024Mi
+              cpu: "0.20"
             requests:
               memory: 1024Mi
-              cpu: "0.30"
+              cpu: "0.01"
           env:
             - name: JWT_ENABLED
               value: "true"
