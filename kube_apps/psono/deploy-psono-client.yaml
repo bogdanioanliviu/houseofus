@@ -22,14 +22,14 @@ spec:
       containers:
         - name: psono-client
           image: psono/psono-client:1.27.0
-          imagePullPolicy: "Always"
+          imagePullPolicy: "IfNotPresent"
           resources:
             limits:
-              memory: 60Mi
+              memory: 32Mi
               cpu: "0.05"
             requests:
-              memory: 30Mi
-              cpu: "0.05"
+              memory: 12Mi
+              cpu: "0.001"
           ports:
             - containerPort: 80
               protocol: TCP
