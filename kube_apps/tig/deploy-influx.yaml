@@ -26,10 +26,10 @@ spec:
           resources:
             limits:
               memory: 220Mi
-              cpu: "10"
+              cpu: "0.08"
             requests:
               memory: 120Mi
-              cpu: "5"
+              cpu: "0.05"
           ports:
             - containerPort: 8086
               protocol: TCP
