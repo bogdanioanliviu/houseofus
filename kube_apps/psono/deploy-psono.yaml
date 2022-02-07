@@ -22,14 +22,14 @@ spec:
       containers:
         - name: psono-server
           image: psono/psono-server-enterprise:1.18.0
-          imagePullPolicy: "Always"
+          imagePullPolicy: "IfNotPresent"
           resources:
             limits:
               memory: 400Mi
-              cpu: "0.20"
+              cpu: "0.008"
             requests:
-              memory: 300Mi
-              cpu: "0.10"
+              memory: 350Mi
+              cpu: "0.004"
           ports:
             - containerPort: 80
               protocol: TCP
