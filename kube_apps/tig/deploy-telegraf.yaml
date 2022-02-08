@@ -14,9 +14,6 @@ spec:
     metadata:
       labels:
         app: telegraf
-      annotations:
-        diun.enable: "true"
-        diun.watch_repo: "true"
     spec:
       containers:
         - image: telegraf:1.21.3
