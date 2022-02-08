@@ -24,10 +24,10 @@ spec:
           resources:
             limits:
               memory: 150Mi
-              cpu: "0.02"
+              cpu: "0.04"
             requests:
               memory: 60Mi
-              cpu: "0.001"
+              cpu: "0.02"
           env:
             - name: TZ
               value: "Europe/Madrid"
