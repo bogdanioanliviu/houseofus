@@ -36,8 +36,8 @@ spec:
               topologyKey: "kubernetes.io/hostname"
       containers:
         - name: ha-nginx
-          image: linuxserver/nginx:latest
-          imagePullPolicy: "Always"
+          image: linuxserver/nginx:1.20.2
+          imagePullPolicy: "IfNotPresent"
           resources:
             limits:
               memory: 40Mi
