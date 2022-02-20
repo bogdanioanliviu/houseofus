@@ -14,6 +14,10 @@ spec:
     metadata:
       labels:
         app: grafana
+      annotations:
+        diun.enable: "true"
+        diun.watch_repo: "true"
+        diun.include_tags: "8.4.*;8.5.*"
     spec:
       containers:
         - name: grafana
