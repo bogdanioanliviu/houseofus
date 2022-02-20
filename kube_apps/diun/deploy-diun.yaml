@@ -36,6 +36,8 @@ spec:
               value: "info"
             - name: LOG_JSON
               value: "false"
+            - name: DIUN_WATCH_COMPAREDIGEST
+              value: "true"
             - name: DIUN_WATCH_WORKERS
               value: "10"
             - name: DIUN_WATCH_SCHEDULE
