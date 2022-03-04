@@ -33,7 +33,7 @@ spec:
               readOnly: true
           env:
             - name: INFLUX_TOKEN
-              value: "ijz3ljyxFBJ7XNXrIPkUpRavWip2gSVJ9Icntz-1DhptJircKOxtDH1uEmL2d_0XFiXAFjTzcAuCkMKmNX92wQ=="
+              value: "0KAPkbAbxadTrvbk1kW3MVvtMAAdyUUCEnQX-yZ5Q0MOlaspCBdB0juSE8iQV8wQ5UxHff615EOOXT2x-MAYvw=="
       restartPolicy: Always
       volumes:
         - name: telegraf-config
