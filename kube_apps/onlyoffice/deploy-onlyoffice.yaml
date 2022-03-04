@@ -7,6 +7,7 @@ metadata:
   namespace: onlyoffice
 spec:
   replicas: 1
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       app: onlyoffice
@@ -58,6 +59,9 @@ spec:
             - mountPath: /var/lib/onlyoffice
               name: onlyoffice-data
               subPath: logs
+            - mountPath: /etc/onlyoffice/documentserver/nginx
+              name: onlyoffice-data
+              subPath: nginx
       restartPolicy: Always
       volumes:
         - name: onlyoffice-data
