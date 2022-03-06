@@ -16,7 +16,7 @@ spec:
         app: telegraf
     spec:
       containers:
-        - image: telegraf:1.21.3
+        - image: telegraf:1.21.4
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
