@@ -22,7 +22,7 @@ spec:
       containers:
         - name: psono-nginx-proxy
           image: nginx:1.21.6-alpine
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           resources:
             limits:
               memory: 80Mi
