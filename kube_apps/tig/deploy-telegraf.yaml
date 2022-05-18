@@ -16,7 +16,7 @@ spec:
         app: telegraf
     spec:
       containers:
-        - image: telegraf:1.21.4
+        - image: telegraf:1.22.4
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
@@ -39,3 +39,4 @@ spec:
         - name: telegraf-config
           persistentVolumeClaim:
             claimName: pvc-telegraf
+            
