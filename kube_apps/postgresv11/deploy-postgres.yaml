@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: postgres11
-          image: postgres:11.15-alpine3.15
+          image: postgres:11.16-alpine3.15
           imagePullPolicy: "Always"
           resources:
             limits:
