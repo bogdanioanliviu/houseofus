@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: homeassist
-          image: homeassistant/home-assistant:2022.5.4
+          image: homeassistant/home-assistant:2022.5.5
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
