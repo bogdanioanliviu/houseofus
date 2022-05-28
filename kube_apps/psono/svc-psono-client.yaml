@@ -13,4 +13,4 @@ spec:
       protocol: TCP
       port: 10101
       targetPort: 80
-  type: LoadBalancer
+  type: NodePort
