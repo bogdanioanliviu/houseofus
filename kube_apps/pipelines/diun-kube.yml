@@ -10,6 +10,10 @@ trigger:
 pool:
   name: Default
 
+variables:
+  - name: telegram-token-houseofus
+    value: $(telegram-token)
+
 steps:
 - task: replacetokens@3
   displayName: 'Update manifests'
