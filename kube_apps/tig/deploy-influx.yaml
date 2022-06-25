@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: influxdb
-          image: influxdb:2.2.0
+          image: influxdb:2.3.0
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
