@@ -1,9 +1,11 @@
 #!/bin/sh
 
 pat=${pat_val}
-
+echo $pat
 myjson=$(curl -u :$pat https://dev.azure.com/bogdan0109/houseofus/_apis/build/builds?definitions=25&resultFilter=succeeded&statusFilter=completed&maxBuildsPerDefinition=1&queryOrder=finishTimeDescending)
+echo $myjson
 echo $(jq -r '.value[0].buildNumber' <<< "$myjson")
+echo 'last step'
 echo "##vso[task.setvariable variable=last_buildNumber]$(jq -r '.value[0].buildNumber' <<< "$myjson")"
 #img=$(yq e '.spec.template.spec.containers[0].image' kube_apps/kuma/deploy-kuma.yaml)
 #echo "img is : $img"
