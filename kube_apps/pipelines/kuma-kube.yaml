@@ -33,11 +33,13 @@ steps:
     containerRegistryType: 'Azure Container Registry'
     versionSpec: '1.24.2'
     outputFormat: 'none'
+  displayName: 'Deploy manifests to kube'
 
 - task: SendTelegramNotification@0
   inputs:
     botToken: '$(telegram-token)'
     chats: '$(telegram-chat)'
     teamUrl: true
-    message: 'My message'
+    message: 'Pipeline for kuma update status.'
     buildNumber: true
+  displayName: 'Send Telegram notification'
