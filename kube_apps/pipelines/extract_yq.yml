@@ -8,5 +8,7 @@ steps:
     filePath: '$(System.DefaultWorkingDirectory)/kube_apps/pipelines/extract_yq.sh'
     failOnStderr: true
     noProfile: false
-  displayName: "Generate env var with new img name and prepare deploy file."
+  env: 
+    pat_val: $(mypat)
+  displayName: "extract last build number of an ok pipeline."
 

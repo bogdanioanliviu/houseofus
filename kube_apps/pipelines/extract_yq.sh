@@ -1,8 +1,10 @@
 #!/bin/sh
 
-myjson=$(curl https://dev.azure.com/bogdan0109/houseofus/_apis/build/builds?definitions=25&resultFilter=succeeded&statusFilter=completed&maxBuildsPerDefinition=1&queryOrder=finishTimeDescending )
-echo $myjson
+pat=${pat_val}
 
+myjson=$(curl -u :$pat https://dev.azure.com/bogdan0109/houseofus/_apis/build/builds?definitions=25&resultFilter=succeeded&statusFilter=completed&maxBuildsPerDefinition=1&queryOrder=finishTimeDescending)
+echo $(jq -r '.value[0].buildNumber' <<< "$myjson")
+echo "##vso[task.setvariable variable=last_buildNumber]$(jq -r '.value[0].buildNumber' <<< "$myjson")"
 #img=$(yq e '.spec.template.spec.containers[0].image' kube_apps/kuma/deploy-kuma.yaml)
 #echo "img is : $img"
 #echo "##vso[task.setvariable variable=last_buildNumber]$img"
