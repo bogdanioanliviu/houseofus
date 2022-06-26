@@ -6,9 +6,17 @@ steps:
 - task: Bash@3
   inputs:
     filePath: '$(System.DefaultWorkingDirectory)/kube_apps/pipelines/extract_yq.sh'
-    failOnStderr: true
-    noProfile: false
+    #failOnStderr: true
+    #noProfile: false
   env: 
     pat_val: $(mypat)
   displayName: "extract last build number of an ok pipeline."
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      echo "$lastbuildNumber1"
+    bashEnvValue: 'lastbuildNumber1: $(lastbuildNumber)'
 
