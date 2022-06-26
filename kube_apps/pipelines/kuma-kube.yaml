@@ -33,3 +33,11 @@ steps:
     containerRegistryType: 'Azure Container Registry'
     versionSpec: '1.24.2'
     outputFormat: 'none'
+
+- task: SendTelegramNotification@0
+  inputs:
+    botToken: '$(telegram-token)'
+    chats: '$(telegram-chat)'
+    teamUrl: true
+    message: 'My message'
+    buildNumber: true
