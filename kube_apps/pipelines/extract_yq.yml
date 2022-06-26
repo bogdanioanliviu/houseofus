@@ -12,11 +12,6 @@ steps:
     pat_val: $(mypat)
   displayName: "extract last build number of an ok pipeline."
 
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Write your commands here
-      echo "$lastbuildNumber"
-    bashEnvValue: 'lastbuildNumber1: $(lastbuildNumber)'
-
+- script: |
+    echo "$(lastbuildNumber)"
+  displayName: 'build number is'
