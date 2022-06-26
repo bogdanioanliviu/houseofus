@@ -17,6 +17,6 @@ steps:
     targetType: 'inline'
     script: |
       # Write your commands here
-      echo "$lastbuildNumber1"
+      echo "$lastbuildNumber"
     bashEnvValue: 'lastbuildNumber1: $(lastbuildNumber)'
 
