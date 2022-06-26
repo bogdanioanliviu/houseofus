@@ -31,7 +31,7 @@ steps:
     arguments: '-f $(System.DefaultWorkingDirectory)/kube_apps/kuma/'
     secretType: 'dockerRegistry'
     containerRegistryType: 'Azure Container Registry'
-    versionSpec: '1.24.2'
+    versionSpec: '1.23'
     outputFormat: 'none'
   displayName: 'Deploy manifests to kube'
 
