@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: homeassist
-          image: homeassistant/home-assistant:2022.6.7
+          image: homeassistant/home-assistant:2022.7.3
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
@@ -37,9 +37,9 @@ spec:
             - containerPort: 8123
               protocol: TCP
               name: http
-            - containerPort: 9000
-              protocol: TCP
-              name: occp
+            #- containerPort: 9000
+            #  protocol: TCP
+            #  name: occp
           volumeMounts:
             - name: ha-data
               mountPath: /config
