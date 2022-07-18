@@ -36,7 +36,7 @@ spec:
               topologyKey: "kubernetes.io/hostname"
       containers:
         - name: nextcloud
-          image: linuxserver/nextcloud:24.0.2
+          image: linuxserver/nextcloud:24.0.2-php8
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
@@ -56,6 +56,12 @@ spec:
               value: "1000"
             - name: TZ
               value: "Europe/Madrid"
+            - name: REDIS_HOST
+              value: haproxy.houseofus.eu
+            - name: REDIS_PORT
+              value: "30413"
+            - name: REDIS_PASSWORD
+              value: {redispass}
           volumeMounts:
             - mountPath: /config
               name: nextcloud-data
