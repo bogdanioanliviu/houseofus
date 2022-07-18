@@ -11,7 +11,24 @@ trigger:
 pool:
   name: Default
 
-steps:  
+steps:
+- task: replacetokens@3
+  displayName: 'Update manifests'
+  inputs:
+    rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/nextcloud/'
+    targetFiles: '**/*.yaml'
+    encoding: 'auto'
+    writeBOM: true
+    actionOnMissing: 'warn'
+    keepToken: true
+    actionOnNoFiles: 'fail'
+    enableTransforms: false
+    tokenPrefix: '{'
+    tokenSuffix: '}'
+    enableRecursion: false
+    useLegacyPattern: false
+    enableTelemetry: true
+
 - task: Bash@3
   inputs:
     filePath: '$(System.DefaultWorkingDirectory)/kube_apps/nextcloud/download_img_yq.sh'
