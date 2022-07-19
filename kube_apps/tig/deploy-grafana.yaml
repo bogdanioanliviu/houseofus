@@ -32,7 +32,7 @@ spec:
               cpu: "0.02"
           env:
             - name: GF_INSTALL_PLUGINS
-              value: grafana-piechart-panel, blackmirror1-singlestat-math-panel, grafana-worldmap-panel, grafana-clock-panel, grafana-simple-json-datasource
+              value: redis-datasource, grafana-piechart-panel, blackmirror1-singlestat-math-panel, grafana-worldmap-panel, grafana-clock-panel, grafana-simple-json-datasource
             - name: GF_SECURITY_ADMIN_PASSWORD
               value: replace_value
           ports:
