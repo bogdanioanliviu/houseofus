@@ -13,13 +13,29 @@ pool:
 
 steps:
 
-- task: Bash@3
+#- task: Bash@3
+#  inputs:
+#    filePath: '$(System.DefaultWorkingDirectory)/kube_apps/tig/template_yq_grafana.sh'
+#    failOnStderr: true
+#    noProfile: false
+#  env:
+#    Grafana_Admin_pass: $(Grafana-Admin-Pass)
+- task: replacetokens@3
+  displayName: 'Update manifests'
   inputs:
-    filePath: '$(System.DefaultWorkingDirectory)/kube_apps/tig/template_yq_grafana.sh'
-    failOnStderr: true
-    noProfile: false
-  env:
-    Grafana_Admin_pass: $(Grafana-Admin-Pass)
+    rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/tig/'
+    targetFiles: '**/*.yaml'
+    encoding: 'auto'
+    writeBOM: true
+    actionOnMissing: 'warn'
+    keepToken: true
+    actionOnNoFiles: 'fail'
+    enableTransforms: false
+    tokenPrefix: '{'
+    tokenSuffix: '}'
+    enableRecursion: false
+    useLegacyPattern: false
+    enableTelemetry: true
 
 - task: Bash@3
   inputs:
