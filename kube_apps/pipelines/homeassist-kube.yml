@@ -12,22 +12,6 @@ pool:
   name: Default
 
 steps:  
-#- task: Bash@3
-#  inputs:
-#    filePath: '$(System.DefaultWorkingDirectory)/kube_apps/homeassistant/download_img_yq.sh'
-#    failOnStderr: true
-#    noProfile: false
-#  displayName: "Generate env var with new img name."
-    
-#- task: Ansible@0
-#  inputs:
-#    ansibleInterface: 'agentMachine'
-#    playbookPathOnAgentMachine: '/home/bil/ansible/playbooks/download_img_ha.yml'
-#    inventoriesAgentMachine: 'noInventory'
-#    args: '--extra-vars "ha_img=$(ha_img) tele_token=$(telegram-token)"'
-#  env:
-#    ha_img : $(ha_img)
-#  displayName: "Download $(ha_img) ha img to knodes."
 
 - task: replacetokens@3
   displayName: 'Update manifests'
