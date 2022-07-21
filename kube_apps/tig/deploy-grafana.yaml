@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: grafana
-          image: grafana/grafana:9.0.3-ubuntu
+          image: grafana/grafana:9.0.4-ubuntu
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
@@ -34,7 +34,7 @@ spec:
             - name: GF_INSTALL_PLUGINS
               value: redis-app, redis-datasource, grafana-piechart-panel, blackmirror1-singlestat-math-panel, grafana-worldmap-panel, grafana-clock-panel, grafana-simple-json-datasource
             - name: GF_SECURITY_ADMIN_PASSWORD
-              value: replace_value
+              value: {Grafana-Admin-Pass}
           ports:
             - containerPort: 3000
               protocol: TCP
