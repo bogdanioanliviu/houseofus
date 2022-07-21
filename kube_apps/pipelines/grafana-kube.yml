@@ -24,7 +24,7 @@ steps:
   displayName: 'Update manifests'
   inputs:
     rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/tig/'
-    targetFiles: '**/*.yaml'
+    targetFiles: 'deploy-grafana.yaml'
     encoding: 'auto'
     writeBOM: true
     actionOnMissing: 'warn'
