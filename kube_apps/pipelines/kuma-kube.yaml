@@ -9,31 +9,11 @@ pool:
 steps:
 - task: Bash@3
   inputs:
-    filePath: '$(System.DefaultWorkingDirectory)/kube_apps/kuma/template_yq.sh'
+    targetType: 'inline'
+    script: 'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/kuma/deploy-kuma.yaml'
     failOnStderr: true
     noProfile: false
-  displayName: "Generate env var with new img name and prepare deploy file."
-    
-- task: Ansible@0
-  inputs:
-    ansibleInterface: 'agentMachine'
-    playbookPathOnAgentMachine: '/home/bil/ansible/playbooks/download_img_ha.yml'
-    inventoriesAgentMachine: 'noInventory'
-    args: '--extra-vars "ha_img=$(kuma_img)"'
-  env:
-    diun_img : $(kuma_img)
-  displayName: "Download $(kuma_img) ha img to knodes."
-
-- task: Kubernetes@1
-  inputs:
-    connectionType: 'None'
-    command: 'apply'
-    arguments: '-f $(System.DefaultWorkingDirectory)/kube_apps/kuma/'
-    secretType: 'dockerRegistry'
-    containerRegistryType: 'Azure Container Registry'
-    versionSpec: '1.23'
-    outputFormat: 'none'
-  displayName: 'Deploy manifests to kube'
+  displayName: "Deploy new img."
 
 - task: SendTelegramNotification@0
   inputs:
