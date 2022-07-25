@@ -34,17 +34,17 @@ spec:
             - name: JWT_ENABLED
               value: "true"
             - name: JWT_SECRET
-              value: "{JWT-SECRET-onlyoffice}"
+              value: '{JWT-SECRET-onlyoffice}'
             - name: DB_HOST
-              value: "haproxy.houseofus.eu"
+              value: 'haproxy.houseofus.eu'
             - name: DB_PORT
               value: "5432"
             - name: DB_NAME
               value: "onlyoffice"
             - name: DB_USER
-              value: "{DB-USER-onlyoffice}"
+              value: '{DB-USER-onlyoffice}'
             - name: DB_PWD
-              value: "{DB-PWD-onlyoffice}"
+              value: '{DB-PWD-onlyoffice}'
           ports:
             - containerPort: 443
               protocol: TCP
