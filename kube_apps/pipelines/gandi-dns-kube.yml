@@ -12,13 +12,28 @@ pool:
   name: Default
 
 steps: 
-- task: Bash@3
+- task: replacetokens@3
+  displayName: 'Update manifests'
   inputs:
-    filePath: '$(System.DefaultWorkingDirectory)/kube_apps/gandi-dns/template_yq.sh'
-    failOnStderr: true
-    noProfile: false
-  env:
-    GANDI_APIKEY: $(GANDI_APIKEY)
+    rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/gandi-dns/'
+    targetFiles: '**/*.yaml'
+    encoding: 'auto'
+    writeBOM: true
+    actionOnMissing: 'warn'
+    keepToken: true
+    actionOnNoFiles: 'fail'
+    enableTransforms: false
+    tokenPrefix: '{'
+    tokenSuffix: '}'
+    enableRecursion: false
+    useLegacyPattern: false
+# - task: Bash@3
+#   inputs:
+#     filePath: '$(System.DefaultWorkingDirectory)/kube_apps/gandi-dns/template_yq.sh'
+#     failOnStderr: true
+#     noProfile: false
+#   env:
+#     GANDI_APIKEY: $(GANDI_APIKEY)
 
 - task: Bash@3
   inputs:
