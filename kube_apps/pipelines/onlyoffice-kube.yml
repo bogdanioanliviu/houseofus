@@ -12,25 +12,22 @@ pool:
   name: Default
 
 steps:
-- task: Bash@3
+- task: replacetokens@3
+  displayName: 'Update manifests'
   inputs:
-    filePath: '$(System.DefaultWorkingDirectory)/kube_apps/onlyoffice/template_yq.sh'
-    failOnStderr: true
-    noProfile: false
-  env:
-    JWT_SECRET: $(JWT-SECRET-onlyoffice)
-    DB_USER_onlyoffice: $(DB-USER-onlyoffice)
-    DB_PWD_onlyoffice: $(DB-PWD-onlyoffice)
-    
-- task: Ansible@0
-  inputs:
-    ansibleInterface: 'agentMachine'
-    playbookPathOnAgentMachine: '/home/bil/ansible/playbooks/download_img_ha.yml'
-    inventoriesAgentMachine: 'noInventory'
-    args: '--extra-vars "ha_img=$(onlyoffice_img) tele_token=$(telegram-token)"'
-  env:
-    onlyoffice_img : $(onlyoffice_img)
-  displayName: "Download $(onlyoffice_img) ha img to knodes."
+    rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/diun/'
+    targetFiles: '**/*.yaml'
+    encoding: 'auto'
+    writeBOM: true
+    actionOnMissing: 'warn'
+    keepToken: true
+    actionOnNoFiles: 'fail'
+    enableTransforms: false
+    tokenPrefix: '{'
+    tokenSuffix: '}'
+    enableRecursion: false
+    useLegacyPattern: false
+    enableTelemetry: true
 
 - task: Bash@3
   inputs:
