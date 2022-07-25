@@ -15,7 +15,7 @@ steps:
 - task: replacetokens@3
   displayName: 'Update manifests'
   inputs:
-    rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/diun/'
+    rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/onlyoffice/'
     targetFiles: '**/*.yaml'
     encoding: 'auto'
     writeBOM: true
