@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: gandi-dns
-          image: jbbodart/gandi-livedns
+          image: bogdanioanliviu/gandi:404
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
@@ -31,7 +31,7 @@ spec:
               cpu: "0.001"
           env:
             - name: APIKEY
-              value: 'GANDI_APIKEY'
+              value: '{GANDI_APIKEY}'
             - name: RECORD_LIST
               value: 'cloud;doc;psono;ha'
             - name: DOMAIN
