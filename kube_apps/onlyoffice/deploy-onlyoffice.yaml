@@ -46,9 +46,9 @@ spec:
             - name: DB_PWD
               value: '{DB-PWD-onlyoffice}'
             - name: SSL_CERTIFICATE_PATH
-              value: '/var/www/onlyoffice/Data/certs/fullchain.pem'
+              value: '/var/www/onlyoffice/Data/certs/doc-onlyoffice.crt'
             - name: SSL_KEY_PATH
-              value: '/var/www/onlyoffice/Data/certs/privkey.pem'
+              value: '/var/www/onlyoffice/Data/certs/doc-onlyoffice.key'
           ports:
             - containerPort: 443
               protocol: TCP
