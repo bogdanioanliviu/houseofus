@@ -16,7 +16,7 @@ spec:
         app: telegraf
     spec:
       containers:
-        - image: telegraf:1.23.2
+        - image: telegraf:1.23.3
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
@@ -33,7 +33,7 @@ spec:
               readOnly: true
           env:
             - name: INFLUX_TOKEN
-              value: "0KAPkbAbxadTrvbk1kW3MVvtMAAdyUUCEnQX-yZ5Q0MOlaspCBdB0juSE8iQV8wQ5UxHff615EOOXT2x-MAYvw=="
+              value: "{telegraf_for influxdb}"
       restartPolicy: Always
       volumes:
         - name: telegraf-config
