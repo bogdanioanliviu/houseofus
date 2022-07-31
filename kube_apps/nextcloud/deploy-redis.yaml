@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redisapp
+  namespace: nextcloud
+  labels:
+    app: redisapp
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: redisapp
+  template:
+    metadata:
+      labels:
+        app: redisapp
+    spec:
+      containers:
+        - name: redis
+          image: redis:7.0.3
+          imagePullPolicy: "IfNotPresent"
+          command: ["redis-server"]
+          args: ["/redis-master/redis.conf", "--requirepass", "myredispass"]
+          securityContext:
+            allowPrivilegeEscalation: false
+          resources:
+            limits:
+              memory: 20Mi
+              cpu: "0.01"
+          ports:
+            - containerPort: 6379
+              protocol: TCP
+              name: http-redis
+          volumeMounts:
+            - mountPath: /redis-master
+              name: config
+      restartPolicy: "Always"
+      volumes:
+        - name: config
+          configMap:
+            name: redis-config
+            items:
+            - key: redis-config
+              path: redis.conf

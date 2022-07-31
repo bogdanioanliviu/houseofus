@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-loki
+  namespace: loki
+  labels:
+    app: loki
+spec:
+  selector:
+    app: loki
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      targetPort: 3200
+      port: 3200

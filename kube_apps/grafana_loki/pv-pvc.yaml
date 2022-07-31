@@ -1,0 +1,36 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-loki
+  namespace: loki
+  labels:
+    type: nfs
+    release: loki
+    app: loki
+spec:
+  storageClassName: managed-nfs-storage
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    path: /mnt/pool1/nfskube/loki
+    server: truenas.houseofus.eu
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: storage-loki-0
+  namespace: loki
+  labels:
+    app: loki
+    release: loki
+    type: nfs
+spec:
+  storageClassName: managed-nfs-storage
+  volumeName: pv-loki
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
