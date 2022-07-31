@@ -29,8 +29,6 @@ spec:
             requests:
               memory: 60Mi
               cpu: "0.02"
-          volumes:
-            - "/var/run/containerd/containerd.sock:/var/run/containerd/containerd.sock"
           env:
             - name: TZ
               value: "Europe/Madrid"
@@ -55,8 +53,13 @@ spec:
           volumeMounts:
             - mountPath: "/data"
               name: "data"
+            - name: "container"
+              mountPath: "/var/run/containerd/containerd.sock"
       restartPolicy: Always
       volumes:
         - name: "data"
           persistentVolumeClaim:
             claimName: pvc-diun
+        - name: dockersock
+          hostPath:
+            path: /var/run/containerd/containerd.sock
