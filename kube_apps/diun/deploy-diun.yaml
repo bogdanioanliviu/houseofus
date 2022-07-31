@@ -55,7 +55,7 @@ spec:
             - name: DIUN_REGOPTS_DOCKER_SELECTOR
               value: 'image'
             - name: DIUN_REGOPTS_DOKER_USERNAME
-              value: '{docker-user}'
+              value: "{docker-user}"
             - name: DIUN_REGOPTS_DOCKER_PASSWORD
               value: "{docker-pass}"
           volumeMounts:
