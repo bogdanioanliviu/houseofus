@@ -55,9 +55,9 @@ spec:
             - name: DIUN_REGOPTS_DOCKER_SELECTOR
               value: 'image'
             - name: DIUN_REGOPTS_DOKER_USERNAME
-              value: '{docker_user}'
+              value: '{docker-user}'
             - name: DIUN_REGOPTS_DOCKER_PASSWORD
-              value: "{docker_pass}"
+              value: "{docker-pass}"
           volumeMounts:
             - mountPath: "/data"
               name: "data"
