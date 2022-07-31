@@ -50,14 +50,14 @@ spec:
               value: "true"
             - name: PROVIDERS_KUBERNETES_NAMESPACES
               value: default,nextcloud,gandi-dns,postgres,postgres11,onlyoffice,psono
-            - name: DIUN_REGOPTS_DOCKER_NAME
-              value: "docker.io"
-            - name: DIUN_REGOPTS_DOCKER_SELECTOR
-              value: 'image'
-            - name: DIUN_REGOPTS_DOKER_USERNAME
-              value: "{docker-user}"
-            - name: DIUN_REGOPTS_DOCKER_PASSWORD
-              value: "{docker-pass}"
+            # #- name: DIUN_REGOPTS_DOCKER_NAME
+            # #  value: "docker.io"
+            # #- name: DIUN_REGOPTS_DOCKER_SELECTOR
+            #   value: 'image'
+            # - name: DIUN_REGOPTS_DOKER_USERNAME
+            #   value: "{docker-user}"
+            # - name: DIUN_REGOPTS_DOCKER_PASSWORD
+            #   value: "{docker-pass}"
           volumeMounts:
             - mountPath: "/data"
               name: "data"
