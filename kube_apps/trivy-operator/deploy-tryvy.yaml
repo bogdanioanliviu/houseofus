@@ -1170,7 +1170,7 @@ metadata:
     app.kubernetes.io/version: "0.1.5"
     app.kubernetes.io/managed-by: kubectl
 data:
-  trivy.githubToken: Z2hwX1VlNFlFdW5qZ2Z6MjR1SVgydTVXNldUMkNvV25TMjFpZkw3NA==
+  trivy.githubToken: {git_token_trivy}
 ---
 # Source: trivy-operator/templates/config.yaml
 apiVersion: v1
@@ -1199,7 +1199,7 @@ metadata:
     app.kubernetes.io/version: "0.1.5"
     app.kubernetes.io/managed-by: kubectl
 data:
-  trivy.imageRef: "ghcr.io/aquasecurity/trivy:0.30.3"
+  trivy.imageRef: "ghcr.io/aquasecurity/trivy:0.30.4"
   trivy.mode: "Standalone"
   trivy.severity: "LOW,MEDIUM,HIGH,CRITICAL"
   trivy.dbRepository: "ghcr.io/aquasecurity/trivy-db"
