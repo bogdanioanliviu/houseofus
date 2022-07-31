@@ -53,13 +53,13 @@ spec:
           volumeMounts:
             - mountPath: "/data"
               name: "data"
-            - name: "container"
-              mountPath: "/var/run/containerd/containerd.sock"
+            #- name: "container"
+            #  mountPath: "/var/run/containerd/containerd.sock"
       restartPolicy: Always
       volumes:
         - name: "data"
           persistentVolumeClaim:
             claimName: pvc-diun
-        - name: container
-          hostPath:
-            path: /var/run/containerd/containerd.sock
+        #- name: container
+        #  hostPath:
+        #    path: /var/run/containerd/containerd.sock
