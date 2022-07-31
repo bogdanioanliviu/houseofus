@@ -29,6 +29,8 @@ spec:
             requests:
               memory: 60Mi
               cpu: "0.02"
+          volumes:
+            - "/var/run/containerd/containerd.sock:/var/run/containerd/containerd.sock"
           env:
             - name: TZ
               value: "Europe/Madrid"
