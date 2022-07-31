@@ -60,6 +60,6 @@ spec:
         - name: "data"
           persistentVolumeClaim:
             claimName: pvc-diun
-        - name: dockersock
+        - name: container
           hostPath:
             path: /var/run/containerd/containerd.sock
