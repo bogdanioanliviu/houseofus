@@ -1206,6 +1206,7 @@ data:
   trivy.command: "image"
   trivy.dbRepositoryInsecure: "false"
   trivy.useBuiltinRegoPolicies: "true"
+  trivy.ignoreUnfixed: "true"
   trivy.supportedConfigAuditKinds: "Workload,Service,Role,ClusterRole,NetworkPolicy,Ingress,LimitRange,ResourceQuota"
   trivy.timeout: "20m0s"
   trivy.resources.requests.cpu: 300m
