@@ -13,23 +13,22 @@ pool:
 
 steps:  
 
-- task: Bash@3
+- task: replacetokens@3
+  displayName: 'Update manifests'
   inputs:
-    filePath: '$(System.DefaultWorkingDirectory)/kube_apps/psono/download_img_yq.sh'
-    arguments: 'deploy-nginx.yaml'
-    failOnStderr: true
-    noProfile: false
-  displayName: "Generate env var with new img name."
-
-- task: Ansible@0
-  inputs:
-    ansibleInterface: 'agentMachine'
-    playbookPathOnAgentMachine: '/home/bil/ansible/playbooks/download_img_ha.yml'
-    inventoriesAgentMachine: 'noInventory'
-    args: '--extra-vars "ha_img=$(ha_img) tele_token=$(telegram-token)"'
-  env:
-    ha_img : $(ha_img)
-  displayName: "Download new psono nginx img to knodes."
+    rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/diun/'
+    targetFiles: '**/*.yaml'
+    encoding: 'auto'
+    writeBOM: true
+    actionOnMissing: 'warn'
+    keepToken: true
+    actionOnNoFiles: 'fail'
+    enableTransforms: false
+    tokenPrefix: '{'
+    tokenSuffix: '}'
+    enableRecursion: false
+    useLegacyPattern: false
+    enableTelemetry: true
 
 - task: Bash@3
   inputs:
