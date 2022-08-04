@@ -43,7 +43,7 @@ spec:
             - name: DIUN_WATCH_SCHEDULE
               value: "0 */6 * * *"
             - name: DIUN_NOTIF_TELEGRAM_TOKEN
-              value: "{telegram-token-houseofus}"
+              value: "{telegram-token}"
             - name: DIUN_NOTIF_TELEGRAM_CHATIDS
               value: "-320842825"
             - name: DIUN_PROVIDERS_KUBERNETES
