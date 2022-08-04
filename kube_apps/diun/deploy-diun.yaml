@@ -68,6 +68,6 @@ spec:
         - name: "data"
           persistentVolumeClaim:
             claimName: pvc-diun
-        # - name: container
+        # - name: container change
         #   hostPath:
         #     path: /var/run/containerd/containerd.sock
