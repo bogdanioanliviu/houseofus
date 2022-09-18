@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:12.11-alpine3.15
+          image: postgres:12.12-alpine3.16
           imagePullPolicy: "Always"
           resources:
             limits:
