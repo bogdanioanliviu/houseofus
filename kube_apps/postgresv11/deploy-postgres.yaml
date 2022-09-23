@@ -21,7 +21,7 @@ spec:
       containers:
         - name: postgres11
           image: postgres:11.17-alpine3.16
-          imagePullPolicy: "Always"
+          imagePullPolicy: "IfNotPresent"
           resources:
             limits:
               memory: 600Mi
