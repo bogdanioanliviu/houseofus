@@ -1199,7 +1199,7 @@ metadata:
     app.kubernetes.io/version: "0.3.0"
     app.kubernetes.io/managed-by: kubectl
 data:
-  trivy.imageRef: "ghcr.io/aquasecurity/trivy"
+  trivy.repository: "ghcr.io/aquasecurity/trivy"
   trivy.tag: "0.32.1"
   trivy.mode: "Standalone"
   trivy.severity: "LOW,MEDIUM,HIGH,CRITICAL"
