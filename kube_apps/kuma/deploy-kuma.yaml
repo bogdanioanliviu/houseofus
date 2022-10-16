@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: kuma
-          image: louislam/uptime-kuma:1.18.0-debian
+          image: louislam/uptime-kuma:1.18.5-debian
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
