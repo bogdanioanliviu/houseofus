@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: psono-server
-          image: psono/psono-server-enterprise:3.0.0
+          image: psono/psono-server-enterprise:3.1.0
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
