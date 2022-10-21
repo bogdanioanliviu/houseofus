@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: onlyoffice
-          image: onlyoffice/documentserver:7.2.0.204
+          image: onlyoffice/documentserver:7.2.1.34
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
