@@ -23,7 +23,7 @@ spec:
       containers:
         - name: influxdb
           image: influxdb:2.4.0
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           resources:
             limits:
               memory: 1024Mi
