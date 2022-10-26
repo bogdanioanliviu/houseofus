@@ -1171,7 +1171,6 @@ metadata:
     app.kubernetes.io/managed-by: kubectl
 data:
   trivy.githubToken: {git_token_trivy}
-  #{git_token_trivy}
 ---
 # Source: trivy-operator/templates/config.yaml
 apiVersion: v1
