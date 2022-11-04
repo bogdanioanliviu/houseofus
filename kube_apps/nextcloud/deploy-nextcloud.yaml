@@ -23,7 +23,7 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "25.*-php8;26.*-php8"
+        diun.include_tags: "25.0.*;26.0.*"
     spec:
       affinity:
         podAntiAffinity:
@@ -37,7 +37,7 @@ spec:
               topologyKey: "kubernetes.io/hostname"
       containers:
         - name: nextcloud
-          image: linuxserver/nextcloud:25.0.0-php8
+          image: linuxserver/nextcloud:25.0.1
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
