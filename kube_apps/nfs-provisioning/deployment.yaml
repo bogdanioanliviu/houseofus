@@ -3,10 +3,11 @@ apiVersion: apps/v1
 metadata:
   name: nfs-client-provisioner
 spec:
+  replicas: 1
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       app: nfs-client-provisioner
-  replicas: 1
   strategy:
     type: Recreate
   template:
@@ -29,6 +30,7 @@ spec:
               value: truenas.houseofus.eu
             - name: NFS_PATH
               value: /mnt/pool1/nfskube
+      priorityClassName: db-priority
       volumes:
         - name: nfs-client-root
           nfs:
