@@ -36,7 +36,7 @@ spec:
             - name: JWT_SECRET
               value: '{JWT-SECRET-onlyoffice}'
             - name: DB_HOST
-              value: 'haproxy.houseofus.eu'
+              value: 'postgres15.postgres.svc.cluster.local'
             - name: DB_PORT
               value: "5432"
             - name: DB_NAME

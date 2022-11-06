@@ -1,39 +1,39 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres
+  name: postgres15
   namespace: postgres
 spec:
   replicas: 1
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: postgres
+      app: postgres15
   template:
     metadata:
       labels:
-        app: postgres
+        app: postgres15
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "12.*"
+        diun.include_tags: "15.*-alpine3.16"
     spec:
       containers:
         - name: postgres
-          image: postgres:12.12-alpine3.16
-          imagePullPolicy: "Always"
+          image: postgres:15.0-alpine3.16
+          imagePullPolicy: "IfNotPresent"
           resources:
             limits:
-              memory: 600Mi
-              cpu: "0.20"
+              memory: 512Mi
+              cpu: "100m"
             requests:
               memory: 126Mi
-              cpu: "0.01"
+              cpu: "10m"
           ports:
             - containerPort: 5432
           envFrom:
-            - configMapRef:
-                name: postgres-config
+            - secretRef:
+                name: postgres15-secret
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgredb
@@ -41,4 +41,4 @@ spec:
       volumes:
         - name: postgredb
           persistentVolumeClaim:
-            claimName: pvc-postgres
+            claimName: pvc-postgres15
