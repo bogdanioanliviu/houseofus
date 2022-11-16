@@ -2,7 +2,7 @@ apiVersion: scheduling.k8s.io/v1
 kind: PriorityClass
 metadata:
   name: db-priority
-value: 1000000
+value: 100
 preemptionPolicy: Never
 globalDefault: false
 description: "This priority class should be used for db service pods only."
