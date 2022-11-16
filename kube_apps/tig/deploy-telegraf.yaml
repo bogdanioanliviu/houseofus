@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - image: telegraf:1.24.3
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           resources:
             limits:
               memory: 120Mi
