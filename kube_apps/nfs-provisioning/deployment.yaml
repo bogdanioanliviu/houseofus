@@ -18,7 +18,7 @@ spec:
       serviceAccountName: nfs-client-provisioner
       containers:
         - name: nfs-client-provisioner
-          image: quay.io/external_storage/nfs-client-provisioner:latest
+          #image: quay.io/external_storage/nfs-client-provisioner:latest
           image: quay.io/yonatankahana/nfs-subdir-external-provisioner:pr207
           volumeMounts:
             - name: nfs-client-root
