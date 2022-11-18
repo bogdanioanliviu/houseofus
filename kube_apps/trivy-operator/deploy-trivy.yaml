@@ -170,7 +170,6 @@ spec:
         type: object
     served: true
     storage: true
-    subresources: {}
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -342,7 +341,6 @@ spec:
         type: object
     served: true
     storage: true
-    subresources: {}
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -516,7 +514,6 @@ spec:
         type: object
     served: true
     storage: true
-    subresources: {}
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -722,7 +719,6 @@ spec:
         type: object
     served: true
     storage: true
-    subresources: {}
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -895,7 +891,6 @@ spec:
         type: object
     served: true
     storage: true
-    subresources: {}
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -1134,7 +1129,6 @@ spec:
         type: object
     served: true
     storage: true
-    subresources: {}
 ---
 apiVersion: v1
 kind: Namespace
@@ -1200,7 +1194,7 @@ metadata:
     app.kubernetes.io/managed-by: kubectl
 data:
   trivy.repository: "ghcr.io/aquasecurity/trivy"
-  trivy.tag: "0.33.0"
+  trivy.tag: "0.34.0"
   trivy.mode: "Standalone"
   trivy.severity: "LOW,MEDIUM,HIGH,CRITICAL"
   trivy.dbRepository: "ghcr.io/aquasecurity/trivy-db"
@@ -1315,8 +1309,6 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             failureThreshold: 10
-          resources:
-            {}
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -1324,8 +1316,7 @@ spec:
               - ALL
             privileged: false
             readOnlyRootFilesystem: true
-      securityContext:
-        {}
+
 ---
 # Source: trivy-operator/templates/leader_election.yaml
 # permissions to do leader election.
