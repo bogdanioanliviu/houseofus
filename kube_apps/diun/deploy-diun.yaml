@@ -49,7 +49,7 @@ spec:
             - name: DIUN_PROVIDERS_KUBERNETES
               value: "true"
             - name: PROVIDERS_KUBERNETES_NAMESPACES
-              value: default,nextcloud,gandi-dns,postgres,psono
+              value: default,nextcloud,gandi-dns,postgres,psono,home-assist
           volumeMounts:
             - mountPath: "/data"
               name: "data"
