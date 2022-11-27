@@ -2,12 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: svc-promtail
-  namespace: promtail
+  namespace: tig
 spec:
   selector:
     app: loki
-  type: ClusterIp
-  ClusterIP: None
+  type: ClusterIP
+  clusterIP: None
   ports:
     - protocol: TCP
-      port: 3200
+      port: 3100

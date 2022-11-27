@@ -2,7 +2,9 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: promtail-daemonset
-  namespace: loki
+  namespace: tig
+  labels:
+    app: promtail
 spec:
   selector:
     matchLabels:
@@ -19,11 +21,11 @@ spec:
         runAsGroup: 0
       containers:
         - name: promtail-container
-          image: grafana/promtail:2.5.0
+          image: grafana/promtail:2.7.0
           args: ["-config.file", "/etc/promtail/config.yml"]
           ports:
             - name: http-metrics
-              containerPort: 3200
+              containerPort: 3201
               protocol: TCP
           env: 
             - name: 'HOSTNAME' # needed when using kubernetes_sd_configs
@@ -35,10 +37,7 @@ spec:
               mountPath: /etc/promtail/config.yml
               subPath: config.yml
             - name: pods
-              mountPath: /var/log/pod
-              readOnly: true
-            - name: containers
-              mountPath: /var/lib/docker/containers
+              mountPath: /var/log/pods
               readOnly: true
       volumes:
         - name: promtail-conf
@@ -47,6 +46,3 @@ spec:
         - name: pods
           hostPath:
             path: /var/log/pods
-        - name: containers
-          hostPath:
-            path: /var/lib/docker/containers

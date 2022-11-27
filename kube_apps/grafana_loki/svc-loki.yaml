@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: svc-loki
-  namespace: loki
+  namespace: tig
   labels:
     app: loki
 spec:
@@ -11,5 +11,5 @@ spec:
   type: ClusterIP
   ports:
     - protocol: TCP
-      targetPort: 3200
-      port: 3200
+      targetPort: 3100
+      port: 3100

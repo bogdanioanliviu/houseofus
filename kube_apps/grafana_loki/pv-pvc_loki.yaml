@@ -1,8 +1,8 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: pv-loki2
-  namespace: loki
+  name: pv-loki
+  namespace: tig
   labels:
     type: nfs
     app: loki
@@ -13,20 +13,20 @@ spec:
   accessModes:
     - ReadWriteOnce
   nfs:
-    path: /mnt/pool1/nfskube/loki2
+    path: /mnt/pool1/nfskube/loki
     server: truenas.houseofus.eu
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: pvc-loki
-  namespace: loki
+  namespace: tig
   labels:
     app: loki
     type: nfs
 spec:
   storageClassName: managed-nfs-storage
-  volumeName: pv-loki2
+  volumeName: pv-loki
   accessModes:
     - ReadWriteOnce
   resources:
