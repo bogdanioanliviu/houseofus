@@ -5,6 +5,9 @@ metadata:
     app: gandi-dns
   namespace: gandi-dns
   name: gandi-dns
+  annotation:
+    prometheus.io/scrape: true
+    prometheus.io/port: 9090
 spec:
   replicas: 1
   revisionHistoryLimit: 1
