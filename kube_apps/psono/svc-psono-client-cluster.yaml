@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-psono-client-cluster
+  namespace: psono
+  labels:
+    app: psono-client
+spec:
+  selector:
+    app: psono-client
+  ports:
+    - name: http
+      protocol: TCP
+      port: 10111
+      targetPort: 80
+  type: ClusterIP
