@@ -24,9 +24,6 @@ spec:
           image: psono/psono-server-enterprise:3.1.4
           imagePullPolicy: "IfNotPresent"
           resources:
-            limits:
-              memory: 1024Mi
-              cpu: "0.40"
             requests:
               memory: 350Mi
               cpu: "0.004"
