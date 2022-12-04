@@ -19,6 +19,10 @@ spec:
         diun.enable: "true"
         diun.watch_repo: "true"
     spec:
+      securityContext:
+        sysctls:
+          - name: net.core.somaxconn
+            value: "65535"
       containers:
         - name: psono-server
           image: psono/psono-server-enterprise:3.1.4
