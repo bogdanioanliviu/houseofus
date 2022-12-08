@@ -10,7 +10,7 @@ trigger:
       - kube_apps/tig/influxdb-secrets.yaml
       - kube_apps/tig/influxdb-config.yaml
       - kube_apps/tig/svc-influx.yaml
-      - kube_apps/tig/ingress-influx.yaml.yaml
+      - kube_apps/tig/ingress-influx.yaml
 
 pool:
   name: Default
