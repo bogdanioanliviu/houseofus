@@ -1,0 +1,32 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-traefik
+  namespace: traefik
+  labels:
+    app: traefik
+spec:
+  storageClassName: managed-nfs-storage
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /mnt/pool1/nfskube/traefik
+    server: truenas.houseofus.eu
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-traefik
+  namespace: traefik
+  labels:
+    app: traefik
+spec:
+  storageClassName: managed-nfs-storage
+  volumeName: pv-traefik
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Mi
