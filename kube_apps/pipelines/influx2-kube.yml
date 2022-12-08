@@ -14,18 +14,12 @@ pool:
 
 steps:
 
-#- task: Bash@3
-#  inputs:
-#    filePath: '$(System.DefaultWorkingDirectory)/kube_apps/tig/template_yq_influx2.sh'
-#    failOnStderr: true
-#    noProfile: false
-#  env:
-#    INFLUXDB_INIT_PASSWORD: $(INFLUXDB-INIT-PASSWORD)
-#    INFLUXDB_INIT_ADMIN_TOKEN: $(INFLUXDB-INIT-ADMIN-TOKEN)
 
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/tig/deploy-influx.yaml'
+    script: |
+      'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/tig/deploy-influx.yaml \
+                     -f $(System.DefaultWorkingDirectory)/kube_apps/tig/influxdb-secrets.yaml'
     failOnStderr: true
     noProfile: false
