@@ -4,9 +4,11 @@
 # https://aka.ms/yaml
 
 trigger:
- paths:
-   include:
-     - kube_apps/tig/deploy-grafana.yaml
+  paths:
+    include:
+      - kube_apps/tig/deploy-grafana.yaml
+      - kube_apps/tig/ingress-grafana.yaml
+      - kube_apps/tig/svc-grafana-cluster.yaml
 
 pool:
   name: Default
@@ -33,6 +35,9 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/tig/deploy-grafana.yaml'
+    script: |
+      kubectl apply -f ./kube_apps/tig/svc-grafana-cluster.yaml
+      kubectl apply -f ./kube_apps/tig/ingress-grafana.yaml
+      kubectl apply -f ./kube_apps/tig/deploy-grafana.yaml
     failOnStderr: true
     noProfile: false

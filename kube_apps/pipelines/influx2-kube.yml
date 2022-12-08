@@ -11,6 +11,7 @@ trigger:
       - kube_apps/tig/influxdb-config.yaml
       - kube_apps/tig/svc-influx.yaml
       - kube_apps/tig/ingress-influx.yaml
+      - kube_apps/tig/svc-influx-cluster.yaml
 
 pool:
   name: Default
@@ -22,7 +23,7 @@ steps:
     script: |
       kubectl apply -f ./kube_apps/tig/influxdb-config.yaml
       kubectl apply -f ./kube_apps/tig/influxdb-secrets.yaml
-      kubectl apply -f ./kube_apps/tig/svc-influx.yaml
+      kubectl apply -f ./kube_apps/tig/svc-influx-cluster.yaml
       kubectl apply -f ./kube_apps/tig/ingress-influx.yaml
       kubectl apply -f ./kube_apps/tig/deploy-influx.yaml
     failOnStderr: true
