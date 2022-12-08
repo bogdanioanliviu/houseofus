@@ -14,12 +14,10 @@ pool:
 
 steps:
 
-
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: |
-      'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/tig/deploy-influx.yaml 
-      -f $(System.DefaultWorkingDirectory)/kube_apps/tig/influxdb-secrets.yaml'
+    script: | 
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/tig/deploy-influx.yaml 
+      -f $(System.DefaultWorkingDirectory)/kube_apps/tig/influxdb-secrets.yaml
     failOnStderr: true
-    noProfile: false
