@@ -17,4 +17,3 @@ spec:
               name: svc-influx-cluster
               port:
                 number: 8086
-
