@@ -14,8 +14,8 @@ pool:
 
 steps:
 - script: |
-    kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/tig/deploy-influx.yaml 
-    -f $(System.DefaultWorkingDirectory)/kube_apps/tig/influxdb-secrets.yaml
+    "kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/tig/deploy-influx.yaml 
+    -f $(System.DefaultWorkingDirectory)/kube_apps/tig/influxdb-secrets.yaml"
 #- task: Bash@3
 #  inputs:
 #    targetType: 'inline'
