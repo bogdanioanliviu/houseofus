@@ -19,7 +19,6 @@ data:
         acme:
           email: "liviubogdanioan@gmail.com"
           storage: "/certif/file.json"
-          caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
           certificatesDuration: 2160
           preferredchain: "ISRG Root X1"
           keytype: "RSA4096"
