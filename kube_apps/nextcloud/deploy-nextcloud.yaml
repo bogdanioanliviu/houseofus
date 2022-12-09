@@ -37,7 +37,7 @@ spec:
               topologyKey: "kubernetes.io/hostname"
       containers:
         - name: nextcloud
-          image: linuxserver/nextcloud:25.0.1
+          image: linuxserver/nextcloud:25.0.2
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
