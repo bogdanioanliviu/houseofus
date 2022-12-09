@@ -5,7 +5,6 @@ metadata:
   namespace: traefik
 data:
   traefik: |
-    accessLog: {}
     entryPoints:
       web:
         address: ":80"

@@ -35,6 +35,8 @@ spec:
           env:
             - name: GANDIV5_API_KEY
               value: '{!GANDI_APIKEY!}'
+            - name: TZ
+              value: "Europe/Madrid"
           volumeMounts:
             - mountPath: /etc/traefik/
               name: config
