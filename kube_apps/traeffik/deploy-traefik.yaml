@@ -19,6 +19,7 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
+        diun.include_tags: "2.9.*;2.10.*"
     spec:
       serviceAccountName: traefik-account
       containers:
