@@ -9,9 +9,9 @@ data:
       web:
         address: ":80"
         http:
-        redirections:
-          entryPoint:
-            to: websecure
+          redirections:
+            entryPoint:
+              to: websecure
       websecure:
         address: ":443"
         http:
