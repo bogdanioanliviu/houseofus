@@ -34,7 +34,7 @@ spec:
               containerPort: 443
           env:
             - name: GANDIV5_API_KEY
-              value: '{GANDI_APIKEY}'
+              value: '{!GANDI_APIKEY!}'
           volumeMounts:
             - mountPath: /etc/traefik/
               name: config
