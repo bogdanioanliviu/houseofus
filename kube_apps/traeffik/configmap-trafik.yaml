@@ -5,7 +5,9 @@ metadata:
   namespace: traefik
 data:
   traefik: |
-    api: {}
+    api:
+      insecure: true
+      dashboard: true
     entryPoints:
       web:
         address: ":80"
