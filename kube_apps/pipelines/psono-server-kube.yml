@@ -13,23 +13,6 @@ pool:
 
 steps:  
 
-- task: replacetokens@3
-  displayName: 'Update manifests'
-  inputs:
-    rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/psono/'
-    targetFiles: 'deploy-psono.yaml'
-    encoding: 'auto'
-    writeBOM: true
-    actionOnMissing: 'warn'
-    keepToken: true
-    actionOnNoFiles: 'fail'
-    enableTransforms: false
-    tokenPrefix: '{'
-    tokenSuffix: '}'
-    enableRecursion: false
-    useLegacyPattern: false
-    enableTelemetry: true
-    
 - task: Bash@3
   inputs:
     targetType: 'inline'
@@ -37,12 +20,4 @@ steps:
     failOnStderr: true
     noProfile: false
   displayName: "Deploy new img."
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: 'kubectl -n psono rollout restart deployment psono-nginx-proxy'
-    failOnStderr: true
-    noProfile: false
-  displayName: 'Restart psono nginx.'
 

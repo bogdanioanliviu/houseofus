@@ -7,33 +7,21 @@ trigger:
  paths:
    include:
      - kube_apps/psono/deploy-nginx.yaml
+     - kube_apps/psono/ingress-psono-admin.yaml
+     - kube_apps/psono/svc-nginx-proxy-cluster.yaml
 
 pool:
   name: Default
 
-steps:  
-
-- task: replacetokens@3
-  displayName: 'Update manifests'
-  inputs:
-    rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/psono/'
-    targetFiles: '**/*.yaml'
-    encoding: 'auto'
-    writeBOM: true
-    actionOnMissing: 'warn'
-    keepToken: true
-    actionOnNoFiles: 'fail'
-    enableTransforms: false
-    tokenPrefix: '{'
-    tokenSuffix: '}'
-    enableRecursion: false
-    useLegacyPattern: false
-    enableTelemetry: true
+steps:
 
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/psono/deploy-nginx.yaml'
+    script: |
+      kubectl apply -f ./kube_apps/psono/svc-nginx-proxy-cluster.yaml
+      kubectl apply -f ./kube_apps/psono/ingress-psono-admin.yaml
+      kubectl apply -f ./kube_apps/psono/deploy-nginx.yaml
     failOnStderr: true
     noProfile: false
   displayName: "Deploy new img."

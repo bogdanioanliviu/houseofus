@@ -6,7 +6,7 @@
 trigger:
  paths:
    include:
-     - kube_apps/psono/deploy-psono-client.yaml
+     - kube_apps/psono/cron-psono.yaml
 
 pool:
   name: Default
@@ -19,6 +19,4 @@ steps:
     script: 'kubectl apply -f ./kube_apps/psono/deploy-psono-client.yaml'
     failOnStderr: true
     noProfile: false
-  displayName: "Deploy new img."
-
-
+  displayName: 'Update psono cronjob.'
