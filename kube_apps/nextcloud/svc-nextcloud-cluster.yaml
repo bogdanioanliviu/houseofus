@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: svc-nextcloud
+  name: svc-nextcloud-cluster
   namespace: nextcloud
   labels:
     app: nextcloud
@@ -13,4 +13,4 @@ spec:
       protocol: TCP
       port: 443
       targetPort: 443
-  type: NodePort
+  type: ClusterIP
