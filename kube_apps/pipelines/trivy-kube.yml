@@ -24,8 +24,8 @@ steps:
     keepToken: true
     actionOnNoFiles: 'fail'
     enableTransforms: false
-    tokenPrefix: '{'
-    tokenSuffix: '}'
+    tokenPrefix: '{!'
+    tokenSuffix: '!}'
     enableRecursion: false
     useLegacyPattern: false
     enableTelemetry: true
