@@ -1705,9 +1705,9 @@ spec:
             - name: OPERATOR_TARGET_NAMESPACES
               value: ""
             - name: OPERATOR_EXCLUDE_NAMESPACES
-              value: ""
+              value: "kube-system,trivy-system"
             - name: OPERATOR_TARGET_WORKLOADS
-              value: "pod,replicaset,replicationcontroller,statefulset,daemonset,cronjob,job"
+              value: "pod,replicationcontroller,statefulset,daemonset"
             - name: OPERATOR_SERVICE_ACCOUNT
               value: "trivy-operator"
             - name: OPERATOR_LOG_DEV_MODE
