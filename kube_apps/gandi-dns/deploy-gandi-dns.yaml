@@ -32,6 +32,8 @@ spec:
               memory: 10Mi
               cpu: "0.001"
           env:
+            - name: TZ
+              value: "Europe/Madrid"
             - name: APIKEY
               value: '{GANDI_APIKEY}'
             - name: RECORD_LIST

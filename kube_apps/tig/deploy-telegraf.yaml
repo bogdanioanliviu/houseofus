@@ -36,6 +36,8 @@ spec:
               subPath: telegraf.conf
               readOnly: true
           env:
+            - name: TZ
+              value: "Europe/Madrid"
             - name: INFLUX_TOKEN
               value: "{telegraf_for influxdb}"
       restartPolicy: Always

@@ -31,6 +31,8 @@ spec:
               memory: 50Mi
               cpu: "0.02"
           env:
+            - name: TZ
+              value: "Europe/Madrid"
             - name: GF_INSTALL_PLUGINS
               value: redis-app, redis-datasource, grafana-piechart-panel, blackmirror1-singlestat-math-panel, grafana-worldmap-panel, grafana-clock-panel, grafana-simple-json-datasource
             - name: GF_SECURITY_ADMIN_PASSWORD
