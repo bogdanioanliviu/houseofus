@@ -27,7 +27,9 @@ spec:
             - name: http-metrics
               containerPort: 3201
               protocol: TCP
-          env: 
+          env:
+            - name: TZ
+              value: "Europe/Madrid"
             - name: 'HOSTNAME' # needed when using kubernetes_sd_configs
               valueFrom:
                 fieldRef:

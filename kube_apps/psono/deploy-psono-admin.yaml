@@ -30,6 +30,9 @@ spec:
             requests:
               memory: 10Mi
               cpu: "0.001"
+          env:
+            - name: TZ
+              value: "Europe/Madrid"
           ports:
             - containerPort: 80
               protocol: TCP
