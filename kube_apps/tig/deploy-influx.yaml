@@ -18,11 +18,11 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "latest;2.5.*"
+        diun.include_tags: "latest;2.6.*"
     spec:
       containers:
         - name: influxdb
-          image: influxdb:2.5.1
+          image: influxdb:2.6.0
           imagePullPolicy: "Always"
           resources:
             limits:
