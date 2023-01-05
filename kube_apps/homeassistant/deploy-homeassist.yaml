@@ -18,7 +18,7 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "2022.12.*;2023.01.*"
+        diun.include_tags: "2022.1.*;2023.2.*"
     spec:
       containers:
         - name: homeassist
