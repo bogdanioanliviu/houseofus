@@ -18,11 +18,11 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "2022.1.*;2023.2.*"
+        diun.include_tags: "2023.1.*;2023.2.*"
     spec:
       containers:
         - name: homeassist
-          image: homeassistant/home-assistant:2023.1.1
+          image: homeassistant/home-assistant:2023.1.2
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
