@@ -14,10 +14,14 @@ spec:
     metadata:
       labels:
         app: loki
+      annotations:
+        diun.enable: "true"
+        diun.watch_repo: "true"
+        diun.include_tags: "2.7.*;latest"
     spec:
       containers:
         - name: loki
-          image: grafana/loki:2.7.0
+          image: grafana/loki:2.7.1
           imagePullPolicy: "IfNotPresent"
           args: ["-config.file", "/mnt/config/loki-config.yml"]
           resources:
