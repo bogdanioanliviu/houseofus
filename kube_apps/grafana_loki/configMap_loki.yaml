@@ -38,14 +38,23 @@ data:
         dir: /data/loki/wal
     
     limits_config:
+      split_queries_by_interval: 1h
+      query_timeout: 5m
       reject_old_samples: true
       reject_old_samples_max_age: 168h
       ingestion_rate_mb: 12
       ingestion_burst_size_mb: 24
       per_stream_rate_limit: 12MB
     
+    querier:
+      max_concurrent: 25
+      extra_query_delay: 30s
+      engine:
+        timeout: 5m
+        max_look_back_period: 2m
+      query_ingesters_within: 3h
+    
     query_range:
-      split_queries_by_interval: 1h
       results_cache:
         cache:
           embedded_cache:
