@@ -51,7 +51,6 @@ data:
           embedded_cache:
             enabled: true
             max_size_mb: 100
-            validity: 24h
     
     schema_config:
       configs:
