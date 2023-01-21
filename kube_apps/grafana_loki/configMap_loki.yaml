@@ -45,11 +45,13 @@ data:
       per_stream_rate_limit: 12MB
     
     query_range:
+      split_queries_by_interval: 1h
       results_cache:
         cache:
           embedded_cache:
             enabled: true
             max_size_mb: 100
+            validity: 24h
     
     schema_config:
       configs:
