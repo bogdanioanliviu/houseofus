@@ -25,7 +25,7 @@ spec:
         runAsGroup: 0
       containers:
         - name: promtail-container
-          image: grafana/promtail:2.7.1
+          image: grafana/promtail:2.7.2
           args: ["-config.file", "/etc/promtail/config.yml"]
           ports:
             - name: http-metrics
