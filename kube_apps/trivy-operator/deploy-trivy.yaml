@@ -1652,7 +1652,7 @@ metadata:
     app.kubernetes.io/managed-by: kubectl
 data:
   trivy.repository: "ghcr.io/aquasecurity/trivy"
-  trivy.tag: "0.36.1"
+  trivy.tag: "0.37.1"
   trivy.additionalVulnerabilityReportFields: ""
   trivy.severity: "LOW,MEDIUM,HIGH,CRITICAL"
   trivy.slow: "true"
@@ -1667,7 +1667,7 @@ data:
   trivy.resources.requests.cpu: 100m
   trivy.resources.requests.memory: 100M
   trivy.resources.limits.cpu: 500m
-  trivy.resources.limits.memory: 1500M
+  trivy.resources.limits.memory: 800M
 ---
 # Source: trivy-operator/templates/deployment.yaml
 apiVersion: apps/v1
@@ -1698,7 +1698,7 @@ spec:
       automountServiceAccountToken: true
       containers:
         - name: "trivy-operator"
-          image: "ghcr.io/aquasecurity/trivy-operator:0.10.1"
+          image: "ghcr.io/aquasecurity/trivy-operator:0.10.2"
           imagePullPolicy: IfNotPresent
           env:
             - name: OPERATOR_NAMESPACE
