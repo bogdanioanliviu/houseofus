@@ -10,8 +10,8 @@ metadata:
     app.kubernetes.io/managed-by: kubectl
   annotations:
     # Esto es para que prometheus coja las métricas automáticamente
-    prometheus.io/path: "/metrics"
-    prometheus.io/port: "80"
+    #prometheus.io/path: "/metrics"
+    #prometheus.io/port: "80"
     prometheus.io/scrape: "true"
 
 spec:
