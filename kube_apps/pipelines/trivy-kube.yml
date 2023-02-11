@@ -34,8 +34,8 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/trivy-operator/deploy-trivy.yaml'
-      'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/trivy-operator/svc-metrics.yaml'
+      "kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/trivy-operator/deploy-trivy.yaml \
+      $(System.DefaultWorkingDirectory)/kube_apps/trivy-operator/svc-metrics.yaml"
     failOnStderr: true
     noProfile: false
   displayName: "Deploy new trivy img."
