@@ -1824,7 +1824,7 @@ metadata:
     app.kubernetes.io/managed-by: kubectl
 data:
   trivy.repository: "ghcr.io/aquasecurity/trivy"
-  trivy.tag: "0.37.2"
+  trivy.tag: "0.36.0"
   trivy.additionalVulnerabilityReportFields: ""
   trivy.severity: "LOW,MEDIUM,HIGH,CRITICAL"
   trivy.slow: "true"
@@ -1839,7 +1839,7 @@ data:
   trivy.resources.requests.cpu: 100m
   trivy.resources.requests.memory: 100M
   trivy.resources.limits.cpu: 500m
-  trivy.resources.limits.memory: 800M
+  trivy.resources.limits.memory: 500M
 ---
 # Source: trivy-operator/templates/deployment.yaml
 apiVersion: apps/v1
@@ -1854,6 +1854,7 @@ metadata:
     app.kubernetes.io/managed-by: kubectl
 spec:
   replicas: 1
+  revisionHistoryLimit: 1
   strategy:
     type: Recreate
   selector:
