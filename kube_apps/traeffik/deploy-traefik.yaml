@@ -25,7 +25,7 @@ spec:
       containers:
         - name: traefik
           image: traefik:v2.9.6
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           ports:
             - name: web
               containerPort: 80
