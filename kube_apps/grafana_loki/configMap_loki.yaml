@@ -60,9 +60,9 @@ data:
           embedded_cache:
             enabled: true
             max_size_mb: 100
-        redis:
-          endpoint: redis://svc-redis.nextcloud.svc.cluster.local:6379
-          password: myredispass
+          redis:
+            endpoint: redis://svc-redis.nextcloud.svc.cluster.local:6379
+            password: myredispass
     
     schema_config:
       configs:
