@@ -1791,7 +1791,8 @@ metadata:
     app.kubernetes.io/version: "0.11.1"
     app.kubernetes.io/managed-by: kubectl
 data:
-  trivy.githubToken: {!git_token_trivy!}
+  trivy.githubToken: "{!git_token_trivy!}"
+  trivy.serverToken: "{!trivy-server-token!}"
 ---
 # Source: trivy-operator/templates/config.yaml
 apiVersion: v1
@@ -1834,12 +1835,17 @@ data:
   trivy.useBuiltinRegoPolicies: "true"
   trivy.supportedConfigAuditKinds: "Workload,Service,Role,ClusterRole,NetworkPolicy,Ingress,LimitRange,ResourceQuota"
   trivy.timeout: "5m0s"
-  trivy.mode: "Standalone"
+  trivy.serverURL: "http://svc-trivy.trivy-system.svc.cluster.local:4954"
+  trivy.mode: "ClientServer"
   trivy.ignoreUnfixed: "true"
   trivy.resources.requests.cpu: 100m
   trivy.resources.requests.memory: 100M
   trivy.resources.limits.cpu: 500m
   trivy.resources.limits.memory: 500M
+  TRIVY_LISTEN: "0.0.0.0:4954"
+  TRIVY_CACHE_DIR: "/home/scanner/.cache/trivy"
+  TRIVY_DEBUG: "false"
+  TRIVY_SKIP_DB_UPDATE: "false"
 ---
 # Source: trivy-operator/templates/deployment.yaml
 apiVersion: apps/v1
