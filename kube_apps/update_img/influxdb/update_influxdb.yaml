@@ -36,23 +36,13 @@ stages:
                 -v $PWD:/src --workdir /src aquasec/trivy:latest \
                 image --ignore-unfixed --severity HIGH,CRITICAL --format sarif -o /src/report.sarif \
                 --scanners vuln,config,secret bogdanioanliviu/influx:$(tag)
-          - task: PublishTestResults@2
-            inputs:
-              testResultsFormat: 'JUnit'
-              testResultsFiles: '**/junit-report.xml'
-              testRunTitle: 'Trivy - Low and Medium Vulnerabilities'
-            condition: 'always()'
+
           - task: PublishBuildArtifacts@1
+            displayName: "Publish scan results"
             inputs:
               pathToPublish: $(System.DefaultWorkingDirectory)/report.sarif
               artifactName: CodeAnalysisLogs
-          #- task: PublishBuildArtifacts@1
-          #  displayName: "Publish scan results"
-          #  inputs:
-          # --format template --template "@kube_apps/update_img/templates/junit.tpl" -o junit-report.xml
-          #    pathToPublish: $(System.DefaultWorkingDirectory)/report.sarif
-          #    artifactName: Trivy
-          #  condition: 'always()'
+            condition: 'always()'
           #- task: Docker@2
           #  inputs:
           #    containerRegistry: 'my_dockerHub'
