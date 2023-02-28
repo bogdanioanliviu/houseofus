@@ -34,7 +34,7 @@ stages:
               script: |
                 docker run --rm  -v /var/run/docker.sock:/var/run/docker.sock -v /home/bil/.docker:/root/.docker \
                 -v $PWD:/src --workdir /src aquasec/trivy:latest \
-                image --ignore-unfixed --severity HIGH,CRITICAL --format template --template "@kube_apps/update_img/templates/junit.tpl" -o junit-report.xml \
+                image --ignore-unfixed --severity HIGH,CRITICAL --format sarif -o /src/report.sarif \
                 --scanners vuln,config,secret bogdanioanliviu/influx:$(tag)
           - task: PublishTestResult@2
             inputs:
@@ -44,9 +44,14 @@ stages:
               failTaskOnFailedTests: false
               testRunTitle: 'Trivy - Low and Medium Vulnerabilities'
             condition: 'always()'
+          - task: PublishBuildArtifacts@1
+            inputs:
+              pathToPublish: $(System.DefaultWorkingDirectory)/report.sarif
+              artifactName: CodeAnalysisLogs
           #- task: PublishBuildArtifacts@1
           #  displayName: "Publish scan results"
           #  inputs:
+          # --format template --template "@kube_apps/update_img/templates/junit.tpl" -o junit-report.xml
           #    pathToPublish: $(System.DefaultWorkingDirectory)/report.sarif
           #    artifactName: Trivy
           #  condition: 'always()'
