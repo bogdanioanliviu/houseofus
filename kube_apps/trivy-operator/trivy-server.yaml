@@ -90,6 +90,10 @@ spec:
         app.kubernetes.io/instance: trivy-operator
         app.kubernetes.io/version: "0.11.1"
         app.kubernetes.io/managed-by: kubectl
+      annotations:
+        diun.enable: "true"
+        diun.watch_repo: "true"
+        diun.include_tags: "latest"
     spec:
       serviceAccountName: trivy-operator
       automountServiceAccountToken: false

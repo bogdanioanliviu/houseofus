@@ -1872,6 +1872,10 @@ spec:
       labels:
         app.kubernetes.io/name: trivy-operator
         app.kubernetes.io/instance: trivy-operator
+      annotations:
+        diun.enable: "true"
+        diun.watch_repo: "true"
+        diun.include_tags: "latest"
     spec:
       serviceAccountName: trivy-operator
       automountServiceAccountToken: true
