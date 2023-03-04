@@ -18,15 +18,15 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "2023.2.*;2023.3.*"
+        diun.include_tags: "2023.3.*;2023.4.*"
     spec:
       containers:
         - name: homeassist
-          image: homeassistant/home-assistant:2023.2.5
+          image: homeassistant/home-assistant:2023.3.1
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
-              memory: 1024Mi
+              memory: 800Mi
               cpu: "0.50"
             requests:
               memory: 670Mi
