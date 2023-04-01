@@ -23,11 +23,11 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "25.0.*;26.0.*"
+        diun.include_tags: "26.*.*;27.0.*"
     spec:
       containers:
         - name: nextcloud
-          image: linuxserver/nextcloud:25.0.4
+          image: linuxserver/nextcloud:26.0.0
           imagePullPolicy: "Always"
           resources:
             limits:
