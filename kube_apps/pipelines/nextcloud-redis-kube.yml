@@ -6,10 +6,9 @@
 trigger:
  paths:
    include:
-     - kube_apps/nextcloud/deploy-nextcloud.yaml
-     - kube_apps/nextcloud/ingresscdr-nextcloud.yaml
-     - kube_apps/nextcloud/pv-pvc.yaml
-     - kube_apps/nextcloud/svc-nextcloud-cluster.yaml
+     - kube_apps/nextcloud/deploy-redis.yaml
+     - kube_apps/nextcloud/svc-redis.yaml
+     - kube_apps/nextcloud/confmap-redis.yaml
 
 pool:
   name: Default
