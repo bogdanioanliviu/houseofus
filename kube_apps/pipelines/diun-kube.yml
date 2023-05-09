@@ -54,7 +54,7 @@ steps:
   displayName: Clean Up
   inputs:
     targetType: 'inline'
-    script: 'docker rmi $(img) aquasec/trivy:latest crazymax/diun:latest'
+    script: 'docker rmi -f $(img) aquasec/trivy:latest crazymax/diun:latest'
     failOnStderr: true
 - task: replacetokens@3
   displayName: 'Update manifests'
