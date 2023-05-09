@@ -36,7 +36,7 @@ steps:
     script: |
       docker run --rm  -v /var/run/docker.sock:/var/run/docker.sock -v /home/bil/.docker:/root/.docker \
       -v $PWD:/src --workdir /src aquasec/trivy:latest \
-      image --ignore-unfixed --exit-code 0 --severity HIGH,CRITICAL --format sarif -o /src/report.sarif \
+      image --ignore-unfixed --exit-code 0 --severity MEDIUM,HIGH,CRITICAL --format sarif -o /src/report.sarif \
       --scanners vuln,config,secret $(img)
 - task: PublishBuildArtifacts@1
   displayName: "Publish scan results"
@@ -76,6 +76,6 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/diun/deploy-diun.yaml'
+    script: 'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/diun/'
     failOnStderr: true
     noProfile: false
