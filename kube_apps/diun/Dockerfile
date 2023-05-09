@@ -1,3 +1,3 @@
 FROM crazymax/diun:latest
 RUN apk update && apk upgrade \
-    && apk add --no-cache openssl docker
+    && apk add --no-cache openssl docker runc containerd
