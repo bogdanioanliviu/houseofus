@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:15.2-alpine3.17
+          image: postgres:15.3-alpine3.18
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
