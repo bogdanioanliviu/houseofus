@@ -35,7 +35,7 @@ metadata:
     app.kubernetes.io/version: "0.13.2"
     app.kubernetes.io/managed-by: kubectl
 spec:
-  storageClassName: managed-nfs-storage
+  storageClassName: nfs-01
   capacity:
     storage: 5Gi
   accessModes:
@@ -57,7 +57,7 @@ metadata:
 spec:
   # storageClassName: managed-nfs-storage
   storageClassName: nfs-01
-  # volumeName: pv-trivy
+  volumeName: pv-trivy
   accessModes:
     - ReadWriteOnce
   resources:
