@@ -17,6 +17,9 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/psono/deploy-psono-client.yaml
+      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/psono/deploy-psono-admin.yaml
+      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/psono/deploy-nginx.yaml
       kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/psono/deploy-psono.yaml
       kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/psono/pv-pvc.yaml
     failOnStderr: true
@@ -29,6 +32,9 @@ steps:
     script: |
       kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/psono/pv-pvc.yaml
       kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/psono/deploy-psono.yaml
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/psono/deploy-psono-client.yaml
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/psono/deploy-psono-admin.yaml
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/psono/deploy-nginx.yaml
     failOnStderr: true
     noProfile: false
   displayName: "Deploy new img."
