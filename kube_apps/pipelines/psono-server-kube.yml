@@ -11,12 +11,24 @@ trigger:
 pool:
   name: Default
 
-steps:  
+steps:
 
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/psono/deploy-psono.yaml'
+    script: |
+      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/psono/deploy-psono.yaml
+      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/psono/pv-pvc.yaml
+    failOnStderr: true
+    noProfile: false
+  displayName: "delete old img."
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/psono/pv-pvc.yaml
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/psono/deploy-psono.yaml
     failOnStderr: true
     noProfile: false
   displayName: "Deploy new img."
