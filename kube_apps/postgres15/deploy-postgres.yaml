@@ -37,7 +37,6 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgredb
-      priorityClassName: db-priority
       volumes:
         - name: postgredb
           persistentVolumeClaim:
