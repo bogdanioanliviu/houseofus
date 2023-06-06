@@ -17,11 +17,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/psono/pv-pvc.yaml
       kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/psono/deploy-psono.yaml
-      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/psono/deploy-psono-client.yaml
-      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/psono/deploy-psono-admin.yaml
-      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/psono/deploy-nginx.yaml
     failOnStderr: true
     noProfile: false
   displayName: "Deploy new img."
