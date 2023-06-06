@@ -30,13 +30,13 @@ steps:
     useLegacyPattern: false
     enableTelemetry: true
 
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: "kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/trivy-operator/trivy-server.yaml"
-    failOnStderr: true
-    noProfile: false
-  displayName: "Remove old version of trivy."
+#- task: Bash@3
+#  inputs:
+#    targetType: 'inline'
+#    script: "kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/trivy-operator/trivy-server.yaml"
+#    failOnStderr: true
+#    noProfile: false
+#  displayName: "Remove old version of trivy."
 
 - task: Bash@3
   inputs:
