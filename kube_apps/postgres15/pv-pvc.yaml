@@ -6,7 +6,7 @@ metadata:
   labels:
     app: postgres15
 spec:
-  storageClassName: managed-nfs-storage
+  storageClassName: nfs-01
   capacity:
     storage: 10Gi
   accessModes:
@@ -23,7 +23,7 @@ metadata:
   labels:
     app: postgres15
 spec:
-  storageClassName: managed-nfs-storage
+  storageClassName: nfs-01
   volumeName: pv-postgres15
   accessModes:
     - ReadWriteMany

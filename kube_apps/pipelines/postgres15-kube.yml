@@ -13,6 +13,16 @@ pool:
 
 steps:  
 
+- task: Bash@3
+  displayName: 'delete postgres'
+  inputs:
+    targetType: 'inline'
+    script: | 
+      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/postgres15/deploy-postgres.yaml
+      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/postgres15/pv-pvc.yaml
+    failOnStderr: true
+    noProfile: false
+
 - task: replacetokens@3
   displayName: 'Prepare manifests'
   inputs:
@@ -40,6 +50,8 @@ steps:
   displayName: 'deploy postgres'
   inputs:
     targetType: 'inline'
-    script: 'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/postgres15/deploy-postgres.yaml'
+    script: |
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/postgres15/pv-pvc.yaml
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/postgres15/deploy-postgres.yaml
     failOnStderr: true
     noProfile: false
