@@ -41,7 +41,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   nfs:
-    path: /mnt/pool1/nfskube/new_share/trivy
+    path: /mnt/pool1/nfskube/trivy
     server: truenas.houseofus.eu
 ---
 kind: PersistentVolumeClaim
