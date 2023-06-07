@@ -17,7 +17,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/deploy-homeassist.yaml
+      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/deploy-homeassist.yaml
       kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/pvc-homeassist.yaml
       kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/pv-homeassist.yaml
     failOnStderr: true
