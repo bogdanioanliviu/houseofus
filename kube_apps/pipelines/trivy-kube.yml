@@ -41,9 +41,10 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: "kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/trivy-operator/trivy-server.yaml \
-      -f $(System.DefaultWorkingDirectory)/kube_apps/trivy-operator/svc-metrics.yaml \
-      -f $(System.DefaultWorkingDirectory)/kube_apps/trivy-operator/deploy-trivy.yaml"
+    script: |
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/trivy-operator/trivy-server.yaml
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/trivy-operator/svc-metrics.yaml
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/trivy-operator/deploy-trivy.yaml
     failOnStderr: true
     noProfile: false
   displayName: "Deploy new trivy img."

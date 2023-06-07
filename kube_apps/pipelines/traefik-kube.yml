@@ -32,18 +32,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/traeffik/deploy-traefik.yaml
-      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/traeffik/pv-pvc.yaml
-    failOnStderr: true
-    noProfile: false
-  displayName: "Remove old version of pv-pvc."
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
       kubectl apply -f ./kube_apps/traeffik/cdr-trafik.yaml
-      kubectl apply -f ./kube_apps/traeffik/pv-pvc.yaml
       kubectl apply -f ./kube_apps/traeffik/configmap-trafik.yaml
       kubectl apply -f ./kube_apps/traeffik/service-account.yaml
       kubectl apply -f ./kube_apps/traeffik/svc-trafik-all.yaml
