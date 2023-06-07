@@ -36,7 +36,6 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/nextcloud/pv-pvc.yaml
-      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/nextcloud/deploy-nextcloud.yaml'
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/nextcloud/deploy-nextcloud.yaml
     failOnStderr: true
     noProfile: false
