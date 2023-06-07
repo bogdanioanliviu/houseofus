@@ -17,10 +17,21 @@ pool:
   name: Default
 
 steps:
+
+teps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: |
+      kubectl delete -f ./kube_apps/tig/deploy-influx.yaml
+      kubectl delete -f ./kube_apps/tig/pv-pvc.yaml
+    failOnStderr: true
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      kubectl apply -f ./kube_apps/tig/pv-pvc.yaml
       kubectl apply -f ./kube_apps/tig/influxdb-config.yaml
       kubectl apply -f ./kube_apps/tig/influxdb-secrets.yaml
       kubectl apply -f ./kube_apps/tig/svc-influx-cluster.yaml
