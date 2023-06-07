@@ -13,6 +13,17 @@ pool:
 
 steps:  
 
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/deploy-homeassist.yaml
+      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/pvc-homeassist.yaml
+      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/pv-homeassist.yaml
+    failOnStderr: true
+    noProfile: false
+  displayName: "Deploy new ha img."
+
 - task: replacetokens@3
   displayName: 'Update manifests'
   inputs:
@@ -33,7 +44,9 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/deploy-homeassist.yaml'
+    script: |
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/pv-pvc-homeassistant.yaml
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/deploy-homeassist.yaml
     failOnStderr: true
     noProfile: false
   displayName: "Deploy new ha img."
