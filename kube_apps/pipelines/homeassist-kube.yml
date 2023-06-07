@@ -18,8 +18,7 @@ steps:
     targetType: 'inline'
     script: |
       kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/deploy-homeassist.yaml
-      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/pvc-homeassist.yaml
-      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/pv-homeassist.yaml
+      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/pv-pvc-homeassistant.yaml
     failOnStderr: true
     noProfile: false
   displayName: "Deploy new ha img."

@@ -27,7 +27,7 @@ metadata:
 spec:
   storageClassName: nfs-01
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 50Mi
