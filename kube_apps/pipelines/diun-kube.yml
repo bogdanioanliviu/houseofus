@@ -56,6 +56,16 @@ steps:
     targetType: 'inline'
     script: 'docker rmi -f $(img) aquasec/trivy:latest crazymax/diun:latest'
     failOnStderr: true
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/diun/deploy-diun.yaml
+      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/diun/pvc-diun.yaml
+      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/diun/pv-diun.yaml
+    failOnStderr: true
+    noProfile: false
 - task: replacetokens@3
   displayName: 'Update manifests'
   inputs:
@@ -76,6 +86,8 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: 'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/diun/'
+    script: |
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/diun/pv-pvc-diun.yaml
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/diun/deploy-diun.yaml
     failOnStderr: true
     noProfile: false

@@ -1,0 +1,34 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-diun
+  namespace: diun
+  labels:
+    app: diun
+    type: nfs
+spec:
+  storageClassName: nfs-01
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    path: /mnt/pool1/nfskube/diun
+    server: truenas.houseofus.eu
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-diun
+  namespace: diun
+  labels:
+    app: diun
+    type: nfs
+spec:
+  storageClassName: nfs-01
+  volumeName: pv-diun
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
