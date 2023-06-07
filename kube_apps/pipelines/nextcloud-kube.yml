@@ -36,16 +36,6 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/nextcloud/deploy-nextcloud.yaml
-      kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/nextcloud/pv-pvc.yaml
-    failOnStderr: true
-    noProfile: false
-
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
       kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/nextcloud/pv-pvc.yaml
       kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/nextcloud/deploy-nextcloud.yaml'
     failOnStderr: true
