@@ -14,14 +14,6 @@ pool:
   name: Default
 
 steps:
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      kubectl delete -f ./kube_apps/tig/deploy-grafana.yaml
-      kubectl delete -f ./kube_apps/tig/pv-pvc-grafana.yaml
-    failOnStderr: true
-    noProfile: false
 
 - task: replacetokens@3
   displayName: 'Update manifests'
@@ -44,7 +36,6 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      kubectl apply -f ./kube_apps/tig/pv-pvc-grafana.yaml
       kubectl apply -f ./kube_apps/tig/svc-grafana-cluster.yaml
       kubectl apply -f ./kube_apps/tig/ingress-grafana.yaml
       kubectl apply -f ./kube_apps/tig/deploy-grafana.yaml
