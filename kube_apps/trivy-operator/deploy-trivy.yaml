@@ -1930,14 +1930,10 @@ spec:
               value: "true"
             - name: OPERATOR_EXPOSED_SECRET_SCANNER_ENABLED
               value: "true"
-            - name: OPERATOR_METRICS_EXPOSED_SECRET_INFO_ENABLED
-              value: "false"
             - name: OPERATOR_WEBHOOK_BROADCAST_URL
-              value: ""
+              value: "{}"
             - name: OPERATOR_WEBHOOK_BROADCAST_TIMEOUT
               value: "30s"
-            - name: OPERATOR_SEND_DELETED_REPORTS
-              value: "false"
             - name: OPERATOR_PRIVATE_REGISTRY_SCAN_SECRETS_NAMES
               value: "{}"
             - name: OPERATOR_ACCESS_GLOBAL_SECRETS_SERVICE_ACCOUNTS
@@ -1948,8 +1944,6 @@ spec:
               value: "10h"
             - name: OPERATOR_MERGE_RBAC_FINDING_WITH_CONFIG_AUDIT
               value: "false"
-            - name: OPERATOR_CLUSTER_COMPLIANCE_ENABLED
-              value: "true"
           ports:
             - name: metrics
               containerPort: 8080
