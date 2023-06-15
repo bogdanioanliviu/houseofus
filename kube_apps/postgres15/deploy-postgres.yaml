@@ -16,7 +16,7 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "15.*-alpine3.17"
+        diun.include_tags: "15.*-alpine3.18"
     spec:
       containers:
         - name: postgres
