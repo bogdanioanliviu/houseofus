@@ -27,7 +27,8 @@ spec:
     spec:
       containers:
         - name: nextcloud
-          image: linuxserver/nextcloud:27.0.0
+          image: lspipepr/nextcloud:27.0.0-pkg-34240624-dev-d151fd013f86933409d88dbdd26222232842031f-pr-325
+          # image: linuxserver/nextcloud:27.0.0
           imagePullPolicy: "Always"
           resources:
             limits:
