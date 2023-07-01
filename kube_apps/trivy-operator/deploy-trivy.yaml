@@ -1825,7 +1825,7 @@ metadata:
     app.kubernetes.io/managed-by: kubectl
 data:
   trivy.repository: "ghcr.io/aquasecurity/trivy"
-  trivy.tag: "0.42.1"
+  trivy.tag: "0.43.0"
   trivy.additionalVulnerabilityReportFields: ""
   trivy.severity: "LOW,MEDIUM,HIGH,CRITICAL"
   trivy.slow: "true"
@@ -1943,6 +1943,10 @@ spec:
             - name: TRIVY_SERVER_HEALTH_CHECK_CACHE_EXPIRATION
               value: "10h"
             - name: OPERATOR_MERGE_RBAC_FINDING_WITH_CONFIG_AUDIT
+              value: "false"
+            - name: OPERATOR_METRICS_RBAC_ASSESSMENT_INFO_ENABLED
+              value: "false"
+            - name: OPERATOR_METRICS_INFRA_ASSESSMENT_INFO_ENABLED
               value: "false"
           ports:
             - name: metrics
