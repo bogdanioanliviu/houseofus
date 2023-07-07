@@ -103,7 +103,7 @@ spec:
         runAsUser: 65534
       containers:
         - name: main
-          image: "ghcr.io/aquasecurity/trivy:0.43.0"
+          image: "ghcr.io/aquasecurity/trivy:0.43.1"
           imagePullPolicy: "IfNotPresent"
           securityContext:
             privileged: false
