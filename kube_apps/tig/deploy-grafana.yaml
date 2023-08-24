@@ -17,11 +17,11 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "10.0.*;10.1.*"
+        diun.include_tags: "10.1.*;10.2.*"
     spec:
       containers:
         - name: grafana
-          image: grafana/grafana:10.0.3-ubuntu
+          image: grafana/grafana:10.1.0-ubuntu
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
