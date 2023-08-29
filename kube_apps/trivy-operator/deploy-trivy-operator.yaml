@@ -2169,7 +2169,7 @@ data:
   trivy.repository: "ghcr.io/aquasecurity/trivy"
   trivy.tag: "0.44.1"
   trivy.additionalVulnerabilityReportFields: ""
-  trivy.severity: "UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL"
+  trivy.severity: "LOW,MEDIUM,HIGH,CRITICAL"
   trivy.slow: "true"
   trivy.skipJavaDBUpdate: "false"
   trivy.dbRepository: "ghcr.io/aquasecurity/trivy-db"
@@ -2198,6 +2198,7 @@ metadata:
     app.kubernetes.io/managed-by: kubectl
 spec:
   replicas: 1
+  revisionHistoryLimit: 1
   strategy:
     type: Recreate
   selector:
