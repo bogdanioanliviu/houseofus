@@ -33,14 +33,6 @@ steps:
 - task: Bash@3
   inputs:
     targetType: 'inline'
-    script: "kubectl delete -f $(System.DefaultWorkingDirectory)/kube_apps/trivy-operator/trivy-server.yaml"
-    failOnStderr: true
-    noProfile: false
-  displayName: "Remove old version of trivy."
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
     script: |
       kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/trivy-operator/svc-metrics.yaml
       kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/trivy-operator/deploy-trivy-operator.yaml
