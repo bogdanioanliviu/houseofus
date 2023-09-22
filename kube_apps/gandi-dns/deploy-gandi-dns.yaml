@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: gandi-dns
-          image: bogdanioanliviu/gandi:956
+          image: bogdanioanliviu/gandi:964
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
