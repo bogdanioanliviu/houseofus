@@ -1,4 +1,4 @@
 /my_test
 .DS_Store
 /.idea/
-/nfs-provisioning/new_nfs_helm.txt
+/kube_apps/nfs-provisioning/new_nfs_helm.txt
