@@ -18,11 +18,11 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "latest;7.0.*"
+        diun.include_tags: "latest;7.2.*-alpine*;7.3.*-alpine*"
     spec:
       containers:
         - name: redis
-          image: redis:7.0.13-alpine3.18
+          image: redis:7.2.1-alpine3.18
           imagePullPolicy: "Always"
           command: ["redis-server"]
           args: ["/redis-master/redis.conf", "--requirepass", "myredispass"]
