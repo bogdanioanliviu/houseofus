@@ -20,6 +20,12 @@ spec:
         diun.watch_repo: "true"
         diun.include_tags: "2023.11.*;2023.10.*"
     spec:
+      initContainers:
+        - name: check-db-ready
+          image: postgres:15.4-alpine3.18
+          command: [ 'sh', '-c',
+            'until pg_isready -h postgres15.postgres.svc.cluster.local -p 5432; 
+            do echo waiting for database; sleep 2; done;' ]
       containers:
         - name: homeassist
           image: ghcr.io/home-assistant/home-assistant:2023.10.0
