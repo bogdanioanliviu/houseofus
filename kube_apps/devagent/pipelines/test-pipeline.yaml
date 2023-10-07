@@ -1,6 +1,6 @@
 trigger: none
 
-pool: k8-pool
+pool: k8s-pool
 
 steps:
   - script: echo Hello world
