@@ -1,0 +1,11 @@
+trigger: none
+
+pool: k8-pool
+
+steps:
+  - script: echo Hello world
+    displayName: 'Run one line'
+
+  - script: |
+      echo Another echo something
+    displayName: 'Second script inline'
