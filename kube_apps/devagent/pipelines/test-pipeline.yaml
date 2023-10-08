@@ -1,10 +1,14 @@
 trigger: none
 
-pool: k8s-pool
+pool: second-k8s
 
 steps:
   - script: echo Hello world
     displayName: 'Run one line'
+
+  - task: Delay@1
+    inputs:
+      delayForMinutes: '1' # string. Required. Delay Time (minutes). Default: 0.
 
   - script: |
       echo Another echo something
