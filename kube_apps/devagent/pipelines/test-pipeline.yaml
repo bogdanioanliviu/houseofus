@@ -6,9 +6,7 @@ steps:
   - script: echo Hello world
     displayName: 'Run one line'
 
-  - task: Delay@1
-    inputs:
-      delayForMinutes: '1' # string. Required. Delay Time (minutes). Default: 0.
+  - script: sleep 1m
 
   - script: |
       echo Another echo something
