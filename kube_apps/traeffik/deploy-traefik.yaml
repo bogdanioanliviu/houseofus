@@ -24,7 +24,7 @@ spec:
       serviceAccountName: traefik-account
       containers:
         - name: traefik
-          image: traefik:v2.10.4
+          image: traefik:v2.10.5
           imagePullPolicy: "Always"
           ports:
             - name: web
