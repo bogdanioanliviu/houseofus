@@ -1,0 +1,16 @@
+Build img
+
+docker buildx build --tag "azp-agent:linux" --file "./Dockerfile" --progress=plain .
+
+buildx
+# Run container
+--platform linux/amd64 --interactive --tty
+docker run -d \
+-e AZP_URL="https://dev.azure.com/bogdan0109" \
+-e AZP_TOKEN="my_token" \
+-e AZP_POOL="k8s-pool" \
+-e AZP_AGENT_NAME="Docker Agent - Linux" \
+--name "azp-agent-linux" azp-agent:linux
+
+docker tag azp-agent:linux bogdanioanliviu/azp-agent:linux
+docker push bogdanioanliviu/azp-agent:linux
