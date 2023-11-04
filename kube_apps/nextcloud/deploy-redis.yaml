@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: redis
-          image: redis:7.2.1-alpine3.18
+          image: redis:7.2.3-alpine3.18
           imagePullPolicy: "Always"
           command: ["redis-server"]
           args: ["/redis-master/redis.conf", "--requirepass", "myredispass"]
