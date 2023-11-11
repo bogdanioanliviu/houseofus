@@ -2182,7 +2182,7 @@ data:
   trivy.mode: "Standalone"
   trivy.resources.requests.cpu: "100m"
   trivy.resources.requests.memory: "100M"
-  trivy.resources.limits.cpu: "900m"
+  trivy.resources.limits.cpu: "1000m"
   trivy.resources.limits.memory: "500M"
 ---
 # Source: trivy-operator/templates/deployment.yaml
