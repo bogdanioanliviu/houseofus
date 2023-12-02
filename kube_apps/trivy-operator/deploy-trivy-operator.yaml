@@ -2895,8 +2895,10 @@ metadata:
     app.kubernetes.io/instance: trivy-operator
     app.kubernetes.io/version: "0.17.1"
     app.kubernetes.io/managed-by: kubectl
+  annotations:
+    prometheus.io/scrape: "true"
 spec:
-  clusterIP: None
+  # clusterIP: None
   ports:
     - name: metrics
       port: 80
