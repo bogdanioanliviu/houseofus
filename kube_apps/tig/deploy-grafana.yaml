@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: grafana
-          image: grafana/grafana:10.2.2-ubuntu
+          image: grafana/grafana:10.2.3-ubuntu
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
