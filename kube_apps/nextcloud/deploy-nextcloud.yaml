@@ -60,8 +60,13 @@ spec:
             - mountPath: /data
               name: nextcloud-data
               subPath: nextcloud-data
+            - mountPath:  /var/big_temp_file
+              name: cache-volume
       restartPolicy: Always
       volumes:
         - name: nextcloud-data
           persistentVolumeClaim:
             claimName: pvc-nextcloud
+        - name: cache-volume
+          emptyDir:
+            sizeLimit: 100Mi
