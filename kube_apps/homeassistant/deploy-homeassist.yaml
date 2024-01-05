@@ -18,7 +18,7 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "2023.12.*;2024.01.*"
+        diun.include_tags: "2024.1.*;2024.2.*"
     spec:
       initContainers:
         - name: check-db-ready
@@ -28,7 +28,7 @@ spec:
             do echo waiting for database; sleep 2; done;' ]
       containers:
         - name: homeassist
-          image: ghcr.io/home-assistant/home-assistant:2023.12.4
+          image: ghcr.io/home-assistant/home-assistant:2024.1.0
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
