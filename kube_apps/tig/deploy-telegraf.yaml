@@ -20,7 +20,7 @@ spec:
         diun.include_tags: "latest;1.29.*"
     spec:
       containers:
-        - image: telegraf:1.29.2
+        - image: telegraf:1.29.4
           imagePullPolicy: "Always"
           resources:
             limits:
