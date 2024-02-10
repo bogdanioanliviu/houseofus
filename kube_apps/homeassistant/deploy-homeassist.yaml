@@ -28,7 +28,7 @@ spec:
             do echo waiting for database; sleep 2; done;' ]
       containers:
         - name: homeassist
-          image: ghcr.io/home-assistant/home-assistant:2024.1.6
+          image: ghcr.io/home-assistant/home-assistant:2024.2.1
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
