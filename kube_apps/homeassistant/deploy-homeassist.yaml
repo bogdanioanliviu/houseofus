@@ -18,17 +18,17 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "2024.2.*;2024.3.*"
+        diun.include_tags: "2024.3.*;2024.4.*"
     spec:
       initContainers:
         - name: check-db-ready
-          image: postgres:15.5-alpine3.19
+          image: postgres:15.6-alpine3.19
           command: [ 'sh', '-c',
             'until pg_isready -h postgres15.postgres.svc.cluster.local -p 5432; 
             do echo waiting for database; sleep 2; done;' ]
       containers:
         - name: homeassist
-          image: ghcr.io/home-assistant/home-assistant:2024.2.2
+          image: ghcr.io/home-assistant/home-assistant:2024.2.5
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
