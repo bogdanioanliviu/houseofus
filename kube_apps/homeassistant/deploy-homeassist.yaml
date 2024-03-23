@@ -28,15 +28,15 @@ spec:
             do echo waiting for database; sleep 2; done;' ]
       containers:
         - name: homeassist
-          image: ghcr.io/home-assistant/home-assistant:2024.3.0
+          image: ghcr.io/home-assistant/home-assistant:2024.3.3
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
-              memory: 512Mi
-              cpu: "0.50"
+              memory: 467Mi
+              cpu: "500m"
             requests:
-              memory: 256Mi
-              cpu: "0.20"
+              memory: 389Mi
+              cpu: "10m"
           env:
             - name: TZ
               value: Europe/Madrid
