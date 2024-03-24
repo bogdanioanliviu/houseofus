@@ -17,18 +17,18 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "latest;1.29.*"
+        diun.include_tags: "latest;1.30.*"
     spec:
       containers:
-        - image: telegraf:1.29.5
+        - image: telegraf:1.30.0
           imagePullPolicy: "Always"
           resources:
             limits:
-              memory: 120Mi
-              cpu: "0.20"
+              memory: "120Mi"
+              cpu: "150m"
             requests:
-              memory: 40Mi
-              cpu: "0.10"
+              memory: "40Mi"
+              cpu: "100m"
           name: telegraf
           volumeMounts:
             - mountPath: /etc/telegraf/telegraf.conf
