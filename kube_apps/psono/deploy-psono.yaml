@@ -32,8 +32,8 @@ spec:
               memory: "440Mi"
               cpu: "4m"
             limits:
-              memory: "529Mi"
-              cpu: "15m"
+              memory: "800Mi"
+              cpu: "30m"
           env:
             - name: TZ
               value: "Europe/Madrid"
