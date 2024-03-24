@@ -24,12 +24,12 @@ spec:
           image: psono/psono-admin-client:1.7.1
           imagePullPolicy: "IfNotPresent"
           resources:
-            limits:
-              memory: 24Mi
-              cpu: "0.002"
             requests:
-              memory: 10Mi
-              cpu: "0.001"
+              memory: "15Mi"
+              cpu: "1m"
+            limits:
+              memory: "29Mi"
+              cpu: "2m"
           env:
             - name: TZ
               value: "Europe/Madrid"

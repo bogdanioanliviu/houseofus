@@ -25,12 +25,11 @@ spec:
           image: nginx:1.25.4-alpine3.18
           imagePullPolicy: "Always"
           resources:
-            limits:
-              memory: 80Mi
-              cpu: "0.02"
             requests:
-              memory: 32Mi
-              cpu: "0.005"
+              memory: "15Mi"
+              cpu: "10m"
+            limits:
+              memory: "29Mi"
           env:
             - name: TZ
               value: "Europe/Madrid"
