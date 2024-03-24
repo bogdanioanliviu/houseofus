@@ -29,11 +29,11 @@ spec:
           imagePullPolicy: "IfNotPresent"
           resources:
             requests:
-              memory: "440Mi"
-              cpu: "4m"
-            limits:
-              memory: "800Mi"
+              memory: "512Mi"
               cpu: "30m"
+            limits:
+              memory: "1024Mi"
+              cpu: "100m"
           env:
             - name: TZ
               value: "Europe/Madrid"
