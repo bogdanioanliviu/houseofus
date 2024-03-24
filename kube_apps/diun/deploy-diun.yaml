@@ -25,11 +25,11 @@ spec:
           imagePullPolicy: "Always"
           resources:
             limits:
-              memory: "150Mi"
-              cpu: "4m"
+              memory: "100Mi"
+              cpu: "15m"
             requests:
-              memory: "60Mi"
-              cpu: "20m"
+              memory: "40Mi"
+              cpu: "40m"
           env:
             - name: TZ
               value: "Europe/Madrid"
