@@ -25,12 +25,12 @@ spec:
           image: bogdanioanliviu/gandi:1057
           imagePullPolicy: "IfNotPresent"
           resources:
-            limits:
-              memory: 10Mi
-              cpu: "0.008"
             requests:
-              memory: 10Mi
-              cpu: "0.001"
+              memory: "15Mi"
+              cpu: "10m"
+            limits:
+                memory: "29Mi"
+                cpu: "10m"
           env:
             - name: TZ
               value: "Europe/Madrid"
