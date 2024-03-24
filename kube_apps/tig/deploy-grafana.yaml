@@ -21,15 +21,15 @@ spec:
     spec:
       containers:
         - name: grafana
-          image: grafana/grafana:10.4.0-ubuntu
+          image: grafana/grafana:10.4.1-ubuntu
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
-              memory: 512Mi
-              cpu: "0.1"
+              memory: "512Mi"
+              cpu: "90m"
             requests:
-              memory: 50Mi
-              cpu: "0.02"
+              memory: "50Mi"
+              cpu: "10m"
           env:
             - name: TZ
               value: "Europe/Madrid"
