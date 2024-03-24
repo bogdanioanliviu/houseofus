@@ -23,19 +23,27 @@ spec:
       initContainers:
         - name: check-db-ready
           image: postgres:15.6-alpine3.19
+          imagePullPolicy: "IfNotPresent"
           command: [ 'sh', '-c',
             'until pg_isready -h postgres15.postgres.svc.cluster.local -p 5432; 
             do echo waiting for database; sleep 2; done;' ]
+          resources:
+            limits:
+              memory: "136Mi"
+              cpu: "500m"
+            requests:
+              memory: "92Mi"
+              cpu: "110m"
       containers:
         - name: homeassist
           image: ghcr.io/home-assistant/home-assistant:2024.3.3
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
-              memory: 467Mi
+              memory: "550Mi"
               cpu: "500m"
             requests:
-              memory: 389Mi
+              memory: "389Mi"
               cpu: "20m"
           env:
             - name: TZ
