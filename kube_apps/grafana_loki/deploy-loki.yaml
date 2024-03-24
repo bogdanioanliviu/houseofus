@@ -22,16 +22,16 @@ spec:
     spec:
       containers:
         - name: loki
-          image: grafana/loki:2.9.5
+          image: grafana/loki:2.9.6
           imagePullPolicy: "IfNotPresent"
           args: ["-config.file", "/mnt/config/loki-config.yml"]
           resources:
             limits:
-              memory: 256Mi
-              cpu: "0.20"
+              memory: "130Mi"
+              cpu: "29m"
             requests:
-              memory: 100Mi
-              cpu: "0.03"
+              memory: "90Mi"
+              cpu: "10m"
           env:
             - name: TZ
               value: "Europe/Madrid"
