@@ -21,15 +21,15 @@ spec:
       containers:
         - name: diun
           #image: bogdanioanliviu/diun:4.26.0
-          image: crazymax/diun:4.26.0
+          image: crazymax/diun:4.27.0
           imagePullPolicy: "Always"
           resources:
             limits:
-              memory: 150Mi
-              cpu: "0.04"
+              memory: "150Mi"
+              cpu: "4m"
             requests:
-              memory: 60Mi
-              cpu: "0.02"
+              memory: "60Mi"
+              cpu: "20m"
           env:
             - name: TZ
               value: "Europe/Madrid"
