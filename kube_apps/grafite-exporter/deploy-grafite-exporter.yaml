@@ -114,7 +114,6 @@ spec:
             # - --log.level=debug
           resources:
             limits:
-              cpu: "30m"
               memory: "30Mi"
             requests:
               cpu: "10m"
