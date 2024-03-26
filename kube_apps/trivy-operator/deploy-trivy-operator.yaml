@@ -2795,10 +2795,10 @@ data:
   trivy.supportedConfigAuditKinds: "Workload,Service,Role,ClusterRole,NetworkPolicy,Ingress,LimitRange,ResourceQuota"
   trivy.timeout: "10m0s"
   trivy.mode: "Standalone"
-  trivy.resources.requests.cpu: "2000m"
+  trivy.resources.requests.cpu: "600m"
   trivy.resources.requests.memory: "279Mi"
-  #trivy.resources.limits.cpu: "500m"
-  trivy.resources.limits.memory: "500Mi"
+  trivy.resources.limits.cpu: "1000m"
+  trivy.resources.limits.memory: "1024Mi"
 ---
 # Source: trivy-operator/templates/deployment.yaml
 apiVersion: apps/v1
