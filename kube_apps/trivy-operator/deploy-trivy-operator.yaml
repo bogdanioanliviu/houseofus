@@ -2778,7 +2778,7 @@ metadata:
     app.kubernetes.io/managed-by: kubectl
 data:
   trivy.repository: "ghcr.io/aquasecurity/trivy"
-  trivy.tag: "0.50.0"
+  trivy.tag: "0.50.1"
   trivy.additionalVulnerabilityReportFields: ""
   trivy.severity: "LOW,MEDIUM,HIGH,CRITICAL"
   trivy.slow: "true"
@@ -2836,6 +2836,12 @@ spec:
         - name: "trivy-operator"
           image: "ghcr.io/aquasecurity/trivy-operator:0.19.1"
           imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "83Mi"
+              cpu: "17m"
+            limits:
+              memory: "138Mi"
           env:
             - name: OPERATOR_NAMESPACE
               value: trivy-system
