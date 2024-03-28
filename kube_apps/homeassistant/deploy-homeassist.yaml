@@ -30,7 +30,6 @@ spec:
           resources:
             limits:
               memory: "136Mi"
-              cpu: "500m"
             requests:
               memory: "92Mi"
               cpu: "110m"
@@ -40,11 +39,10 @@ spec:
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
-              memory: "550Mi"
-              cpu: "500m"
+              memory: "500Mi"
             requests:
               memory: "389Mi"
-              cpu: "20m"
+              cpu: "10m"
           env:
             - name: TZ
               value: Europe/Madrid
