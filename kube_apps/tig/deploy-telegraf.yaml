@@ -24,10 +24,10 @@ spec:
           imagePullPolicy: "Always"
           resources:
             limits:
+              memory: "120Mi"
+            requests:
               memory: "40Mi"
               cpu: "10m"
-            requests:
-              memory: "120Mi"
           name: telegraf
           volumeMounts:
             - mountPath: /etc/telegraf/telegraf.conf
