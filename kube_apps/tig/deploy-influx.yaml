@@ -29,7 +29,7 @@ spec:
               memory: "1206Mi"
             requests:
               memory: "900Mi"
-              cpu: "18m"
+              cpu: "250m"
           ports:
             - containerPort: 8086
               protocol: TCP
