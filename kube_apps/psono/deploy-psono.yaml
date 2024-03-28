@@ -33,7 +33,6 @@ spec:
               cpu: "30m"
             limits:
               memory: "1024Mi"
-              cpu: "200m"
           env:
             - name: TZ
               value: "Europe/Madrid"
