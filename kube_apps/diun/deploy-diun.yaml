@@ -28,7 +28,7 @@ spec:
               memory: "100Mi"
             requests:
               memory: "40Mi"
-              cpu: "15m"
+              cpu: "114m"
           env:
             - name: TZ
               value: "Europe/Madrid"
