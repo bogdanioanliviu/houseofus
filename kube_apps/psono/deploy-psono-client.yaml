@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: psono-client
-          image: psono/psono-client:3.0.6
+          image: psono/psono-client:3.0.7
           imagePullPolicy: "IfNotPresent"
           resources:
             requests:
@@ -29,7 +29,6 @@ spec:
               cpu: "10m"
             limits:
               memory: "45Mi"
-              cpu: "20m"
           env:
             - name: TZ
               value: "Europe/Madrid"
