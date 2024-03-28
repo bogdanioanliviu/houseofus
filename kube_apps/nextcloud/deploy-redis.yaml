@@ -29,9 +29,11 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
           resources:
+            requests:
+              memory: "15Mi"
+              cpu: "10m"
             limits:
-              memory: 20Mi
-              cpu: "0.01"
+              memory: "29Mi"
           ports:
             - containerPort: 6379
               protocol: TCP
