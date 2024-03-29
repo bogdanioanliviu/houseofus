@@ -2714,7 +2714,7 @@ metadata:
   labels:
     app.kubernetes.io/name: trivy-operator
     app.kubernetes.io/instance: trivy-operator
-    app.kubernetes.io/version: "0.19.1"
+    app.kubernetes.io/version: "0.19.2"
     app.kubernetes.io/managed-by: kubectl
 ---
 # Source: trivy-operator/templates/config.yaml
@@ -2726,7 +2726,7 @@ metadata:
   labels:
     app.kubernetes.io/name: trivy-operator
     app.kubernetes.io/instance: trivy-operator
-    app.kubernetes.io/version: "0.19.1"
+    app.kubernetes.io/version: "0.19.2"
     app.kubernetes.io/managed-by: kubectl
 ---
 # Source: trivy-operator/templates/config.yaml
@@ -2738,7 +2738,7 @@ metadata:
   labels:
     app.kubernetes.io/name: trivy-operator
     app.kubernetes.io/instance: trivy-operator
-    app.kubernetes.io/version: "0.19.1"
+    app.kubernetes.io/version: "0.19.2"
     app.kubernetes.io/managed-by: kubectl
 data:
   trivy.githubToken: "{!git_token_trivy!}"
@@ -2752,7 +2752,7 @@ metadata:
   labels:
     app.kubernetes.io/name: trivy-operator
     app.kubernetes.io/instance: trivy-operator
-    app.kubernetes.io/version: "0.19.1"
+    app.kubernetes.io/version: "0.19.2"
     app.kubernetes.io/managed-by: kubectl
 data:
   nodeCollector.volumes: "[{\"hostPath\":{\"path\":\"/var/lib/etcd\"},\"name\":\"var-lib-etcd\"},{\"hostPath\":{\"path\":\"/var/lib/kubelet\"},\"name\":\"var-lib-kubelet\"},{\"hostPath\":{\"path\":\"/var/lib/kube-scheduler\"},\"name\":\"var-lib-kube-scheduler\"},{\"hostPath\":{\"path\":\"/var/lib/kube-controller-manager\"},\"name\":\"var-lib-kube-controller-manager\"},{\"hostPath\":{\"path\":\"/etc/systemd\"},\"name\":\"etc-systemd\"},{\"hostPath\":{\"path\":\"/lib/systemd\"},\"name\":\"lib-systemd\"},{\"hostPath\":{\"path\":\"/etc/kubernetes\"},\"name\":\"etc-kubernetes\"},{\"hostPath\":{\"path\":\"/etc/cni/net.d/\"},\"name\":\"etc-cni-netd\"}]"
@@ -2765,6 +2765,58 @@ data:
   report.recordFailedChecksOnly: "true"
   node.collector.imageRef: "ghcr.io/aquasecurity/node-collector:0.0.6"
 ---
+# Source: trivy-operator/templates/configmaps/trivy-operator-config.yaml
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: trivy-operator-config
+  namespace: trivy-system
+  labels:
+    app.kubernetes.io/name: trivy-operator
+    app.kubernetes.io/instance: trivy-operator
+    app.kubernetes.io/version: "0.19.2"
+    app.kubernetes.io/managed-by: kubectl
+data:
+  OPERATOR_LOG_DEV_MODE: "false"
+  OPERATOR_SCAN_JOB_TTL: ""
+  OPERATOR_SCAN_JOB_TIMEOUT: "10m"
+  OPERATOR_CONCURRENT_SCAN_JOBS_LIMIT: "5"
+  OPERATOR_CONCURRENT_NODE_COLLECTOR_LIMIT: "1"
+  OPERATOR_SCAN_JOB_RETRY_AFTER: "30s"
+  OPERATOR_BATCH_DELETE_LIMIT: "10"
+  OPERATOR_BATCH_DELETE_DELAY: "10s"
+  OPERATOR_METRICS_BIND_ADDRESS: ":8080"
+  OPERATOR_METRICS_FINDINGS_ENABLED: "true"
+  OPERATOR_METRICS_VULN_ID_ENABLED: "false"
+  OPERATOR_HEALTH_PROBE_BIND_ADDRESS: ":9090"
+  OPERATOR_VULNERABILITY_SCANNER_ENABLED: "true"
+  OPERATOR_SBOM_GENERATION_ENABLED: "true"
+  OPERATOR_CLUSTER_SBOM_CACHE_ENABLED: "false"
+  OPERATOR_VULNERABILITY_SCANNER_SCAN_ONLY_CURRENT_REVISIONS: "true"
+  OPERATOR_SCANNER_REPORT_TTL: "72h"
+  OPERATOR_CACHE_REPORT_TTL: "120h"
+  CONTROLLER_CACHE_SYNC_TIMEOUT: "5m"
+  OPERATOR_CONFIG_AUDIT_SCANNER_ENABLED: "true"
+  OPERATOR_RBAC_ASSESSMENT_SCANNER_ENABLED: "true"
+  OPERATOR_INFRA_ASSESSMENT_SCANNER_ENABLED: "true"
+  OPERATOR_CONFIG_AUDIT_SCANNER_SCAN_ONLY_CURRENT_REVISIONS: "true"
+  OPERATOR_EXPOSED_SECRET_SCANNER_ENABLED: "true"
+  OPERATOR_METRICS_EXPOSED_SECRET_INFO_ENABLED: "false"
+  OPERATOR_METRICS_CONFIG_AUDIT_INFO_ENABLED: "false"
+  OPERATOR_METRICS_RBAC_ASSESSMENT_INFO_ENABLED: "false"
+  OPERATOR_METRICS_INFRA_ASSESSMENT_INFO_ENABLED: "false"
+  OPERATOR_METRICS_IMAGE_INFO_ENABLED: "false"
+  OPERATOR_METRICS_CLUSTER_COMPLIANCE_INFO_ENABLED: "false"
+  OPERATOR_WEBHOOK_BROADCAST_URL: ""
+  OPERATOR_WEBHOOK_BROADCAST_TIMEOUT: "30s"
+  OPERATOR_SEND_DELETED_REPORTS: "false"
+  OPERATOR_PRIVATE_REGISTRY_SCAN_SECRETS_NAMES: "{}"
+  OPERATOR_ACCESS_GLOBAL_SECRETS_SERVICE_ACCOUNTS: "true"
+  OPERATOR_BUILT_IN_TRIVY_SERVER: "false"
+  TRIVY_SERVER_HEALTH_CHECK_CACHE_EXPIRATION: "10h"
+  OPERATOR_MERGE_RBAC_FINDING_WITH_CONFIG_AUDIT: "false"
+  OPERATOR_CLUSTER_COMPLIANCE_ENABLED: "true"
+---
 # Source: trivy-operator/templates/config.yaml
 apiVersion: v1
 kind: ConfigMap
@@ -2774,7 +2826,7 @@ metadata:
   labels:
     app.kubernetes.io/name: trivy-operator
     app.kubernetes.io/instance: trivy-operator
-    app.kubernetes.io/version: "0.19.1"
+    app.kubernetes.io/version: "0.19.2"
     app.kubernetes.io/managed-by: kubectl
 data:
   trivy.repository: "ghcr.io/aquasecurity/trivy"
@@ -2809,7 +2861,7 @@ metadata:
   labels:
     app.kubernetes.io/name: trivy-operator
     app.kubernetes.io/instance: trivy-operator
-    app.kubernetes.io/version: "0.19.1"
+    app.kubernetes.io/version: "0.19.2"
     app.kubernetes.io/managed-by: kubectl
 spec:
   replicas: 1
@@ -2834,7 +2886,7 @@ spec:
       automountServiceAccountToken: true
       containers:
         - name: "trivy-operator"
-          image: "ghcr.io/aquasecurity/trivy-operator:0.19.1"
+          image: "ghcr.io/aquasecurity/trivy-operator:0.19.2"
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -2853,78 +2905,9 @@ spec:
               value: "pod,replicaset,replicationcontroller,statefulset,daemonset,cronjob,job"
             - name: OPERATOR_SERVICE_ACCOUNT
               value: "trivy-operator"
-            - name: OPERATOR_LOG_DEV_MODE
-              value: "false"
-            - name: OPERATOR_SCAN_JOB_TTL
-              value: ""
-            - name: OPERATOR_SCAN_JOB_TIMEOUT
-              value: "10m"
-            - name: OPERATOR_CONCURRENT_SCAN_JOBS_LIMIT
-              value: "5"
-            - name: OPERATOR_CONCURRENT_NODE_COLLECTOR_LIMIT
-              value: "1"
-            - name: OPERATOR_SCAN_JOB_RETRY_AFTER
-              value: "30s"
-            - name: OPERATOR_BATCH_DELETE_LIMIT
-              value: "10"
-            - name: OPERATOR_BATCH_DELETE_DELAY
-              value: "10s"
-            - name: OPERATOR_METRICS_BIND_ADDRESS
-              value: ":8080"
-            - name: OPERATOR_METRICS_FINDINGS_ENABLED
-              value: "true"
-            - name: OPERATOR_METRICS_VULN_ID_ENABLED
-              value: "false"
-            - name: OPERATOR_HEALTH_PROBE_BIND_ADDRESS
-              value: ":9090"
-            - name: OPERATOR_VULNERABILITY_SCANNER_ENABLED
-              value: "true"
-            - name: OPERATOR_SBOM_GENERATION_ENABLED
-              value: "false"
-            - name: OPERATOR_CLUSTER_SBOM_CACHE_ENABLED
-              value: "false"
-            - name: OPERATOR_VULNERABILITY_SCANNER_SCAN_ONLY_CURRENT_REVISIONS
-              value: "true"
-            - name: OPERATOR_SCANNER_REPORT_TTL
-              value: "72h"
-            - name: CONTROLLER_CACHE_SYNC_TIMEOUT
-              value: "5m"
-            - name: OPERATOR_CONFIG_AUDIT_SCANNER_ENABLED
-              value: "true"
-            - name: OPERATOR_RBAC_ASSESSMENT_SCANNER_ENABLED
-              value: "true"
-            - name: OPERATOR_INFRA_ASSESSMENT_SCANNER_ENABLED
-              value: "true"
-            - name: OPERATOR_CONFIG_AUDIT_SCANNER_SCAN_ONLY_CURRENT_REVISIONS
-              value: "true"
-            - name: OPERATOR_EXPOSED_SECRET_SCANNER_ENABLED
-              value: "true"
-            - name: OPERATOR_METRICS_EXPOSED_SECRET_INFO_ENABLED
-              value: "false"
-            - name: OPERATOR_METRICS_CONFIG_AUDIT_INFO_ENABLED
-              value: "false"
-            - name: OPERATOR_METRICS_RBAC_ASSESSMENT_INFO_ENABLED
-              value: "false"
-            - name: OPERATOR_METRICS_INFRA_ASSESSMENT_INFO_ENABLED
-              value: "false"
-            - name: OPERATOR_WEBHOOK_BROADCAST_URL
-              value: ""
-            - name: OPERATOR_WEBHOOK_BROADCAST_TIMEOUT
-              value: "30s"
-            - name: OPERATOR_SEND_DELETED_REPORTS
-              value: "false"
-            - name: OPERATOR_PRIVATE_REGISTRY_SCAN_SECRETS_NAMES
-              value: "{}"
-            - name: OPERATOR_ACCESS_GLOBAL_SECRETS_SERVICE_ACCOUNTS
-              value: "true"
-            - name: OPERATOR_BUILT_IN_TRIVY_SERVER
-              value: "false"
-            - name: TRIVY_SERVER_HEALTH_CHECK_CACHE_EXPIRATION
-              value: "10h"
-            - name: OPERATOR_MERGE_RBAC_FINDING_WITH_CONFIG_AUDIT
-              value: "false"
-            - name: OPERATOR_CLUSTER_COMPLIANCE_ENABLED
-              value: "true"
+          envFrom:
+            - configMapRef:
+                name: trivy-operator-config
           ports:
             - name: metrics
               containerPort: 8080
@@ -2964,7 +2947,7 @@ metadata:
   labels:
     app.kubernetes.io/name: trivy-operator
     app.kubernetes.io/instance: trivy-operator
-    app.kubernetes.io/version: "0.19.1"
+    app.kubernetes.io/version: "0.19.2"
     app.kubernetes.io/managed-by: kubectl
 rules:
   - apiGroups:
@@ -2991,7 +2974,7 @@ metadata:
   labels:
     app.kubernetes.io/name: trivy-operator
     app.kubernetes.io/instance: trivy-operator
-    app.kubernetes.io/version: "0.19.1"
+    app.kubernetes.io/version: "0.19.2"
     app.kubernetes.io/managed-by: kubectl
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -3011,7 +2994,7 @@ metadata:
   labels:
     app.kubernetes.io/name: trivy-operator
     app.kubernetes.io/instance: trivy-operator
-    app.kubernetes.io/version: "0.19.1"
+    app.kubernetes.io/version: "0.19.2"
     app.kubernetes.io/managed-by: kubectl
 data:
 
@@ -3025,7 +3008,7 @@ metadata:
   labels:
     app.kubernetes.io/name: trivy-operator
     app.kubernetes.io/instance: trivy-operator
-    app.kubernetes.io/version: "0.19.1"
+    app.kubernetes.io/version: "0.19.2"
     app.kubernetes.io/managed-by: kubectl
 ---
 # Source: trivy-operator/templates/rbac/clusterrole.yaml
@@ -3406,7 +3389,7 @@ metadata:
   labels:
     app.kubernetes.io/name: trivy-operator
     app.kubernetes.io/instance: trivy-operator
-    app.kubernetes.io/version: "0.19.1"
+    app.kubernetes.io/version: "0.19.2"
     app.kubernetes.io/managed-by: kubectl
     rbac.authorization.k8s.io/aggregate-to-view: "true"
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
@@ -3431,7 +3414,7 @@ metadata:
   labels:
     app.kubernetes.io/name: trivy-operator
     app.kubernetes.io/instance: trivy-operator
-    app.kubernetes.io/version: "0.19.1"
+    app.kubernetes.io/version: "0.19.2"
     app.kubernetes.io/managed-by: kubectl
     rbac.authorization.k8s.io/aggregate-to-view: "true"
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
@@ -3456,7 +3439,7 @@ metadata:
   labels:
     app.kubernetes.io/name: trivy-operator
     app.kubernetes.io/instance: trivy-operator
-    app.kubernetes.io/version: "0.19.1"
+    app.kubernetes.io/version: "0.19.2"
     app.kubernetes.io/managed-by: kubectl
     rbac.authorization.k8s.io/aggregate-to-view: "true"
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
@@ -3480,7 +3463,7 @@ metadata:
   labels:
     app.kubernetes.io/name: trivy-operator
     app.kubernetes.io/instance: trivy-operator
-    app.kubernetes.io/version: "0.19.1"
+    app.kubernetes.io/version: "0.19.2"
     app.kubernetes.io/managed-by: kubectl
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -3500,7 +3483,7 @@ metadata:
   labels:
     app.kubernetes.io/name: trivy-operator
     app.kubernetes.io/instance: trivy-operator
-    app.kubernetes.io/version: "0.19.1"
+    app.kubernetes.io/version: "0.19.2"
     app.kubernetes.io/managed-by: kubectl
 rules:
   - apiGroups:
@@ -3530,7 +3513,7 @@ metadata:
   labels:
     app.kubernetes.io/name: trivy-operator
     app.kubernetes.io/instance: trivy-operator
-    app.kubernetes.io/version: "0.19.1"
+    app.kubernetes.io/version: "0.19.2"
     app.kubernetes.io/managed-by: kubectl
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -3550,7 +3533,7 @@ metadata:
   labels:
     app.kubernetes.io/name: trivy-operator
     app.kubernetes.io/instance: trivy-operator
-    app.kubernetes.io/version: "0.19.1"
+    app.kubernetes.io/version: "0.19.2"
     app.kubernetes.io/managed-by: kubectl
   annotations:
     prometheus.io/scrape: "true"
