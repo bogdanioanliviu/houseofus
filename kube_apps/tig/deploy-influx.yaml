@@ -26,10 +26,10 @@ spec:
           imagePullPolicy: "Always"
           resources:
             limits:
-              memory: "1206Mi"
+              memory: "1258Mi"
             requests:
-              memory: "900Mi"
-              cpu: "273m"
+              memory: "955Mi"
+              cpu: "26m"
           ports:
             - containerPort: 8086
               protocol: TCP
