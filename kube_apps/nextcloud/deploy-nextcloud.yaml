@@ -27,15 +27,14 @@ spec:
     spec:
       containers:
         - name: nextcloud
-          image: linuxserver/nextcloud:28.0.3
+          image: linuxserver/nextcloud:28.0.4
           imagePullPolicy: "Always"
           resources:
             limits:
               memory: "800Mi"
-              cpu: "0.70"
             requests:
-              memory: "256Mi"
-              cpu: "50m"
+              memory: "401Mi"
+              cpu: "11m"
           ports:
             - containerPort: 443
               protocol: TCP
