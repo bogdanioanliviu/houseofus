@@ -31,10 +31,10 @@ spec:
           args: ["-config.file", "/etc/promtail/config.yml"]
           resources:
             requests:
-              memory: "80Mi"
-              cpu: "11m"
+              memory: "99Mi"
+              cpu: "10m"
             limits:
-              memory: "103Mi"
+              memory: "123Mi"
           ports:
             - name: http-metrics
               containerPort: 3201
