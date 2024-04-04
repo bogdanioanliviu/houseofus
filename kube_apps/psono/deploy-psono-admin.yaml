@@ -21,15 +21,14 @@ spec:
     spec:
       containers:
         - name: psono-admin
-          image: psono/psono-admin-client:1.7.1
+          image: psono/psono-admin-client:1.7.2
           imagePullPolicy: "IfNotPresent"
           resources:
             requests:
               memory: "15Mi"
-              cpu: "1m"
+              cpu: "10m"
             limits:
               memory: "29Mi"
-              cpu: "8m"
           env:
             - name: TZ
               value: "Europe/Madrid"
