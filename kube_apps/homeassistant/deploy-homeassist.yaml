@@ -18,7 +18,7 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "2024.3.*;2024.4.*"
+        diun.include_tags: "2024.5.*;2024.4.*"
     spec:
       initContainers:
         - name: check-db-ready
@@ -35,7 +35,7 @@ spec:
               cpu: "110m"
       containers:
         - name: homeassist
-          image: ghcr.io/home-assistant/home-assistant:2024.3.3
+          image: ghcr.io/home-assistant/home-assistant:2024.4.0
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
