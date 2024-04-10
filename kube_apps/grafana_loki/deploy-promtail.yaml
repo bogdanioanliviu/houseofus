@@ -14,10 +14,7 @@ spec:
     metadata:
       labels:
         name: promtail
-      annotations:
-        diun.enable: "true"
-        diun.watch_repo: "true"
-        diun.include_tags: "latest"
+
     spec:
       serviceAccount: promtail-serviceaccount
       serviceAccountName: promtail-serviceaccount
