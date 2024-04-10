@@ -33,7 +33,7 @@ data:
           kvstore:
             store: inmemory
           replication_factor: 1
-      max_transfer_retries: 0
+      # max_transfer_retries: 0
       wal:
         dir: /data/loki/wal
     
@@ -50,7 +50,7 @@ data:
       max_concurrent: 25
       extra_query_delay: 30s
       engine:
-        timeout: 5m
+        # timeout: 5m
         max_look_back_period: 2m
       query_ingesters_within: 3h
     
