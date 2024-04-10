@@ -18,7 +18,7 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "3.*.*;latest"
+        diun.include_tags: "3.1.*;latest"
     spec:
       containers:
         - name: loki
