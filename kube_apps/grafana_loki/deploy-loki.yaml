@@ -18,11 +18,11 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "2.9.*;latest"
+        diun.include_tags: "3.*.*;latest"
     spec:
       containers:
         - name: loki
-          image: grafana/loki:2.9.6
+          image: grafana/loki:3.0.0
           imagePullPolicy: "IfNotPresent"
           args: ["-config.file", "/mnt/config/loki-config.yml"]
           resources:
