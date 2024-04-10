@@ -24,6 +24,11 @@ data:
         kvstore:
           store: inmemory
     
+    storage_config:
+      tsdb_shipper:
+        active_index_directory: /tmp/data/tsdb-index
+        cache_location: /tmp/data/tsdb-cache
+    
     ingester:
       chunk_block_size: 262144
       chunk_idle_period: 3m
@@ -38,6 +43,8 @@ data:
         dir: /data/loki/wal
     
     limits_config:
+      # max_query_lookback: 672h # 28 days
+      # retention_period: 672h   # 28 days
       split_queries_by_interval: 1h
       query_timeout: 5m
       reject_old_samples: true
@@ -60,19 +67,22 @@ data:
           embedded_cache:
             enabled: true
             max_size_mb: 100
-          redis:
-            endpoint: redis://svc-redis.nextcloud.svc.cluster.local:6379
-            password: myredispass
+          # redis:
+          #  endpoint: redis://svc-redis.nextcloud.svc.cluster.local:6379
+          #  password: myredispass
     
     schema_config:
       configs:
         - from: 2020-10-24
-          store: boltdb-shipper
+          store: tsdb
           object_store: filesystem
-          schema: v11
+          schema: v13
           index:
             prefix: index_
             period: 24h
-    
+    compactor:
+      working_directory: /tmp/data/retention
+      delete_request_store: filesystem
+      retention_enabled: true
     analytics:
       reporting_enabled: false
