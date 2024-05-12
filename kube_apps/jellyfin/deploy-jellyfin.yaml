@@ -19,12 +19,12 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "10.8.*;10.9.*"
+        diun.include_tags: "10.9.*;10.10.*"
         diun.exclude_tags: "10.*.*unstable"
     spec:
       containers:
         - name: jellyfin
-          image: docker.io/jellyfin/jellyfin:10.8.13
+          image: docker.io/jellyfin/jellyfin:10.9.0
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
