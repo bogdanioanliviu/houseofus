@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: nextcloud
-          image: linuxserver/nextcloud:29.0.1
+          image: linuxserver/nextcloud:29.0.2
           imagePullPolicy: "Always"
           resources:
             limits:
