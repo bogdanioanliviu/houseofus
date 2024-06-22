@@ -24,9 +24,9 @@ spec:
           args: ["-config.file", "/mnt/config/loki-config.yml"]
           resources:
             limits:
-              memory: "130Mi"
+              memory: "200Mi"
             requests:
-              memory: "90Mi"
+              memory: "120Mi"
               cpu: "10m"
           env:
             - name: TZ
