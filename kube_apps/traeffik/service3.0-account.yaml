@@ -14,7 +14,7 @@ rules:
       - ""
     resources:
       - services
-      - endpoints
+      - endpointslices
       - secrets
     verbs:
       - get
