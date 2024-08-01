@@ -28,23 +28,6 @@ steps:
     useLegacyPattern: false
     enableTelemetry: true
 
-#- task: replacetokens@3
-#  displayName: 'Update manifests'
-#  inputs:
-#    rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/traeffik/'
-#    targetFiles: '**/*.yaml'
-#    encoding: 'auto'
-#    writeBOM: true
-#    actionOnMissing: 'warn'
-#    keepToken: true
-#    actionOnNoFiles: 'fail'
-#    enableTransforms: false
-#    tokenPrefix: '{!'
-#    tokenSuffix: '!}'
-#    enableRecursion: false
-#    useLegacyPattern: false
-#    enableTelemetry: true
-
 - task: Bash@3
   inputs:
     targetType: 'inline'
