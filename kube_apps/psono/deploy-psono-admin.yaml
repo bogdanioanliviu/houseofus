@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: psono-admin
-          image: psono/psono-admin-client:1.7.5
+          image: psono/psono-admin-client:1.7.6
           imagePullPolicy: "IfNotPresent"
           resources:
             requests:
