@@ -18,11 +18,11 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "1.25.*-alpine3.18;1.26.*"
+        diun.include_tags: "1.27.*-alpine3.20;latest"
     spec:
       containers:
         - name: psono-nginx-proxy
-          image: nginx:1.25.4-alpine3.18
+          image: nginx:1.27.1-alpine3.20
           imagePullPolicy: "Always"
           resources:
             requests:
