@@ -32,7 +32,6 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      kubectl apply -f ./kube_apps/traeffik/cdr-trafik.yaml
       kubectl apply -f ./kube_apps/traeffik/configmap-trafik.yaml
       kubectl apply -f ./kube_apps/traeffik/service-account.yaml
       kubectl apply -f ./kube_apps/traeffik/svc-trafik-all.yaml
