@@ -8,6 +8,7 @@ data:
     api:
       insecure: true
       dashboard: true
+    accessLog: {}
     entryPoints:
       web:
         address: ":80"
