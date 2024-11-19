@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: jellyfin
-          image: docker.io/jellyfin/jellyfin:10.10.0
+          image: docker.io/jellyfin/jellyfin:10.10.3
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
