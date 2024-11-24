@@ -35,7 +35,7 @@ spec:
               cpu: "110m"
       containers:
         - name: homeassist
-          image: ghcr.io/home-assistant/home-assistant:2024.11.2
+          image: ghcr.io/home-assistant/home-assistant:2024.11.3
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
