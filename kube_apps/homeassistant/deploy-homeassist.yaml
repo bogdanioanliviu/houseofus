@@ -50,6 +50,9 @@ spec:
             - containerPort: 8123
               protocol: TCP
               name: http
+            - containerPort: 5683
+              protocol: UDP
+              name: CoIoT
           volumeMounts:
             - name: ha-data
               mountPath: /config
