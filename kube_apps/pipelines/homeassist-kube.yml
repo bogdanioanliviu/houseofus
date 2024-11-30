@@ -34,7 +34,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/deploy-homeassist.yaml
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/*.yaml
     failOnStderr: true
     noProfile: false
   displayName: "Deploy new ha img."

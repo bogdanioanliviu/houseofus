@@ -9,7 +9,7 @@ spec:
   selector:
     app: homeassist
   ports:
-    - name: CoIoT
+    - name: coiot
       protocol: UDP
       port: 5683
       targetPort: 5683

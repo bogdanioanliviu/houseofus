@@ -52,7 +52,7 @@ spec:
               name: http
             - containerPort: 5683
               protocol: UDP
-              name: CoIoT
+              name: coiot
           volumeMounts:
             - name: ha-data
               mountPath: /config
