@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: svc-homeassist-cluster
+  name: svc-homeassist-coiot
   namespace: home-assist
   labels:
     app: homeassist
