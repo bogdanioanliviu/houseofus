@@ -34,7 +34,10 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/*.yaml
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/deploy-homeassist.yaml
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/svc-ha-coIoT.yaml
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/svc-homeassist-cluster.yaml
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/homeassistant/ingress-ha.yaml
     failOnStderr: true
     noProfile: false
   displayName: "Deploy new ha img."
