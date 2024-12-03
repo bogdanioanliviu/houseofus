@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: influxdb
-          image: influxdb:2.7.10-alpine
+          image: influxdb:2.7.11-alpine
           imagePullPolicy: "Always"
           resources:
             limits:
