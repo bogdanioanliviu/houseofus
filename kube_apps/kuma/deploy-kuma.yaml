@@ -1,0 +1,50 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    app: kuma
+  namespace: kuma
+  name: kuma
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: kuma
+  template:
+    metadata:
+      labels:
+        app: kuma
+      annotations:
+        diun.enable: "true"
+        diun.watch_repo: "true"
+        diun.include_tags: "1.18.*;1.19.*"
+    spec:
+      containers:
+        - name: kuma
+          image: louislam/uptime-kuma:1.18.5-debian
+          imagePullPolicy: "IfNotPresent"
+          resources:
+            limits:
+              memory: 220Mi
+              cpu: "0.12"
+            requests:
+              memory: 90Mi
+              cpu: "0.01"
+          ports:
+            - containerPort: 3001
+              protocol: TCP
+              name: http
+          volumeMounts:
+            - mountPath: /app/data
+              name: kuma-data
+          env:
+            - name: TZ
+              value: 'Europe/Madrid'
+      restartPolicy: Always
+      volumes:
+        - name: kuma-data
+          persistentVolumeClaim:
+            claimName: pvc-kuma

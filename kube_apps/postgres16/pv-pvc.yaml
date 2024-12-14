@@ -1,0 +1,32 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-postgres16
+  namespace: postgres
+  labels:
+    app: postgres16
+spec:
+  storageClassName: nfs-01
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /mnt/pool1/nfskube/postgres16
+    server: truenas.houseofus.eu
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-postgres16
+  namespace: postgres
+  labels:
+    app: postgres16
+spec:
+  storageClassName: nfs-01
+  volumeName: pv-postgres16
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi

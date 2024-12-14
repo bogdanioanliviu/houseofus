@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-kuma
+  namespace: kuma
+  labels:
+    app: kuma
+spec:
+  selector:
+    app: kuma
+  ports:
+    - name: http
+      protocol: TCP
+      port: 3001
+      targetPort: 3001
+  type: NodePort

@@ -1,0 +1,66 @@
+trigger:
+  paths:
+   include:
+     - kube_apps/update_img/influxdb/*
+
+pool:
+  name: Default
+
+variables:
+  - name: tag
+    value: "2.6.1"
+
+stages:
+  - stage: Build
+    displayName: Build new img
+    pool:
+      name: Default
+    jobs:
+      - job: Build
+        displayName: Build
+        steps:
+          - task: Docker@2
+            displayName: Build an image
+            inputs:
+              containerRegistry: 'my_dockerHub'
+              repository: 'influx'
+              command: 'build'
+              Dockerfile: 'kube_apps/update_img/influxdb/Dockerfile'
+              arguments: '-t bogdanioanliviu/influx:$(tag)'
+          - task: Bash@3
+            displayName: Scan img trivy
+            inputs:
+              targetType: 'inline'
+              script: |
+                docker run --rm  -v /var/run/docker.sock:/var/run/docker.sock -v /home/bil/.docker:/root/.docker \
+                -v $PWD:/src --workdir /src aquasec/trivy:latest \
+                image --ignore-unfixed --severity HIGH,CRITICAL --format sarif -o /src/report.sarif \
+                --scanners vuln,config,secret bogdanioanliviu/influx:$(tag)
+
+          - task: PublishBuildArtifacts@1
+            displayName: "Publish scan results"
+            inputs:
+              pathToPublish: $(System.DefaultWorkingDirectory)/report.sarif
+              artifactName: CodeAnalysisLogs
+            condition: 'always()'
+          #- task: Docker@2
+          #  inputs:
+          #    containerRegistry: 'my_dockerHub'
+          #    repository: 'bogdanioanliviu/influx'
+          #    command: 'push'
+          #    tags: '$(tag)'
+
+  - stage: CleanUp
+    displayName: Clean up
+    dependsOn: Build
+    pool:
+      name: Default
+    jobs:
+      - job: CleanUp_img
+        steps:
+          - task: Bash@3
+            displayName: Delete docker img
+            inputs:
+              targetType: 'inline'
+              script: 'docker rmi bogdanioanliviu/influx:$(tag) aquasec/trivy:latest'
+              failOnStderr: true

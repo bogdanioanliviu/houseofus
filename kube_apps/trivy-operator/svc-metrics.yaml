@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-trivy-operator
+  namespace: trivy-system
+  labels:
+    app.kubernetes.io/name: trivy-operator
+    app.kubernetes.io/instance: trivy-operator
+    app.kubernetes.io/version: "0.9.0"
+    app.kubernetes.io/managed-by: kubectl
+  annotations:
+    # Esto es para que prometheus coja las métricas automáticamente
+    #prometheus.io/path: "/metrics"
+    #prometheus.io/port: "80"
+    prometheus.io/scrape: "true"
+
+spec:
+  ports:
+    - name: metrics
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+  selector:
+    app.kubernetes.io/name: trivy-operator
+    app.kubernetes.io/instance: trivy-operator
+  type: ClusterIP
+  sessionAffinity: None
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  internalTrafficPolicy: Cluster

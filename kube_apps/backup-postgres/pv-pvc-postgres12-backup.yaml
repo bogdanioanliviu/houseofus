@@ -1,0 +1,34 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-postgres12-backup
+  namespace: postgres
+  labels:
+    type: nfs
+    app: postgres
+spec:
+  storageClassName: managed-nfs-storage
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /mnt/pool1/nfskube/backups
+    server: truenas.houseofus.eu
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-postgres-backup
+  namespace: postgres
+  labels:
+    app: postgres
+    type: nfs
+spec:
+  storageClassName: managed-nfs-storage
+  volumeName: pv-postgres12-backup
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi

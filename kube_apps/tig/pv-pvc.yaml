@@ -1,0 +1,34 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-influx
+  namespace: tig
+  labels:
+    type: nfs
+    app: influx
+spec:
+  storageClassName: nfs-01
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /mnt/pool1/nfskube/influx
+    server: truenas.houseofus.eu
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-influx
+  namespace: tig
+  labels:
+    app: influx
+    type: nfs
+spec:
+  storageClassName: nfs-01
+  volumeName: pv-influx
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Gi

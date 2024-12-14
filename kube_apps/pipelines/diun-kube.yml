@@ -1,0 +1,83 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+
+trigger:
+ paths:
+   include:
+     - kube_apps/diun/*.yaml
+
+pool:
+  name: Default
+
+variables:
+  - name: telegram-token-houseofus
+    value: $(telegram-token)
+
+steps:
+#- task: Bash@3
+#  displayName: Get image version
+#  inputs:
+#    filePath: '$(System.DefaultWorkingDirectory)/kube_apps/diun/get_image_name.sh'
+#    failOnStderr: true
+#- task: Docker@2
+#  displayName: Update image
+#  inputs:
+#    containerRegistry: 'my_dockerHub'
+#    repository: 'diun'
+#    command: 'build'
+#    Dockerfile: '**/Dockerfile'
+#    arguments: '-t $(img)'
+    # '-t bogdanioanliviu/diun:$(Build.BuildId)' # $(img)
+#- task: Bash@3
+#  displayName: Scan img trivy
+#  inputs:
+#    targetType: 'inline'
+#    script: |
+#      docker run --rm  -v /var/run/docker.sock:/var/run/docker.sock -v /home/bil/.docker:/root/.docker \
+#      -v $PWD:/src --workdir /src aquasec/trivy:latest \
+#      image --ignore-unfixed --exit-code 0 --severity MEDIUM,HIGH,CRITICAL --format sarif -o /src/report.sarif \
+#      --scanners vuln,config,secret $(img)
+#- task: PublishBuildArtifacts@1
+#  displayName: "Publish scan results"
+#  inputs:
+#    pathToPublish: $(System.DefaultWorkingDirectory)/report.sarif
+#    artifactName: CodeAnalysisLogs
+#  condition: 'always()'
+#- task: Bash@3
+#  displayName: Push new image
+#  inputs:
+#    targetType: 'inline'
+#    script: |
+#      docker push $(img)
+#- task: Bash@3
+#  displayName: Clean Up
+#  inputs:
+#    targetType: 'inline'
+#    script: 'docker rmi -f $(img) aquasec/trivy:latest crazymax/diun:latest'
+#    failOnStderr: true
+
+- task: replacetokens@3
+  displayName: 'Update manifests'
+  inputs:
+    rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/diun/'
+    targetFiles: '**/*.yaml'
+    encoding: 'auto'
+    writeBOM: true
+    actionOnMissing: 'warn'
+    keepToken: true
+    actionOnNoFiles: 'fail'
+    enableTransforms: false
+    tokenPrefix: '{'
+    tokenSuffix: '}'
+    enableRecursion: false
+    useLegacyPattern: false
+    enableTelemetry: true
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/diun/
+    failOnStderr: true
+    noProfile: false

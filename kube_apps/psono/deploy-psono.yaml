@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: psono
+  namespace: psono
+  labels:
+    app: psono
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: psono
+  template:
+    metadata:
+      labels:
+        app: psono
+      annotations:
+        diun.enable: "true"
+        diun.watch_repo: "true"
+    spec:
+      securityContext:
+        sysctls:
+          - name: net.core.somaxconn
+            value: "65535"
+      containers:
+        - name: psono-server
+          image: psono/psono-server-enterprise:5.0.7
+          imagePullPolicy: "IfNotPresent"
+          resources:
+            requests:
+              memory: "799Mi"
+              cpu: "10m"
+            limits:
+              memory: "1024Mi"
+          env:
+            - name: TZ
+              value: "Europe/Madrid"
+          ports:
+            - containerPort: 80
+              protocol: TCP
+              name: http
+          volumeMounts:
+            - mountPath: /root/.psono_server/settings.yaml
+              name: psono
+              subPath: settings.yaml
+            - mountPath: /var/log/psono
+              name: psono
+              subPath: logs
+      restartPolicy: Always
+      volumes:
+        - name: psono
+          persistentVolumeClaim:
+            claimName: pvc-psono

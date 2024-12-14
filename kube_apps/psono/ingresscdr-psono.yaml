@@ -1,0 +1,55 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: psono-ingresscdr
+  namespace: psono
+
+spec:
+  entryPoints:
+    - websecure
+
+  routes:
+  - kind: Rule
+    match: Host(`psono.houseofus.eu`)
+    services:
+    - kind: Service
+      name: svc-psono-nginx-proxy-cluster
+      port: 443
+      namespace: psono
+      scheme: https
+      serversTransport: psono-transport
+      #sticky:
+      #  cookie:
+      #    name: nc_session_id
+  tls:
+    certResolver: file
+    options:
+      name: psono-tls
+      namespace: psono
+---
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: psono-transport
+  namespace: psono
+
+spec:
+    insecureSkipVerify: true
+    serverName: "psono"
+---
+apiVersion: traefik.io/v1alpha1
+kind: TLSOption
+metadata:
+  name: psono-tls
+  namespace: psono
+
+spec:
+  minVersion: VersionTLS12
+  maxVersion: VersionTLS13
+  curvePreferences:
+    - CurveP521
+    - CurveP384
+  cipherSuites:
+    - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+    - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+    - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384

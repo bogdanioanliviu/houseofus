@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: influx
+  namespace: tig
+  labels:
+    app: influx
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: influx
+  template:
+    metadata:
+      labels:
+        app: influx
+      annotations:
+        diun.enable: "true"
+        diun.watch_repo: "true"
+        diun.include_tags: "latest;2.7.*"
+    spec:
+      containers:
+        - name: influxdb
+          image: influxdb:2.7.11-alpine
+          imagePullPolicy: "Always"
+          resources:
+            limits:
+              memory: "1258Mi"
+            requests:
+              memory: "955Mi"
+              cpu: "26m"
+          ports:
+            - containerPort: 8086
+              protocol: TCP
+              name: http
+          envFrom:
+            - configMapRef:
+                name: influx-secrets
+          volumeMounts:
+            - mountPath: /var/lib/influxdb2
+              name: influx-data
+      volumes:
+        - name: influx-data
+          persistentVolumeClaim:
+            claimName: pvc-influx

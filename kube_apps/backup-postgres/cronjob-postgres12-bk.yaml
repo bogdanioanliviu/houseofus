@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: postgres12-backup
+  namespace: postgres
+  labels:
+    app: postgres
+spec:
+  # Backup the database every day at 2AM
+  schedule: "0 12 * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  concurrencyPolicy: "Forbid"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: postgres-backup
+            image: postgres:12.11
+            command: ["/bin/sh"]
+            args: ["-c", 'echo "$PGPASS" > /root/.pgpass && chmod 600 /root/.pgpass && pg_dump -F t -v -U postgres -h postgres-svc.postgres.svc.cluster.local ha > /var/backups/1/backup-ha-$(date +"%m-%d-%Y").tar && tar -zcvf /var/backups/backup-ha-$(date +"%m-%d-%Y").tar.gz /var/backups/1 && rm /var/backups/1/backup-ha-$(date +"%m-%d-%Y").tar']
+            env:
+            - name: PGPASS
+              valueFrom:
+                secretKeyRef:
+                  name: pgpass12
+                  key: pgpass
+            volumeMounts:
+            - mountPath: /var/backups
+              name: postgres-backup-storage
+          restartPolicy: Never
+          volumes:
+          - name: postgres-backup-storage
+            persistentVolumeClaim:
+              claimName: pvc-postgres-backup

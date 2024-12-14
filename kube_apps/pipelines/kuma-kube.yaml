@@ -1,0 +1,25 @@
+trigger:
+ paths:
+   include:
+     - kube_apps/kuma/*
+
+pool:
+  name: Default
+
+steps:
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/kuma/deploy-kuma.yaml'
+    failOnStderr: true
+    noProfile: false
+  displayName: "Deploy new img."
+
+- task: SendTelegramNotification@0
+  inputs:
+    botToken: '$(telegram-token)'
+    chats: '$(telegram-chat)'
+    teamUrl: true
+    message: 'Pipeline for kuma update status.'
+    buildNumber: true
+  displayName: 'Send Telegram notification'

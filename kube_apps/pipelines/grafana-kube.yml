@@ -1,0 +1,43 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  paths:
+    include:
+      - kube_apps/tig/deploy-grafana.yaml
+      - kube_apps/tig/ingress-grafana.yaml
+      - kube_apps/tig/svc-grafana-cluster.yaml
+
+pool:
+  name: Default
+
+steps:
+
+- task: replacetokens@3
+  displayName: 'Update manifests'
+  inputs:
+    rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/tig/'
+    targetFiles: 'deploy-grafana.yaml'
+    encoding: 'auto'
+    writeBOM: true
+    actionOnMissing: 'warn'
+    keepToken: true
+    actionOnNoFiles: 'fail'
+    enableTransforms: false
+    tokenPrefix: '{'
+    tokenSuffix: '}'
+    enableRecursion: false
+    useLegacyPattern: false
+    enableTelemetry: true
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      kubectl apply -f ./kube_apps/tig/svc-grafana-cluster.yaml
+      kubectl apply -f ./kube_apps/tig/ingress-grafana.yaml
+      kubectl apply -f ./kube_apps/tig/deploy-grafana.yaml
+    failOnStderr: true
+    noProfile: false

@@ -1,0 +1,44 @@
+# Create a storage class from microk8s default host storage class
+# that allows data retention and volume expansion.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: media-storage
+provisioner: cluster.local/nfs-provisioner-01-nfs-subdir-external-provisioner
+reclaimPolicy: Retain
+allowVolumeExpansion: True
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-media
+  namespace: jellyfin
+  labels:
+    type: nfs
+    app: jellyfin
+spec:
+  storageClassName: media-storage
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /mnt/WD_pool/kodi
+    server: truenas.houseofus.eu
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-media
+  namespace: jellyfin
+  labels:
+    app: jellyfin
+    type: nfs
+spec:
+  storageClassName: media-storage
+  volumeName: pv-media
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi

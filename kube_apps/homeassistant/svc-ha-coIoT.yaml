@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-homeassist-coiot
+  namespace: home-assist
+  labels:
+    app: homeassist
+spec:
+  selector:
+    app: homeassist
+  ports:
+    - name: coiot
+      protocol: UDP
+      port: 5683
+      targetPort: 5683
+  type: NodePort

@@ -1,0 +1,40 @@
+trigger:
+  paths:
+    include:
+      - kube_apps/traeffik/configmap-trafik.yaml
+      - kube_apps/traeffik/deploy-traefik.yaml
+      - kube_apps/traeffik/service-account.yaml
+      - kube_apps/traeffik/svc-trafik-all.yaml
+
+pool:
+  name: Default
+
+steps:
+- task: replacetokens@5
+  displayName: 'Update manifests'
+  inputs:
+    rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/traeffik/'
+    targetFiles: '**/*.yaml'
+    encoding: 'auto'
+    tokenPattern: 'custom'
+    tokenPrefix: '{!'
+    tokenSuffix: '!}'
+    writeBOM: true
+    actionOnMissing: 'warn'
+    keepToken: true
+    actionOnNoFiles: 'fail'
+    enableTransforms: false
+    enableRecursion: false
+    useLegacyPattern: false
+    enableTelemetry: true
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      kubectl apply -f ./kube_apps/traeffik/configmap-trafik.yaml
+      kubectl apply -f ./kube_apps/traeffik/service-account.yaml
+      kubectl apply -f ./kube_apps/traeffik/svc-trafik-all.yaml
+      kubectl apply -f ./kube_apps/traeffik/deploy-traefik.yaml
+    failOnStderr: true
+    noProfile: false

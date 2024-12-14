@@ -1,0 +1,13 @@
+trigger: none
+
+pool: second-k8s
+
+steps:
+  - script: echo Hello world
+    displayName: 'Run one line'
+
+  - script: sleep 1m
+
+  - script: |
+      echo Another echo something
+    displayName: 'Second script inline'

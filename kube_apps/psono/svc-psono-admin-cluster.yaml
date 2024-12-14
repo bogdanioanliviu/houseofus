@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-psono-admin-cluster
+  namespace: psono
+  labels:
+    app: psono-admin
+spec:
+  selector:
+    app: psono-admin
+  ports:
+    - name: http
+      protocol: TCP
+      port: 10102
+      targetPort: 80
+  type: ClusterIP

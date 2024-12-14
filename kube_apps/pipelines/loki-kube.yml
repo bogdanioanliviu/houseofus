@@ -1,0 +1,27 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  paths:
+    include:
+      - kube_apps/grafana_loki/configMap_loki.yaml
+      - kube_apps/grafana_loki/deploy-loki.yaml
+      - kube_apps/grafana_loki/svc-loki.yaml
+
+pool:
+  name: Default
+
+steps:
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      kubectl apply -f ./kube_apps/grafana_loki/pv-pvc_loki.yaml
+      kubectl apply -f ./kube_apps/grafana_loki/configMap_loki.yaml
+      kubectl apply -f ./kube_apps/grafana_loki/deploy-loki.yaml
+      kubectl apply -f ./kube_apps/grafana_loki/svc-loki.yaml
+    failOnStderr: true
+    noProfile: false

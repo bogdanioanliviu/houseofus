@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ha-ingress
+  namespace: home-assist
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.tls.certresolver: file
+    traefik.ingress.kubernetes.io/router.tls.domains.0.main: houseofus.eu
+    traefik.ingress.kubernetes.io/router.tls.domains.0.sans: ha.houseofus.eu
+    traefik.ingress.kubernetes.io/service.serversscheme: h2c
+
+spec:
+  rules:
+    - host: ha.houseofus.eu
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: svc-homeassist-cluster
+              port:
+                number: 8123

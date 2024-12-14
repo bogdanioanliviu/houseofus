@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: promtail-daemonset
+  namespace: tig
+  labels:
+    app: promtail
+spec:
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      name: promtail
+  template:
+    metadata:
+      labels:
+        name: promtail
+
+    spec:
+      serviceAccount: promtail-serviceaccount
+      serviceAccountName: promtail-serviceaccount
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+      containers:
+        - name: promtail-container
+          image: grafana/promtail:3.2.1
+          imagePullPolicy: "Always"
+          args: ["-config.file", "/etc/promtail/config.yml"]
+          resources:
+            requests:
+              memory: "99Mi"
+              cpu: "10m"
+            limits:
+              memory: "123Mi"
+          ports:
+            - name: http-metrics
+              containerPort: 3201
+              protocol: TCP
+          env:
+            - name: TZ
+              value: "Europe/Madrid"
+            - name: 'HOSTNAME' # needed when using kubernetes_sd_configs
+              valueFrom:
+                fieldRef:
+                  fieldPath: 'spec.nodeName'
+          volumeMounts:
+            - name: promtail-conf
+              mountPath: /etc/promtail/config.yml
+              subPath: config.yml
+            - name: pods
+              mountPath: /var/log/pods
+              readOnly: true
+      volumes:
+        - name: promtail-conf
+          configMap:
+            name: promtail-config
+        - name: pods
+          hostPath:
+            path: /var/log/pods

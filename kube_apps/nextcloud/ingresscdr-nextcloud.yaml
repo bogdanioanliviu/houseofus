@@ -1,0 +1,55 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nextcloud-ingresscdr
+  namespace: nextcloud
+
+spec:
+  entryPoints:
+    - websecure
+
+  routes:
+  - kind: Rule
+    match: Host(`cloud.houseofus.eu`)
+    services:
+    - kind: Service
+      name: svc-nextcloud-cluster
+      port: 443
+      namespace: nextcloud
+      scheme: https
+      serversTransport: nextcloud-transport
+      sticky:
+        cookie:
+          name: nc_session_id
+  tls:
+    certResolver: file
+    options:
+      name: nextcloud-tls
+      namespace: nextcloud
+---
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: nextcloud-transport
+  namespace: nextcloud
+
+spec:
+    insecureSkipVerify: true
+    serverName: "cloud"
+---
+apiVersion: traefik.io/v1alpha1
+kind: TLSOption
+metadata:
+  name: nextcloud-tls
+  namespace: nextcloud
+
+spec:
+  minVersion: VersionTLS12
+  maxVersion: VersionTLS13
+  curvePreferences:
+    - CurveP521
+    - CurveP384
+  cipherSuites:
+    - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+    - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+    - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384

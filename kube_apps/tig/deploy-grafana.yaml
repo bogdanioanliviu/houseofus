@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: tig
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: grafana
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: grafana
+      annotations:
+        diun.enable: "true"
+        diun.watch_repo: "true"
+        diun.include_tags: "latest"
+    spec:
+      containers:
+        - name: grafana
+          image: grafana/grafana:11.3.1-ubuntu
+          imagePullPolicy: "IfNotPresent"
+          resources:
+            limits:
+              memory: "512Mi"
+            requests:
+              memory: "50Mi"
+              cpu: "10m"
+          env:
+            - name: TZ
+              value: "Europe/Madrid"
+            - name: GF_INSTALL_PLUGINS
+              value: novatec-sdg-panel, redis-app, redis-datasource, grafana-piechart-panel, blackmirror1-singlestat-math-panel, grafana-worldmap-panel, grafana-clock-panel, grafana-simple-json-datasource
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              value: {Grafana-Admin-Pass}
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+              name: http
+          volumeMounts:
+            - mountPath: /var/lib/grafana
+              name: grafana-volume
+              subPath: data/
+            -  mountPath: /etc/grafana/provisioning
+               name: grafana-volume
+               subPath: provisioning/
+            - mountPath: /etc/grafana/grafana.ini
+              name: grafana-volume
+              subPath: grafana.ini
+              readOnly: true
+      restartPolicy: Always
+      volumes:
+        - name: grafana-volume
+          persistentVolumeClaim:
+            claimName: pvc-grafana

@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loki
+  namespace: tig
+  labels:
+    app: loki
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: loki
+  template:
+    metadata:
+      labels:
+        app: loki
+
+    spec:
+      containers:
+        - name: loki
+          image: grafana/loki:3.2.1
+          imagePullPolicy: "IfNotPresent"
+          args: ["-config.file", "/mnt/config/loki-config.yml"]
+          resources:
+            limits:
+              memory: "200Mi"
+            requests:
+              memory: "120Mi"
+              cpu: "10m"
+          env:
+            - name: TZ
+              value: "Europe/Madrid"
+          ports:
+            - containerPort: 3100
+          volumeMounts:
+            - name: loki-conf
+              mountPath: /mnt/config/loki-config.yml
+              subPath: loki-config.yml
+            - name: storage
+              mountPath: /data
+      volumes:
+        - name: loki-conf
+          configMap:
+            name: loki-config
+        - name: storage
+          persistentVolumeClaim:
+            claimName: pvc-loki
+      dnsPolicy: ClusterFirst
+      serviceAccountName: promtail-serviceaccount
+      #serviceAccount: promtail-serviceaccount
+      securityContext:
+        runAsUser: 10001
+        runAsGroup: 10001
+        runAsNonRoot: true
+        fsGroup: 10001
+      restartPolicy: Always

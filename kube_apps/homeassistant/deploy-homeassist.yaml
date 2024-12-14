@@ -1,0 +1,63 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  labels:
+    app: homeassist
+  name: homeassist
+  namespace: home-assist
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: homeassist
+  template:
+    metadata:
+      labels:
+        app: homeassist
+      annotations:
+        diun.enable: "true"
+        diun.watch_repo: "true"
+        diun.include_tags: "2024.9.*;2024.10.*"
+    spec:
+      initContainers:
+        - name: check-db-ready
+          image: postgres:15.8-alpine3.20
+          imagePullPolicy: "IfNotPresent"
+          command: [ 'sh', '-c',
+            'until pg_isready -h postgres15.postgres.svc.cluster.local -p 5432; 
+            do echo waiting for database; sleep 2; done;' ]
+          resources:
+            limits:
+              memory: "136Mi"
+            requests:
+              memory: "92Mi"
+              cpu: "110m"
+      containers:
+        - name: homeassist
+          image: ghcr.io/home-assistant/home-assistant:2024.12.3
+          imagePullPolicy: "IfNotPresent"
+          resources:
+            limits:
+              memory: "500Mi"
+            requests:
+              memory: "389Mi"
+              cpu: "10m"
+          env:
+            - name: TZ
+              value: Europe/Madrid
+          ports:
+            - containerPort: 8123
+              protocol: TCP
+              name: http
+            - containerPort: 5683
+              protocol: UDP
+              name: coiot
+          volumeMounts:
+            - name: ha-data
+              mountPath: /config
+      restartPolicy: Always
+      volumes:
+        - name: ha-data
+          persistentVolumeClaim:
+            claimName: pvc-homeassist

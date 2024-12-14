@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cron-psono
+  namespace: psono
+spec:
+  schedule: "30 2 * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  concurrencyPolicy: "Forbid"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: cron-psono
+              image: psono/psono-server-enterprise:latest
+              args:
+                - python3
+                - /root/psono/manage.py
+                - cleartoken
+              volumeMounts:
+                - mountPath: /root/.psono_server/settings.yaml
+                  name: psono
+                  subPath: settings.yaml
+          restartPolicy: Never
+          volumes:
+            - name: psono
+              persistentVolumeClaim:
+                claimName: pvc-psono

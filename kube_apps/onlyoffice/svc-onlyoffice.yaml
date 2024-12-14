@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-onlyoffice
+  namespace: onlyoffice
+  labels:
+    app: onlyoffice
+spec:
+  selector:
+    app: onlyoffice
+  ports:
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+  type: NodePort

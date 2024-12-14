@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: svc-homeassist-cluster
+  namespace: home-assist
+  labels:
+    app: homeassist
+spec:
+  selector:
+    app: homeassist
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8123
+      targetPort: 8123
+  type: ClusterIP

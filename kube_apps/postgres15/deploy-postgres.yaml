@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres15
+  namespace: postgres
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: postgres15
+  template:
+    metadata:
+      labels:
+        app: postgres15
+      annotations:
+        diun.enable: "true"
+        diun.watch_repo: "true"
+        diun.include_tags: "15.*-alpine3.19"
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15.9-alpine3.20
+          imagePullPolicy: "Always"
+          resources:
+            limits:
+              memory: "512Mi"
+            requests:
+              memory: "224Mi"
+              cpu: "10m"
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - secretRef:
+                name: postgres15-secret
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgredb
+      volumes:
+        - name: postgredb
+          persistentVolumeClaim:
+            claimName: pvc-postgres15
