@@ -1,0 +1,40 @@
+- hosts:
+    - localhost
+
+  vars:
+    deploy_file: "{{ file_name_deploy }}"
+    path_file: "{{ path_to_yaml }}"
+    final_deploy: "{{ final_name }}"
+    app_name: "{{ my_app }}"
+    img_name: "{{container_image}}"
+    deployment_enabled: true
+
+  tasks:
+
+    - name: ensure manifest dir exists
+      file:
+        path: "{{path_file}}"
+        state: directory
+
+    #- name: kubectl get secrets
+    #  shell: kubectl get secrets
+    #  register: kube_secrets
+
+    - name: create manifest template for kube deploy
+      template:
+        src: "{{deploy_file}}"
+        dest: "{{path_file}}/{{final_deploy}}"
+      register: deploy_template
+
+    # Applys
+    - block:
+        - name: apply kubernetes deployment
+          shell: "kubectl apply -f {{path_file}}/{{final_deploy}}"
+      when: "deployment_enabled"
+
+    # Removals
+    - block:
+        - name: remove kubernetes deployment
+          shell: "kubectl delete -f {{path_file}}/{{final_deploy}}"
+          register: remove_kube_deployment
+      when: not deployment_enabled

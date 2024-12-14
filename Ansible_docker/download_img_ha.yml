@@ -1,0 +1,22 @@
+- hosts: knode01,knode02
+  vars:
+    ha_img: "{{ ha_img }}"
+    telegram_token: "{{ tele_token }}"
+  tasks:
+    - name: Get new ha img
+      shell: 'docker pull {{ ha_img }}'
+
+    - block:
+      - name: Send message to telegram Group if new version done
+        telegram:
+          token: '{{ telegram_token }}'
+          chat_id: '-320842825'
+          msg: "Sa descarcat noua img {{ ha_img }}. "
+        when: result.rc == 0
+    - block:
+      - name: Send message to telegram Group if error
+        telegram:
+          token: '{{ telegram_token }}'
+          chat_id: '-320842825'
+          msg: "Sunt errori in descarga de img. "
+        when: result.rc == 1
