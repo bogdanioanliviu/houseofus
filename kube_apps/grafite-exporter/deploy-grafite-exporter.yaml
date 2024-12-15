@@ -173,7 +173,7 @@ spec:
   type: ClusterIP
   ports:
     - name: metrics
-      port: 9109
+      port: 9108
       targetPort: metrics
       protocol: TCP
   selector:
