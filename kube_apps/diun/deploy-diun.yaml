@@ -21,7 +21,7 @@ spec:
       containers:
         - name: diun
           #image: bogdanioanliviu/diun:4.26.0
-          image: crazymax/diun:4.28.0
+          image: crazymax/diun:4.29.0
           imagePullPolicy: "Always"
           resources:
             limits:
