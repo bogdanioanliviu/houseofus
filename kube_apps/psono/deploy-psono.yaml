@@ -25,7 +25,7 @@ spec:
             value: "65535"
       containers:
         - name: psono-server
-          image: psono/psono-server-enterprise:5.0.9
+          image: psono/psono-server-enterprise:5.0.10
           imagePullPolicy: "IfNotPresent"
           resources:
             requests:
