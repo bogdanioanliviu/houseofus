@@ -10,8 +10,8 @@ data:
       dashboard: true
     accessLog: {}
     entryPoints:
-      web:
-        address: ":80"
+      #web:
+      #  address: ":80"
       websecure:
         address: ":443"
         http:

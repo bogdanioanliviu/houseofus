@@ -40,8 +40,8 @@ spec:
             limits:
               memory: "150Mi"
           ports:
-            - name: web
-              containerPort: 80
+            #- name: web
+            #  containerPort: 80
             - name: dashboard
               containerPort: 8080
             - name: websecure
