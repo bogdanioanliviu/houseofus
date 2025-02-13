@@ -29,8 +29,8 @@ spec:
         supplementalGroups: [ 0 ]
       containers:
         - name: traefik
-          securityContext:
-            runAsUser: 977
+#          securityContext:
+#            runAsUser: 977
           image: traefik:v3.3.3
           imagePullPolicy: "IfNotPresent"
           resources:
