@@ -22,11 +22,11 @@ spec:
         diun.include_tags: "latest"
     spec:
       serviceAccountName: traefik-account
-      securityContext:
-        runAsUser: 977
-        runAsGroup: 988
-        #fsGroup: 0
-        supplementalGroups: [ 0 ]
+#      securityContext:
+#        runAsUser: 977
+#        runAsGroup: 988
+#        #fsGroup: 0
+#        supplementalGroups: [ 0 ]
       containers:
         - name: traefik
 #          securityContext:
