@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: postgres15
   namespace: postgres
+  labels:
+    app: postgres15
 spec:
   replicas: 1
   revisionHistoryLimit: 1
@@ -18,10 +20,17 @@ spec:
         diun.watch_repo: "true"
         diun.include_tags: "15.*-alpine3.20"
     spec:
+      securityContext:
+        runAsUser: 977
+        runAsGroup: 988
+        #fsGroup: 0
+        supplementalGroups: [ 0 ]
       containers:
         - name: postgres
+          securityContext:
+            runAsUser: 977
           image: postgres:15.10-alpine3.20
-          imagePullPolicy: "Always"
+          imagePullPolicy: "IfNotPresent"
           resources:
             limits:
               memory: "512Mi"
@@ -39,4 +48,4 @@ spec:
       volumes:
         - name: postgredb
           persistentVolumeClaim:
-            claimName: pvc-postgres15
+            claimName: pvc-postgres15-unifi
