@@ -19,11 +19,18 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "latest;10.9.*;10.10.*"
-        diun.exclude_tags: "10.*.*unstable"
+        diun.include_tags: "latest"
+        diun.exclude_tags: "*unstable"
     spec:
+      securityContext:
+        runAsUser: 977
+        runAsGroup: 988
+        #fsGroup: 0
+        supplementalGroups: [ 0 ]
       containers:
         - name: jellyfin
+          securityContext:
+            runAsUser: 977
           image: docker.io/jellyfin/jellyfin:10.10.5
           imagePullPolicy: "IfNotPresent"
           resources:
@@ -69,4 +76,4 @@ spec:
           claimName: pvc-media
       - name: jellyfin-config
         persistentVolumeClaim:
-          claimName: pvc-jellyfin
+          claimName: pvc-jellyfin-unifi

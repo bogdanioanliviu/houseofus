@@ -1,32 +1,32 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: pv-jellyfin
+  name: pv-jellyfin-unifi
   namespace: jellyfin
   labels:
     type: nfs
     app: jellyfin
 spec:
-  storageClassName: nfs-01
+  storageClassName: unifi-nfs-kube
   capacity:
     storage: 5Gi
   accessModes:
     - ReadWriteMany
   nfs:
-    path: /mnt/pool1/nfskube/jellyfin
-    server: truenas.houseofus.eu
+    path: /var/nfs/shared/kube_nfs/jellyfin
+    server: unifinas.houseofus.eu
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pvc-jellyfin
+  name: pvc-jellyfin-unifi
   namespace: jellyfin
   labels:
     app: jellyfin
     type: nfs
 spec:
-  storageClassName: nfs-01
-  volumeName: pv-jellyfin
+  storageClassName: unifi-nfs-kube
+  volumeName: pv-jellyfin-unifi
   accessModes:
     - ReadWriteMany
   resources:
