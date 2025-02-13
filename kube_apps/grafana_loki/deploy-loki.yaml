@@ -15,10 +15,17 @@ spec:
     metadata:
       labels:
         app: loki
-
     spec:
+      securityContext:
+        runAsUser: 977
+        runAsGroup: 988
+        runAsNonRoot: true
+        fsGroup: 988
+        supplementalGroups: [ 0 ]
       containers:
         - name: loki
+          securityContext:
+            runAsUser: 977
           image: grafana/loki:3.2.1
           imagePullPolicy: "IfNotPresent"
           args: ["-config.file", "/mnt/config/loki-config.yml"]
@@ -45,13 +52,12 @@ spec:
             name: loki-config
         - name: storage
           persistentVolumeClaim:
-            claimName: pvc-loki
+            claimName: pvc-loki-unifi
       dnsPolicy: ClusterFirst
       serviceAccountName: promtail-serviceaccount
-      #serviceAccount: promtail-serviceaccount
-      securityContext:
-        runAsUser: 10001
-        runAsGroup: 10001
-        runAsNonRoot: true
-        fsGroup: 10001
+#      securityContext:
+#        runAsUser: 10001
+#        runAsGroup: 10001
+#        runAsNonRoot: true
+#        fsGroup: 10001
       restartPolicy: Always

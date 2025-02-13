@@ -1,32 +1,32 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: pv-loki
+  name: pv-loki-unifi
   namespace: tig
   labels:
     type: nfs
     app: loki
 spec:
-  storageClassName: nfs-01
+  storageClassName: unifi-nfs-kube
   capacity:
     storage: 5Gi
   accessModes:
     - ReadWriteOnce
   nfs:
-    path: /mnt/pool1/nfskube/loki
-    server: truenas.houseofus.eu
+    path: /var/nfs/shared/kube_nfs/loki
+    server: unifinas.houseofus.eu
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pvc-loki
+  name: pvc-loki-unifi
   namespace: tig
   labels:
     app: loki
     type: nfs
 spec:
-  storageClassName: nfs-01
-  volumeName: pv-loki
+  storageClassName: unifi-nfs-kube
+  volumeName: pv-loki-unifi
   accessModes:
     - ReadWriteOnce
   resources:
