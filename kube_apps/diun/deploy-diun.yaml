@@ -18,11 +18,17 @@ spec:
         diun.watch_repo: "true"
     spec:
       serviceAccountName: diun
+      securityContext:
+        runAsUser: 977
+        runAsGroup: 988
+        #fsGroup: 0
+        supplementalGroups: [ 0 ]
       containers:
         - name: diun
-          #image: bogdanioanliviu/diun:4.26.0
           image: crazymax/diun:4.29.0
-          imagePullPolicy: "Always"
+          securityContext:
+            runAsUser: 977
+          imagePullPolicy: "IfNotPresent"
           resources:
             limits:
               memory: "100Mi"
@@ -65,4 +71,4 @@ spec:
       volumes:
         - name: "data"
           persistentVolumeClaim:
-            claimName: pvc-diun
+            claimName: pvc-diun-unifi
