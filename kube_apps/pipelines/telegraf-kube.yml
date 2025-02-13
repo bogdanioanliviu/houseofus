@@ -7,6 +7,7 @@ trigger:
  paths:
    include:
      - kube_apps/tig/deploy-telegraf.yaml
+     - kube_apps/tig/secret-telegraf.yaml
 
 pool:
   name: Default
@@ -16,7 +17,7 @@ steps:
   displayName: 'Update manifests'
   inputs:
     rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/tig/'
-    targetFiles: 'deploy-telegraf.yaml'
+    targetFiles: 'secret-telegraf.yaml'
     encoding: 'auto'
     writeBOM: true
     actionOnMissing: 'warn'
@@ -33,6 +34,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/tig/secret-telegraf.yaml
       kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/tig/deploy-telegraf.yaml
     failOnStderr: true
     noProfile: false
