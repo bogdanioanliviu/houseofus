@@ -5,7 +5,6 @@ metadata:
   namespace: traefik
   labels:
     app: traefik
-
 spec:
   replicas: 1
   revisionHistoryLimit: 1
@@ -22,15 +21,8 @@ spec:
         diun.include_tags: "latest"
     spec:
       serviceAccountName: traefik-account
-#      securityContext:
-#        runAsUser: 977
-#        runAsGroup: 988
-#        #fsGroup: 0
-#        supplementalGroups: [ 0 ]
       containers:
         - name: traefik
-#          securityContext:
-#            runAsUser: 977
           image: traefik:v3.3.3
           imagePullPolicy: "IfNotPresent"
           resources:
@@ -40,8 +32,8 @@ spec:
             limits:
               memory: "150Mi"
           ports:
-            #- name: web
-            #  containerPort: 80
+            - name: web
+              containerPort: 80
             - name: dashboard
               containerPort: 8080
             - name: websecure
