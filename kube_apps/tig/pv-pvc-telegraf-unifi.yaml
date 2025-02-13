@@ -1,32 +1,32 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: pv-telegraf
+  name: pv-telegraf-unifi
   namespace: tig
   labels:
     type: nfs
     app: telegraf
 spec:
-  storageClassName: nfs-01
+  storageClassName: unifi-nfs-kube
   capacity:
     storage: 10Mi
   accessModes:
     - ReadWriteMany
   nfs:
-    path: /mnt/pool1/nfskube/telegraf
-    server: truenas.houseofus.eu
+    path: /var/nfs/shared/kube_nfs/telegraf
+    server: unifinas.houseofus.eu
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pvc-telegraf
+  name: pvc-telegraf-unifi
   namespace: tig
   labels:
     app: telegraf
     type: nfs
 spec:
-  storageClassName: nfs-01
-  volumeName: pv-telegraf
+  storageClassName: unifi-nfs-kube
+  volumeName: pv-telegraf-unifi
   accessModes:
     - ReadWriteMany
   resources:
