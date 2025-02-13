@@ -22,10 +22,17 @@ spec:
         diun.include_tags: "latest"
     spec:
       serviceAccountName: traefik-account
+      securityContext:
+        runAsUser: 977
+        runAsGroup: 988
+        #fsGroup: 0
+        supplementalGroups: [ 0 ]
       containers:
         - name: traefik
+          securityContext:
+            runAsUser: 977
           image: traefik:v3.3.3
-          imagePullPolicy: "Always"
+          imagePullPolicy: "IfNotPresent"
           resources:
             requests:
               memory: "65Mi"
@@ -53,7 +60,7 @@ spec:
       volumes:
         - name: certif
           persistentVolumeClaim:
-            claimName: pvc-traefik
+            claimName: pvc-traefik-unifi
         - name: config
           configMap:
             name: trafik-config

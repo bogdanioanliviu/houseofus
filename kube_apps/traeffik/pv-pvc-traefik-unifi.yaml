@@ -1,0 +1,32 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-traefik-unifi
+  namespace: traefik
+  labels:
+    app: traefik
+spec:
+  storageClassName: unifi-nfs-kube
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /var/nfs/shared/kube_nfs/traefik
+    server: unifinas.houseofus.eu
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-traefik-unifi
+  namespace: traefik
+  labels:
+    app: traefik
+spec:
+  storageClassName: unifi-nfs-kube
+  volumeName: pv-traefik-unifi
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Mi
