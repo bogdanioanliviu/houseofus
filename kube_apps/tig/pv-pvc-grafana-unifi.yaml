@@ -14,7 +14,7 @@ spec:
     - ReadWriteMany
   nfs:
     path: /var/nfs/shared/kube_nfs/grafana
-    server: truenas.houseofus.eu
+    server: unifinas.houseofus.eu
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
