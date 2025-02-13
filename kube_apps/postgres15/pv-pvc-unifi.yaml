@@ -1,0 +1,32 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-postgres15-unifi
+  namespace: postgres
+  labels:
+    app: postgres15
+spec:
+  storageClassName: unifi-nfs-kube
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /var/nfs/shared/kube_nfs/postgres17
+    server: unifinas.houseofus.eu
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-postgres15-unifi
+  namespace: postgres
+  labels:
+    app: postgres15
+spec:
+  storageClassName: unifi-nfs-kube
+  volumeName: pv-postgres15-unifi
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Gi

@@ -16,11 +16,11 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "15.*-alpine3.19"
+        diun.include_tags: "15.*-alpine3.20"
     spec:
       containers:
         - name: postgres
-          image: postgres:15.9-alpine3.20
+          image: postgres:15.10-alpine3.20
           imagePullPolicy: "Always"
           resources:
             limits:
