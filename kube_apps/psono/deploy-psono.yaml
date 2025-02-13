@@ -51,4 +51,4 @@ spec:
       volumes:
         - name: psono
           persistentVolumeClaim:
-            claimName: pvc-psono
+            claimName: pvc-psono-unifi

@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: psono-client
-          image: psono/psono-client:4.0.1
+          image: psono/psono-client:4.0.2
           imagePullPolicy: "IfNotPresent"
           resources:
             requests:
@@ -44,4 +44,4 @@ spec:
       volumes:
         - name: psono
           persistentVolumeClaim:
-            claimName: pvc-psono
+            claimName: pvc-psono-unifi

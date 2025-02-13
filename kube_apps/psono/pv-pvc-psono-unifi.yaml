@@ -1,32 +1,32 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: pv-psono
+  name: pv-psono-unifi
   namespace: psono
   labels:
     type: nfs
     app: psono
 spec:
-  storageClassName: nfs-01
+  storageClassName: unifi-nfs-kube
   capacity:
     storage: 10Gi
   accessModes:
     - ReadWriteMany
   nfs:
-    path: /mnt/pool1/nfskube/psono
-    server: truenas.houseofus.eu
+    path: /var/nfs/shared/kube_nfs/psono
+    server: unifinas.houseofus.eu
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pvc-psono
+  name: pvc-psono-unifi
   namespace: psono
   labels:
     app: psono
     type: nfs
 spec:
-  storageClassName: nfs-01
-  volumeName: pv-psono
+  storageClassName: unifi-nfs-kube
+  volumeName: pv-psono-unifi
   accessModes:
     - ReadWriteMany
   resources:
