@@ -1,0 +1,34 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-grafana-unifi
+  namespace: tig
+  labels:
+    type: nfs
+    app: grafana
+spec:
+  storageClassName: unifi-nfs-kube
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /var/nfs/shared/kube_nfs/grafana
+    server: truenas.houseofus.eu
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-grafana-unifi
+  namespace: tig
+  labels:
+    app: grafana
+    type: nfs
+spec:
+  storageClassName: unifi-nfs-kube
+  volumeName: pv-grafana-unifi
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi

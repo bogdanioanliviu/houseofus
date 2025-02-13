@@ -19,9 +19,16 @@ spec:
         diun.watch_repo: "true"
         diun.include_tags: "latest"
     spec:
+      securityContext:
+        runAsUser: 977
+        runAsGroup: 988
+        #fsGroup: 0
+        supplementalGroups: [ 0 ]
       containers:
         - name: grafana
-          image: grafana/grafana:11.3.1-ubuntu
+          securityContext:
+            runAsUser: 977
+          image: grafana/grafana:11.5.1-ubuntu
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
@@ -55,4 +62,4 @@ spec:
       volumes:
         - name: grafana-volume
           persistentVolumeClaim:
-            claimName: pvc-grafana
+            claimName: pvc-grafana-unifi
