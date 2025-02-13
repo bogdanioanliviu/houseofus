@@ -1,32 +1,32 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: pv-influx
+  name: pv-influx-unifi
   namespace: tig
   labels:
     type: nfs
     app: influx
 spec:
-  storageClassName: nfs-01
+  storageClassName: unifi-nfs-kube
   capacity:
     storage: 50Gi
   accessModes:
     - ReadWriteMany
   nfs:
-    path: /mnt/pool1/nfskube/influx
-    server: truenas.houseofus.eu
+    path: /var/nfs/shared/kube_nfs/influx
+    server: unifinas.houseofus.eu
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pvc-influx
+  name: pvc-influx-unifi
   namespace: tig
   labels:
     app: influx
     type: nfs
 spec:
-  storageClassName: nfs-01
-  volumeName: pv-influx
+  storageClassName: unifi-nfs-kube
+  volumeName: pv-influx-unifi
   accessModes:
     - ReadWriteMany
   resources:

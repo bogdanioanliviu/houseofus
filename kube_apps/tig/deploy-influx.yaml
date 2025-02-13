@@ -20,10 +20,17 @@ spec:
         diun.watch_repo: "true"
         diun.include_tags: "latest;2.7.*"
     spec:
+      securityContext:
+        runAsUser: 977
+        runAsGroup: 988
+        #fsGroup: 0
+        supplementalGroups: [ 0 ]
       containers:
         - name: influxdb
+          securityContext:
+            runAsUser: 977
           image: influxdb:2.7.11-alpine
-          imagePullPolicy: "Always"
+          imagePullPolicy: "IfNotPresent"
           resources:
             limits:
               memory: "1258Mi"
@@ -43,4 +50,4 @@ spec:
       volumes:
         - name: influx-data
           persistentVolumeClaim:
-            claimName: pvc-influx
+            claimName: pvc-influx-unifi
