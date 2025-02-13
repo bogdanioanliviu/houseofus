@@ -1,0 +1,32 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-homeassist-unifi
+  namespace: home-assist
+  labels:
+    app: homeassist
+spec:
+  storageClassName: unifi-nfs-kube
+  capacity:
+    storage: 50Mi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /var/nfs/shared/kube_nfs/ha_config
+    server: unifinas.houseofus.eu
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-homeassist-unifi
+  namespace: home-assist
+  labels:
+    app: homeassist
+spec:
+  storageClassName: unifi-nfs-kube
+  volumeName: pv-homeassist-unifi
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Mi

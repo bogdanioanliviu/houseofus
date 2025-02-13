@@ -20,21 +20,28 @@ spec:
         diun.watch_repo: "true"
         diun.include_tags: "2024.9.*;2024.10.*"
     spec:
-      initContainers:
-        - name: check-db-ready
-          image: postgres:15.8-alpine3.20
-          imagePullPolicy: "IfNotPresent"
-          command: [ 'sh', '-c',
-            'until pg_isready -h postgres15.postgres.svc.cluster.local -p 5432; 
-            do echo waiting for database; sleep 2; done;' ]
-          resources:
-            limits:
-              memory: "136Mi"
-            requests:
-              memory: "92Mi"
-              cpu: "110m"
+      securityContext:
+        runAsUser: 977
+        runAsGroup: 988
+        #fsGroup: 0
+        supplementalGroups: [ 0 ]
+#      initContainers:
+#        - name: check-db-ready
+#          image: postgres:15.8-alpine3.20
+#          imagePullPolicy: "IfNotPresent"
+#          command: [ 'sh', '-c',
+#            'until pg_isready -h postgres15.postgres.svc.cluster.local -p 5432;
+#            do echo waiting for database; sleep 2; done;' ]
+#          resources:
+#            limits:
+#              memory: "136Mi"
+#            requests:
+#              memory: "92Mi"
+#              cpu: "110m"
       containers:
         - name: homeassist
+          securityContext:
+            runAsUser: 977
           image: ghcr.io/home-assistant/home-assistant:2025.2.3
           imagePullPolicy: "IfNotPresent"
           resources:
@@ -60,4 +67,4 @@ spec:
       volumes:
         - name: ha-data
           persistentVolumeClaim:
-            claimName: pvc-homeassist
+            claimName: pvc-homeassist-unifi
