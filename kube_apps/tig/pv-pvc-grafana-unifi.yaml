@@ -6,15 +6,22 @@ metadata:
   labels:
     type: nfs
     app: grafana
+  annotations:
+    pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
 spec:
-  storageClassName: unifi-nfs-kube
   capacity:
     storage: 5Gi
   accessModes:
     - ReadWriteMany
-  nfs:
-    path: /var/nfs/shared/kube_nfs/grafana
-    server: unifinas.houseofus.eu
+  storageClassName: nfs-csi
+  csi:
+    driver: nfs.csi.k8s.io
+    # volumeHandle format: {nfs-server-address}#{sub-dir-name}#{share-name}
+    # make sure this value is unique for every share in the cluster
+    volumeHandle: grafana
+    volumeAttributes:
+      server: unifinas.houseofus.eu
+      share: /var/nfs/shared/kube_nfs/grafana
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -25,7 +32,7 @@ metadata:
     app: grafana
     type: nfs
 spec:
-  storageClassName: unifi-nfs-kube
+  storageClassName: nfs-csi
   volumeName: pv-grafana-unifi
   accessModes:
     - ReadWriteMany
