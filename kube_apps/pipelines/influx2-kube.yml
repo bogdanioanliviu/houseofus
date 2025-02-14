@@ -22,7 +22,6 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      kubectl apply -f ./kube_apps/tig/pv-pvc-influx-unifi.yaml
       kubectl apply -f ./kube_apps/tig/influxdb-config.yaml
       kubectl apply -f ./kube_apps/tig/influxdb-secrets.yaml
       kubectl apply -f ./kube_apps/tig/svc-influx-cluster.yaml
