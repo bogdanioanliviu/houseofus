@@ -62,7 +62,6 @@ spec:
           volumeMounts:
             - mountPath: /data/media
               name: media
-              readOnly: True
             - mountPath: /config
               name: jellyfin-config
               subPath: config
@@ -73,7 +72,7 @@ spec:
       volumes:
       - name: media
         persistentVolumeClaim:
-          claimName: pvc-media
+          claimName: pvc-media-unifi
       - name: jellyfin-config
         persistentVolumeClaim:
           claimName: pvc-jellyfin-unifi
