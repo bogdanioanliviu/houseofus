@@ -18,6 +18,7 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
+        diun.include_tags: "latest"
     spec:
       containers:
         - name: psono-admin
