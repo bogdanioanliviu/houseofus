@@ -6,15 +6,25 @@ metadata:
   labels:
     app: diun
     type: nfs
+  annotations:
+    pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
 spec:
-  storageClassName: unifi-nfs-kube
+  storageClassName: nfs-csi
   capacity:
     storage: 100Mi
   accessModes:
     - ReadWriteOnce
-  nfs:
-    path: /var/nfs/shared/kube_nfs/diun
-    server: unifinas.houseofus.eu
+  csi:
+    driver: nfs.csi.k8s.io
+    # volumeHandle format: {nfs-server-address}#{sub-dir-name}#{share-name}
+    # make sure this value is unique for every share in the cluster
+    volumeHandle: diun
+    volumeAttributes:
+      server: unifinas.houseofus.eu
+      share: /var/nfs/shared/kube_nfs/diun
+#  nfs:
+#    path: /var/nfs/shared/kube_nfs/diun
+#    server: unifinas.houseofus.eu
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -25,7 +35,7 @@ metadata:
     app: diun
     type: nfs
 spec:
-  storageClassName: unifi-nfs-kube
+  storageClassName: nfs-csi
   volumeName: pv-diun-unifi
   accessModes:
     - ReadWriteOnce
