@@ -5,15 +5,22 @@ metadata:
   namespace: postgres
   labels:
     app: postgres15
+  annotations:
+    pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
 spec:
-  storageClassName: unifi-nfs-kube
   capacity:
     storage: 50Gi
   accessModes:
     - ReadWriteMany
-  nfs:
-    path: /var/nfs/shared/kube_nfs/postgres15
-    server: unifinas.houseofus.eu
+  storageClassName: nfs-csi
+  csi:
+    driver: nfs.csi.k8s.io
+    # volumeHandle format: {nfs-server-address}#{sub-dir-name}#{share-name}
+    # make sure this value is unique for every share in the cluster
+    volumeHandle: postgres15
+    volumeAttributes:
+      server: unifinas.houseofus.eu
+      share: /var/nfs/shared/kube_nfs/postgres15
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -23,7 +30,7 @@ metadata:
   labels:
     app: postgres15
 spec:
-  storageClassName: unifi-nfs-kube
+  storageClassName: nfs-csi
   volumeName: pv-postgres15-unifi
   accessModes:
     - ReadWriteMany
