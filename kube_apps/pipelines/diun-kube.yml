@@ -78,6 +78,6 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/diun/
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/diun/deploy-diun.yaml
     failOnStderr: true
     noProfile: false
