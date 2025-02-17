@@ -21,17 +21,17 @@ spec:
         diun.include_tags: "latest"
     spec:
       serviceAccountName: traefik-account
+      initContainers:
+        - name: volume-permissions
+          image: busybox:latest
+          command: [ "sh", "-c", "chmod -v 600 /certif/file.json" ]
+          securityContext:
+            runAsGroup: 977
+            runAsUser: 988
+          volumeMounts:
+            - name: certif
+              mountPath: /certif
       containers:
-        - initContainers:
-            - name: volume-permissions
-              image: busybox:latest
-              command: [ "sh", "-c", "chmod -v 600 /certif/file.json" ]
-              securityContext:
-                runAsGroup: 977
-                runAsUser: 988
-              volumeMounts:
-                - name: certif
-                  mountPath: /certif
         - name: traefik
           image: traefik:v3.3.3
           imagePullPolicy: "IfNotPresent"
