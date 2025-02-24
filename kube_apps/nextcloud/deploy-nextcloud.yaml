@@ -20,10 +20,10 @@ spec:
     metadata:
       labels:
         app: nextcloud
-      annotations:
-        diun.enable: "true"
-        diun.watch_repo: "true"
-        diun.include_tags: "30.0.*;30.1.*"
+#      annotations:
+#        diun.enable: "true"
+#        diun.watch_repo: "true"
+#        diun.include_tags: "30.0.*;30.1.*"
     spec:
       containers:
         - name: nextcloud
