@@ -1,0 +1,41 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-nextcloud-unifi
+  namespace: nexcloud
+  labels:
+    type: nfs
+    app: nextcloud
+  annotations:
+    pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+spec:
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nfs-csi
+  csi:
+    driver: nfs.csi.k8s.io
+    # volumeHandle format: {nfs-server-address}#{sub-dir-name}#{share-name}
+    # make sure this value is unique for every share in the cluster
+    volumeHandle: nexcloud
+    volumeAttributes:
+      server: unifinas.houseofus.eu
+      share: /var/nfs/shared/kube_nfs/nexcloud
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-nextcloud-unifi
+  namespace: home-assist
+  labels:
+    type: nfs
+    app: nextcloud
+spec:
+  storageClassName: nfs-csi
+  volumeName: pv-nextcloud-unifi
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
