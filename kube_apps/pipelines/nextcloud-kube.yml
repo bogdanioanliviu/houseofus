@@ -20,13 +20,14 @@ steps:
     rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/nextcloud/'
     targetFiles: '**/*.yaml'
     encoding: 'auto'
+    tokenPattern: 'custom'
+    tokenPrefix: '{'
+    tokenSuffix: '}'
     writeBOM: true
     actionOnMissing: 'warn'
     keepToken: true
     actionOnNoFiles: 'fail'
     enableTransforms: false
-    tokenPrefix: '{'
-    tokenSuffix: '}'
     enableRecursion: false
     useLegacyPattern: false
     enableTelemetry: true
