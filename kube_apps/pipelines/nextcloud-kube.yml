@@ -8,14 +8,13 @@ trigger:
    include:
      - kube_apps/nextcloud/deploy-nextcloud.yaml
      - kube_apps/nextcloud/ingresscdr-nextcloud.yaml
-     - kube_apps/nextcloud/pv-pvc.yaml
      - kube_apps/nextcloud/svc-nextcloud-cluster.yaml
 
 pool:
   name: Default
 
 steps:
-- task: replacetokens@3
+- task: replacetokens@5
   displayName: 'Update manifests'
   inputs:
     rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/nextcloud/'
