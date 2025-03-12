@@ -18,7 +18,7 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "2024.9.*;2024.10.*"
+        diun.include_tags: "latest"
     spec:
       securityContext:
         runAsUser: 977
@@ -45,7 +45,7 @@ spec:
         - name: homeassist
           securityContext:
             runAsUser: 977
-          image: ghcr.io/home-assistant/home-assistant:2025.3.1
+          image: ghcr.io/home-assistant/home-assistant:2025.3.2
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
