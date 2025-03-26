@@ -20,7 +20,7 @@ spec:
     metadata:
       annotations:
         diun.enable: "true"
-        diun.include_tags: latest;1.33.*
+        diun.include_tags: latest;1.34.*
         diun.watch_repo: "true"
       labels:
         app: telegraf
@@ -34,7 +34,7 @@ spec:
       - name: telegraf
         securityContext:
           runAsUser: 977
-        image: telegraf:1.33.2
+        image: telegraf:1.34.1
         imagePullPolicy: "IfNotPresent"
         env:
         - name: TZ
