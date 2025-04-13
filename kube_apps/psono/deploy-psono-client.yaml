@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: psono-client
-          image: psono/psono-client:4.1.0
+          image: psono/psono-client:4.1.1
           imagePullPolicy: "IfNotPresent"
           resources:
             requests:
