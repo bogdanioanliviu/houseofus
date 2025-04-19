@@ -33,7 +33,7 @@ spec:
               mountPath: /certif
       containers:
         - name: traefik
-          image: traefik:v3.3.3
+          image: traefik:v3.3.6
           imagePullPolicy: "IfNotPresent"
           resources:
             requests:
