@@ -19,3 +19,16 @@ spec:
     - name: persistent-storage
       persistentVolumeClaim:
         claimName: pvc-test-unifi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-test-unifi
+spec:
+  storageClassName: nfs-csi-delete
+  #volumeName: pv-nfs-test
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 50Mi

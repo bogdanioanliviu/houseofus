@@ -1,0 +1,34 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: nginx-smb
+  namespace: default
+spec:
+  containers:
+    - image: mcr.microsoft.com/oss/nginx/nginx:1.17.3-alpine
+      name: nginx-smb
+      command:
+        - "/bin/sh"
+        - "-c"
+        - while true; do echo $(date) >> /mnt/smb/outfile; sleep 1; done
+      volumeMounts:
+        - name: smb01
+          mountPath: "/mnt/smb"
+          readOnly: false
+  volumes:
+    - name: smb01
+      persistentVolumeClaim:
+        claimName: pvc-smb
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-smb
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: smb

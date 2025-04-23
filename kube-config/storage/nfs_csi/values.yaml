@@ -145,7 +145,7 @@ node:
         memory: 20Mi
 
 externalSnapshotter:
-  enabled: false
+  enabled: true
   name: snapshot-controller
   priorityClassName: system-cluster-critical
   deletionPolicy: Delete
@@ -159,7 +159,7 @@ externalSnapshotter:
       memory: 20Mi
   # Create volume snapshot CRDs.
   customResourceDefinitions:
-    enabled: false   #if set true, VolumeSnapshot, VolumeSnapshotContent and VolumeSnapshotClass CRDs will be created. Set it false, If they already exist in cluster.
+    enabled: true   #if set true, VolumeSnapshot, VolumeSnapshotContent and VolumeSnapshotClass CRDs will be created. Set it false, If they already exist in cluster.
 
 ## volumeSnapshotClass resource example:
 volumeSnapshotClass:
