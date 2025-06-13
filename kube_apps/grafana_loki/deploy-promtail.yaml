@@ -23,7 +23,7 @@ spec:
         runAsGroup: 0
       containers:
         - name: promtail-container
-          image: grafana/promtail:3.2.1
+          image: grafana/promtail:3.5.1
           imagePullPolicy: "Always"
           args: ["-config.file", "/etc/promtail/config.yml"]
           resources:
