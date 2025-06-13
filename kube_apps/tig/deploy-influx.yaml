@@ -29,7 +29,7 @@ spec:
         - name: influxdb
           securityContext:
             runAsUser: 977
-          image: influxdb:2.7.11-alpine
+          image: influxdb:2.7.12
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
