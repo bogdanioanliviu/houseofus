@@ -54,7 +54,7 @@ spec:
           persistentVolumeClaim:
             claimName: pvc-loki-unifi
       dnsPolicy: ClusterFirst
-      serviceAccountName: promtail-serviceaccount
+      #serviceAccountName: promtail-serviceaccount
 #      securityContext:
 #        runAsUser: 10001
 #        runAsGroup: 10001
