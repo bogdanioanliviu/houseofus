@@ -26,7 +26,7 @@ spec:
         - name: loki
           securityContext:
             runAsUser: 977
-          image: grafana/loki:3.5.1
+          image: grafana/loki:3.5.2
           imagePullPolicy: "IfNotPresent"
           args: ["-config.file", "/mnt/config/loki-config.yml"]
           resources:
@@ -54,7 +54,6 @@ spec:
           persistentVolumeClaim:
             claimName: pvc-loki-unifi
       dnsPolicy: ClusterFirst
-      #serviceAccountName: promtail-serviceaccount
 #      securityContext:
 #        runAsUser: 10001
 #        runAsGroup: 10001
