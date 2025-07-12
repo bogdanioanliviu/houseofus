@@ -6,10 +6,10 @@
 trigger:
   paths:
     include:
-      - kube_apps/grafana_loki/configMap_promtail.yaml
-      - kube_apps/grafana_loki/deploy-promtail.yaml
-      - kube_apps/grafana_loki/serviceaccount_promtail.yaml
-      - kube_apps/grafana_loki/svc-promtail.yaml
+      - kube_apps/grafana_loki/configMap_loki.yaml
+      - kube_apps/grafana_loki/deploy-loki.yaml
+      - kube_apps/grafana_loki/serviceaccount_loki.yaml
+      - kube_apps/grafana_loki/svc-loki.yaml
 
 pool:
   name: Default
@@ -20,9 +20,9 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      kubectl apply -f ./kube_apps/grafana_loki/configMap_promtail.yaml
-      kubectl apply -f ./kube_apps/grafana_loki/deploy-promtail.yaml
-      kubectl apply -f ./kube_apps/grafana_loki/serviceaccount_promtail.yaml
-      kubectl apply -f ./kube_apps/grafana_loki/svc-promtail.yaml
+      kubectl apply -f ./kube_apps/grafana_loki/configMap_loki.yaml
+      kubectl apply -f ./kube_apps/grafana_loki/deploy-loki.yaml
+      kubectl apply -f ./kube_apps/grafana_loki/serviceaccount_loki.yaml
+      kubectl apply -f ./kube_apps/grafana_loki/svc-loki.yaml
     failOnStderr: true
     noProfile: false
