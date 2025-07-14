@@ -20,7 +20,6 @@ spec:
         diun.enable: "true"
         diun.watch_repo: "true"
         diun.include_tags: "latest"
-        diun.exclude_tags: "*unstable"
     spec:
       securityContext:
         runAsUser: 977
@@ -31,7 +30,7 @@ spec:
         - name: jellyfin
           securityContext:
             runAsUser: 977
-          image: docker.io/jellyfin/jellyfin:10.10.6
+          image: docker.io/jellyfin/jellyfin:10.10.7
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
