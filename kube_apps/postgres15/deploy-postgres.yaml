@@ -29,7 +29,7 @@ spec:
         - name: postgres
           securityContext:
             runAsUser: 977
-          image: postgres:15.13-alpine3.21
+          image: postgres:15.13-alpine3.22
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
