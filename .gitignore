@@ -2,3 +2,4 @@
 .DS_Store
 /.idea/
 /kube_apps/nfs-provisioning/new_nfs_helm.txt
+venv
