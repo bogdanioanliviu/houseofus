@@ -8,6 +8,7 @@ trigger:
     include:
       - kube_apps/grafana_loki/configMap_loki.yaml
       - kube_apps/grafana_loki/deploy-loki.yaml
+      - kube_apps/grafana_loki/serviceaccount_loki.yaml
       - kube_apps/grafana_loki/svc-loki.yaml
 
 pool:
@@ -21,6 +22,7 @@ steps:
     script: |
       kubectl apply -f ./kube_apps/grafana_loki/configMap_loki.yaml
       kubectl apply -f ./kube_apps/grafana_loki/deploy-loki.yaml
+      kubectl apply -f ./kube_apps/grafana_loki/serviceaccount_loki.yaml
       kubectl apply -f ./kube_apps/grafana_loki/svc-loki.yaml
     failOnStderr: true
     noProfile: false
