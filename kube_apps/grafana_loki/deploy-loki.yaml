@@ -15,6 +15,10 @@ spec:
     metadata:
       labels:
         app: loki
+      annotations:
+        diun.enable: "true"
+        diun.watch_repo: "true"
+        diun.include_tags: "latest"
     spec:
       securityContext:
         runAsUser: 977
