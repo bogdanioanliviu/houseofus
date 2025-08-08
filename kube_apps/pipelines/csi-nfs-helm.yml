@@ -1,0 +1,46 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  paths:
+    include:
+      - kube-config/storage/nfs_csi/values.yaml
+
+pool:
+  name: Default
+
+steps:
+
+- task: HelmInstaller@1
+  inputs:
+    helmVersionToInstall: 'latest'
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      helm repo add csi-driver-nfs https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
+      helm repo update
+    failOnStderr: true
+  displayName: 'Add and update Helm repository'
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      helm upgrade \
+        --install csi-driver-nfs csi-driver-nfs/csi-driver-nfs \
+        --create-namespace --namespace csi-driver-nfs \
+        -f $(System.DefaultWorkingDirectory)/kube-config/storage/nfs_csi/values.yaml
+    failOnStderr: true
+  displayName: 'Upgrade csi driver nfs'
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      kubectl get pods -n csi-driver-nfs
+      kubectl wait --for=condition=Ready pods --all --namespace csi-driver-nfs --timeout=180s
+    failOnStderr: true
+  displayName: 'Validate all pods are running'
