@@ -128,5 +128,10 @@ data:
       }
       external_labels = {}
     }
-
+    
+    prometheus.remote_write "to_prometheus" {
+      endpoint {
+        url = "http://prometheus.lens-metrics.svc.cluster.local/api/v1/write"
+      }
+    }
 
