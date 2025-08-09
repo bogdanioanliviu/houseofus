@@ -451,15 +451,15 @@ ingress:
   enabled: true
   # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
   # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-  ingressClassName: traefik
+  # ingressClassName: traefik
   # Values can be templated
   annotations:
-    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: web
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   labels: {}
   path: /
-  faroPort: 12347
+  faroPort: 12345
 
   # pathType is only for k8s >= 1.1=
   pathType: Prefix

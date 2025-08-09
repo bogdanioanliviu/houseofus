@@ -7,6 +7,20 @@ metadata:
     app: grafana-alloy
 data:
   config.alloy: |
+    prometheus.remote_write "from_vm" {
+      listen {
+        address = "0.0.0.0:80" # or the port your Ingress/Service exposes
+      }
+      forward_to = [prometheus.remote_write.to_prometheus.receiver]
+    }
+    
+    loki.write "from_vm" {
+      listen {
+        address = "0.0.0.0:80" # or the port your Ingress/Service exposes
+        path    = "/loki/api/v1/push"
+      }
+      forward_to = [loki.write.default.receiver]
+    }
     logging {
       level  = "info"
       format = "logfmt"
