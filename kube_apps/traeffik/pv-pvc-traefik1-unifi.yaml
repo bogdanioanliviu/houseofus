@@ -1,15 +1,15 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: pv-traefik-unifi
-  namespace: traefik
+  name: pv-traefik1-unifi
+  namespace: traefik1
   labels:
-    app: traefik
+    app.kubernetes.io/name: traefik
   annotations:
     pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
 spec:
   capacity:
-    storage: 100Mi
+    storage: 10Mi
   accessModes:
     - ReadWriteMany
   storageClassName: nfs-csi
@@ -17,23 +17,24 @@ spec:
     driver: nfs.csi.k8s.io
     # volumeHandle format: {nfs-server-address}#{sub-dir-name}#{share-name}
     # make sure this value is unique for every share in the cluster
-    volumeHandle: traefik
+    volumeHandle: traefik1
     volumeAttributes:
       server: unifinas.houseofus.eu
-      share: /var/nfs/shared/kube_nfs/traefik
+      share: /var/nfs/shared/kube_nfs/traefik1
+      mountOptions: "nolock"
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pvc-traefik-unifi
-  namespace: traefik
+  name: pvc-traefik1-unifi
+  namespace: traefik1
   labels:
-    app: traefik
+    app.kubernetes.io/name: traefik
 spec:
   storageClassName: nfs-csi
-  volumeName: pv-traefik-unifi
+  volumeName: pv-traefik1-unifi
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 100Mi
+      storage: 10Mi

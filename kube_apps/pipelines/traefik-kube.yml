@@ -1,10 +1,7 @@
 trigger:
   paths:
     include:
-      - kube_apps/traeffik/configmap-trafik.yaml
-      - kube_apps/traeffik/deploy-traefik.yaml
-      - kube_apps/traeffik/service-account.yaml
-      - kube_apps/traeffik/svc-trafik-all.yaml
+      - kube_apps/traeffik/values.yaml
 
 pool:
   name: Default
@@ -28,13 +25,34 @@ steps:
     useLegacyPattern: false
     enableTelemetry: true
 
+- task: HelmInstaller@1
+  inputs:
+    helmVersionToInstall: 'latest'
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: |
-      kubectl apply -f ./kube_apps/traeffik/configmap-trafik.yaml
-      kubectl apply -f ./kube_apps/traeffik/service-account.yaml
-      kubectl apply -f ./kube_apps/traeffik/svc-trafik-all.yaml
-      kubectl apply -f ./kube_apps/traeffik/deploy-traefik.yaml
+      helm repo add traefik https://traefik.github.io/charts
+      helm repo update
     failOnStderr: true
-    noProfile: false
+  displayName: 'Add and update Helm repository'
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      helm upgrade --install traefik traefik/traefik \
+        --namespace traefik1 \
+        --create-namespace \
+        -f $(System.DefaultWorkingDirectory)/kube_apps/traeffik/values.yaml \
+        --version 37.0.0
+    failOnStderr: true
+  displayName: 'Upgrade Traefik'
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      kubectl get pods -n traefik1
+      kubectl wait --for=condition=Ready pods --all --namespace traefik1 --timeout=180s
+    failOnStderr: true
+  displayName: 'Validate all pods are running'
