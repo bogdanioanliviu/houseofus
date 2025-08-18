@@ -7,20 +7,6 @@ metadata:
     app: grafana-alloy
 data:
   config.alloy: |
-    prometheus.remote_write "from_vm" {
-      listen {
-        address = "0.0.0.0:80" # or the port your Ingress/Service exposes
-      }
-      forward_to = [prometheus.remote_write.to_prometheus.receiver]
-    }
-    
-    loki.write "from_vm" {
-      listen {
-        address = "0.0.0.0:80" # or the port your Ingress/Service exposes
-        path    = "/loki/api/v1/push"
-      }
-      forward_to = [loki.write.default.receiver]
-    }
     logging {
       level  = "info"
       format = "logfmt"
@@ -141,11 +127,5 @@ data:
               url = "http://svc-loki.tig.svc.cluster.local:3100/loki/api/v1/push"
       }
       external_labels = {}
-    }
-    
-    prometheus.remote_write "to_prometheus" {
-      endpoint {
-        url = "http://prometheus.lens-metrics.svc.cluster.local/api/v1/write"
-      }
     }
 
