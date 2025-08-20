@@ -36,7 +36,7 @@ spec:
             - name: APIKEY
               value: '{GANDI_APIKEY}'
             - name: RECORD_LIST
-              value: 'cloud;psono;ha'
+              value: 'psono;ha'
             - name: DOMAIN
               value: 'houseofus.eu'
       restartPolicy: Always
