@@ -7,7 +7,6 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.tls.certresolver: file
-    traefik.ingress.kubernetes.io/router.tls.domains.0.main: houseofus.eu
     traefik.ingress.kubernetes.io/router.tls.domains.0.sans: ha.houseofus.eu
     traefik.ingress.kubernetes.io/service.serversscheme: h2c
 
