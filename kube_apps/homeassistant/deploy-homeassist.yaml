@@ -19,9 +19,6 @@ spec:
         diun.enable: "true"
         diun.watch_repo: "true"
         diun.include_tags: "latest"
-        prometheus.io/path: /metrics
-        prometheus.io/port: '9100'
-        prometheus.io/scrape: 'true'
     spec:
       securityContext:
         runAsUser: 977
