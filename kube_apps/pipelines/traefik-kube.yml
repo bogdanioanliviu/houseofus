@@ -8,7 +8,7 @@ pool:
   name: Default
 
 variables:
-  - template: kube_apps/traeffik/varibles.yaml
+  - template: /kube_apps/traeffik/varibles.yaml
 
 steps:
 - task: replacetokens@5
