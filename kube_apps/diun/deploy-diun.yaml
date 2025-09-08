@@ -25,7 +25,7 @@ spec:
         supplementalGroups: [ 0 ]
       containers:
         - name: diun
-          image: crazymax/diun:4.29.0
+          image: crazymax/diun:4.30.0
           securityContext:
             runAsUser: 977
           imagePullPolicy: "IfNotPresent"
@@ -55,7 +55,7 @@ spec:
             - name: DIUN_PROVIDERS_KUBERNETES
               value: "true"
             - name: PROVIDERS_KUBERNETES_NAMESPACES
-              value: default,nextcloud,gandi-dns,postgres,psono,home-assist,traefik
+              value: default,gandi-dns,postgres,psono,home-assist,traefik
             - name: DIUN_REGOPTS_DOKER_NAME
               value: docker.io
             - name: DIUN_REGOPTS_DOKER_SELECTOR
