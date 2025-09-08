@@ -44,7 +44,7 @@ steps:
         --namespace traefik1 \
         --create-namespace \
         -f $(System.DefaultWorkingDirectory)/kube_apps/traeffik/values.yaml \
-        --version 37.0.0
+        --version 37.1.0
     failOnStderr: true
   displayName: 'Upgrade Traefik'
 
