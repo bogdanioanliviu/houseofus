@@ -2,9 +2,13 @@ trigger:
   paths:
     include:
       - kube_apps/traeffik/values.yaml
+      - kube_apps/traeffik/varibles.yaml
 
 pool:
   name: Default
+
+variables:
+  - template: kube_apps/traeffik/varibles.yaml
 
 steps:
 - task: replacetokens@5
@@ -44,7 +48,7 @@ steps:
         --namespace traefik1 \
         --create-namespace \
         -f $(System.DefaultWorkingDirectory)/kube_apps/traeffik/values.yaml \
-        --version 37.1.0
+        --version $(helm_version)
     failOnStderr: true
   displayName: 'Upgrade Traefik'
 

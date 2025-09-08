@@ -1,0 +1,3 @@
+variables:
+  - name: helm_version
+    value: 37.1.0
