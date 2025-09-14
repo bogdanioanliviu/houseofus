@@ -911,7 +911,8 @@ certificatesResolvers:
       keytype: "RSA4096"
       dnschallenge:
         provider: "ovh"
-        delayBeforeCheck: 10
+        propgation:
+          delayBeforeCheck: 10
         resolvers:
           - "ns10.ovh.net"
           - "dns10.ovh.net"
