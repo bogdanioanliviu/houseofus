@@ -652,8 +652,14 @@ additionalArguments: []
 # -- Additional Environment variables to be passed to Traefik's binary
 # @default -- See _values.yaml_
 env:
-  - name: GANDIV5_API_KEY
-    value: "{!GANDI_APIKEY!}"
+  - name: OVH_APPLICATION_KEY
+    value: "{!OVH_APIKEY!}"
+  - name: OVH_APPLICATION_SECRET
+    value: "{!OVH_APISECRET!}"
+  - name: OVH_CONSUMER_KEY
+    value: "{!OVH_APICONSUMERKEY!}"
+  - name: OVH_ENDPOINT
+    value: "ovh-eu"
   - name: TZ
     value: "Europe/Madrid"
 
@@ -904,10 +910,11 @@ certificatesResolvers:
       preferredchain: "ISRG Root X1"
       keytype: "RSA4096"
       dnschallenge:
-        provider: "gandiv5"
+        provider: "ovh"
+        delayBeforeCheck: 10
         resolvers:
-          - "1.1.1.1:53"
-          - "8.8.8.8:53"
+          - "ns10.ovh.net"
+          - "dns10.ovh.net"
 
 # -- If hostNetwork is true, runs traefik in the host network namespace
 # To prevent unschedulable pods due to port collisions, if hostNetwork=true
