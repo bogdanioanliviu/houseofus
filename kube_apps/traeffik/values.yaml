@@ -912,7 +912,7 @@ certificatesResolvers:
       dnschallenge:
         provider: "ovh"
         propagation:
-          delayBeforeCheck: 10
+          delayBeforeChecks: 10
         resolvers:
           - "ns10.ovh.net"
           - "dns10.ovh.net"
