@@ -20,6 +20,7 @@ spec:
         diun.watch_repo: "true"
         diun.include_tags: "15.*-alpine3.21"
     spec:
+      terminationGracePeriodSeconds: 120
       securityContext:
         runAsUser: 977
         runAsGroup: 988
