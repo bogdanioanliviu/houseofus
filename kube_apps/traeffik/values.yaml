@@ -912,10 +912,10 @@ certificatesResolvers:
       dnschallenge:
         provider: "ovh"
         propagation:
-          delayBeforeChecks: 10
+          delayBeforeChecks: 300
         resolvers:
-          - "ns10.ovh.net"
-          - "dns10.ovh.net"
+          - "1.1.1.1"
+          - "8.8.8.8"
 
 # -- If hostNetwork is true, runs traefik in the host network namespace
 # To prevent unschedulable pods due to port collisions, if hostNetwork=true
