@@ -764,11 +764,19 @@ ports:
         # -- Trust forwarded headers information (X-Forwarded-*).
       trustedIPs:
         - 192.168.1.2
+        - 127.0.0.0/8
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
       insecure: false
     proxyProtocol:
       # -- Enable the Proxy Protocol header parsing for the entry point
       trustedIPs:
         - 192.168.1.2
+        - 127.0.0.0/8
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
       insecure: false
     # -- See [upstream documentation](https://doc.traefik.io/traefik/routing/entrypoints/#transport)
     transport:
