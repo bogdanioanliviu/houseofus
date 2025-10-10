@@ -57,7 +57,7 @@ configmapReload:
     ##
     image:
       repository: quay.io/prometheus-operator/prometheus-config-reloader
-      tag: v0.85.0
+      tag: v0.86.0
       # When digest is set to a non-empty value, images will be pulled by digest (regardless of tag value).
       digest: ""
       pullPolicy: IfNotPresent
@@ -255,6 +255,7 @@ server:
 
   extraFlags:
     - web.enable-lifecycle
+    - web.enable-remote-write-receiver
     ## web.enable-admin-api flag controls access to the administrative HTTP API which includes functionality such as
     ## deleting time series. This is disabled by default.
     # - web.enable-admin-api
@@ -883,10 +884,19 @@ serverFiles:
       # the endpoints associated with the default/kubernetes service using the
       # default named port `https`. This works for single API server deployments as
       # well as HA API server deployments.
-      - job_name: 'kubernetes-apiservers'
+      - job_name: 'grafana-alloy-pve'
+        static_configs:
+          - targets: [ 'pve.houseofus.eu:12345' ]
+      - job_name: 'grafana-alloy-asrack'
+        static_configs:
+          - targets: [ 'asrack.houseofus.eu:12345' ]
+      - job_name: 'smartctl_asrack'
+        static_configs:
+          - targets: [ 'asrack.houseofus.eu:9633' ]
 
+      - job_name: 'kubernetes-apiservers'
         kubernetes_sd_configs:
-          - role: endpoints
+          - role: endpointslice
 
         # Default to scraping over https. If required, just disable this or change to
         # `http`.
@@ -913,7 +923,7 @@ serverFiles:
         # will add targets for each API server which Kubernetes adds an endpoint to
         # the default/kubernetes service.
         relabel_configs:
-          - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
+          - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpointslicet_port_name]
             action: keep
             regex: default;kubernetes;https
 
@@ -1015,11 +1025,11 @@ serverFiles:
       # service then set this appropriately.
       # * `prometheus.io/param_<parameter>`: If the metrics endpoint uses parameters
       # then you can set any parameter
-      - job_name: 'kubernetes-service-endpoints'
+      - job_name: 'kubernetes-service-endpointslice'
         honor_labels: true
 
         kubernetes_sd_configs:
-          - role: endpoints
+          - role: endpointslice
 
         relabel_configs:
           - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
@@ -1070,14 +1080,14 @@ serverFiles:
       # service then set this appropriately.
       # * `prometheus.io/param_<parameter>`: If the metrics endpoint uses parameters
       # then you can set any parameter
-      - job_name: 'kubernetes-service-endpoints-slow'
+      - job_name: 'kubernetes-service-endpointslice-slow'
         honor_labels: true
 
         scrape_interval: 5m
         scrape_timeout: 30s
 
         kubernetes_sd_configs:
-          - role: endpoints
+          - role: endpointslice
 
         relabel_configs:
           - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape_slow]
@@ -1332,7 +1342,14 @@ alertmanager:
   enabled: true
 
   persistence:
+    enabled: true
+    annotations: {}
+    labels: {}
+    # storageClass: "-"
+    accessModes:
+      - ReadWriteOnce
     size: 2Gi
+    # emptyDir: {}
 
   podSecurityContext:
     runAsUser: 65534
