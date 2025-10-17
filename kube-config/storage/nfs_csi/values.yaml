@@ -3,7 +3,7 @@ image:
     baseRepo: registry.k8s.io
     nfs:
         repository: gcr.io/k8s-staging-sig-storage/nfsplugin
-        tag: canary
+        tag: v4.12.1
         pullPolicy: IfNotPresent
     csiProvisioner:
         repository: registry.k8s.io/sig-storage/csi-provisioner
@@ -41,7 +41,7 @@ rbac:
 
 driver:
   name: nfs.csi.k8s.io
-  mountPermissions: 0
+  mountPermissions: "0"
 
 feature:
   enableFSGroupPolicy: true
@@ -183,7 +183,7 @@ storageClass:
 #     server: nfs-server.default.svc.cluster.local
 #     share: /
 #     subDir:
-#     mountPermissions: "0"
+#     mountPermissions: "0755"
 #     csi.storage.k8s.io/provisioner-secret is only needed for providing mountOptions in DeleteVolume
 #     csi.storage.k8s.io/provisioner-secret-name: "mount-options"
 #     csi.storage.k8s.io/provisioner-secret-namespace: "default"
