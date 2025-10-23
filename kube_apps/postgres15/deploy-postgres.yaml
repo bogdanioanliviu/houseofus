@@ -18,7 +18,7 @@ spec:
       annotations:
         diun.enable: "true"
         diun.watch_repo: "true"
-        diun.include_tags: "15.*-alpine3.21"
+        diun.include_tags: "15.*-alpine3.22"
     spec:
       terminationGracePeriodSeconds: 120
       securityContext:
@@ -31,7 +31,7 @@ spec:
           securityContext:
             runAsUser: 977
           image: postgres:15.14-alpine3.22
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           resources:
             limits:
               memory: "512Mi"
