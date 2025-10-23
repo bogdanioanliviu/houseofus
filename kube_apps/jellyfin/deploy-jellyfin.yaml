@@ -30,7 +30,7 @@ spec:
         - name: jellyfin
           securityContext:
             runAsUser: 977
-          image: docker.io/jellyfin/jellyfin:10.10.7
+          image: docker.io/jellyfin/jellyfin:10.11.0
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
