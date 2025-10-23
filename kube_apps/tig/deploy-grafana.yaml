@@ -28,7 +28,7 @@ spec:
         - name: grafana
           securityContext:
             runAsUser: 977
-          image: grafana/grafana:12.2.0
+          image: grafana/grafana:12.2.1
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
