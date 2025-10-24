@@ -30,7 +30,7 @@ spec:
         - name: loki
           securityContext:
             runAsUser: 977
-          image: grafana/loki:3.5.3
+          image: grafana/loki:3.5.7
           imagePullPolicy: "IfNotPresent"
           args: ["-config.file", "/mnt/config/loki-config.yml"]
           resources:
