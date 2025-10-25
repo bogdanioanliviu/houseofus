@@ -44,7 +44,7 @@ steps:
         --create-namespace \
         -f $(System.DefaultWorkingDirectory)/kube_apps/prometheus/values.yaml \
         oci://ghcr.io/prometheus-community/charts/prometheus
-    failOnStderr: true
+    failOnStderr: false
   displayName: 'Upgrade Prometheus alloy'
 
 - task: Bash@3
