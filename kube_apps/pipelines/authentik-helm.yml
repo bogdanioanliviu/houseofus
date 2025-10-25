@@ -55,7 +55,7 @@ steps:
         -f $(System.DefaultWorkingDirectory)/kube_apps/autentik/values.yaml \
         --version $(authentik_helm_version)
     failOnStderr: true
-  displayName: 'Upgrade csi driver smb'
+  displayName: 'Upgrade authentik'
 
 - task: Bash@3
   inputs:
