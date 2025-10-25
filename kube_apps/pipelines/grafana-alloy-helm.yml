@@ -12,6 +12,8 @@ trigger:
 pool:
   name: Default
 
+variables:
+  - template: /kube_apps/pipelines/variables/varibles.yaml
 steps:
 
 - task: HelmInstaller@1
@@ -43,7 +45,8 @@ steps:
         --namespace grafana-alloy \
         --create-namespace \
         gfalloy grafana/alloy \
-        -f $(System.DefaultWorkingDirectory)/kube_apps/grafana_alloy/values.yaml
+        -f $(System.DefaultWorkingDirectory)/kube_apps/grafana_alloy/values.yaml \
+        --version $(grafana_alloy_helm_version)
     failOnStderr: true
   displayName: 'Upgrade Grafana alloy'
 

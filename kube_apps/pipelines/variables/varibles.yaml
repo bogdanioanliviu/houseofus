@@ -1,0 +1,11 @@
+variables:
+  - name: traefik_helm_version
+    value: 37.2.0
+  - name: prometheus_helm_version
+    value: 27.42.0
+  - name: csi_nfs_helm_version
+    value: 4.12.1
+  - name: csi_smb_helm_version
+    value: 1.19.1
+  - name: grafana_alloy_helm_version
+    value: 1.3.1

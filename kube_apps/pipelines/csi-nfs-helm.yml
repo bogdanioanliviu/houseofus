@@ -11,6 +11,9 @@ trigger:
 pool:
   name: Default
 
+variables:
+  - template: /kube_apps/pipelines/variables/varibles.yaml
+
 steps:
 
 - task: HelmInstaller@1
@@ -32,7 +35,8 @@ steps:
       helm upgrade \
         --install csi-driver-nfs csi-driver-nfs/csi-driver-nfs \
         --create-namespace --namespace csi-driver-nfs \
-        -f $(System.DefaultWorkingDirectory)/kube-config/storage/nfs_csi/values.yaml
+        -f $(System.DefaultWorkingDirectory)/kube-config/storage/nfs_csi/values.yaml \
+        --version $(csi_nfs_helm_version)
     failOnStderr: true
   displayName: 'Upgrade csi driver nfs'
 

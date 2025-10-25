@@ -12,6 +12,9 @@ trigger:
 pool:
   name: Default
 
+variables:
+  - template: /kube_apps/pipelines/variables/varibles.yaml
+
 steps:
 
 - task: HelmInstaller@1
@@ -43,9 +46,10 @@ steps:
         --namespace prometheus \
         --create-namespace \
         -f $(System.DefaultWorkingDirectory)/kube_apps/prometheus/values.yaml \
+        --version $(traefik_helm_version)
         oci://ghcr.io/prometheus-community/charts/prometheus
     failOnStderr: false
-  displayName: 'Upgrade Prometheus alloy'
+  displayName: 'Upgrade Prometheus'
 
 - task: Bash@3
   inputs:
