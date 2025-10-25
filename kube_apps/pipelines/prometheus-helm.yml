@@ -6,8 +6,8 @@
 trigger:
   paths:
     include:
-      - kube_apps/grafana_alloy/values.yaml
-      - kube_apps/grafana_alloy/configmap_alloy.yaml
+      - kube_apps/prometheus/values.yaml
+      - kube_apps/prometheus/ingress-prometheus.yaml
 
 pool:
   name: Default
@@ -21,7 +21,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      helm repo add grafana https://grafana.github.io/helm-charts
+      helm repo add prometheus https://prometheus-community.github.io/helm-charts
       helm repo update
     failOnStderr: true
   displayName: 'Add and update Helm repository'
@@ -30,28 +30,28 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/grafana_alloy/configmap_alloy.yaml
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/prometheus/ingress-prometheus.yaml
     failOnStderr: true
     noProfile: false
-  displayName: "Update config for alloy."
+  displayName: "Update ingress for prometheus."
 
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: |
-      helm upgrade --install \
-        --namespace grafana-alloy \
+      helm upgrade --install prometheus \
+        --namespace prometheus \
         --create-namespace \
-        gfalloy grafana/alloy \
-        -f $(System.DefaultWorkingDirectory)/kube_apps/grafana_alloy/values.yaml
+        -f $(System.DefaultWorkingDirectory)/kube_apps/prometheus/values.yaml \
+        oci://ghcr.io/prometheus-community/charts/prometheus
     failOnStderr: true
-  displayName: 'Upgrade Grafana alloy'
+  displayName: 'Upgrade Prometheus alloy'
 
 - task: Bash@3
   inputs:
     targetType: 'inline'
     script: |
-      kubectl get pods -n grafana-alloy
-      kubectl wait --for=condition=Ready pods --all --namespace grafana-alloy --timeout=180s
+      kubectl get pods -n prometheus
+      kubectl wait --for=condition=Ready pods --all --namespace prometheus --timeout=180s
     failOnStderr: true
   displayName: 'Validate all pods are running'
