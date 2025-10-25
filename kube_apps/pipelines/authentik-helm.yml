@@ -17,19 +17,19 @@ variables:
 
 steps:
 
-- task: HelmInstaller@1
-  inputs:
-    helmVersionToInstall: 'latest'
-    displayName: 'Install Helm'
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      helm repo add authentik https://charts.goauthentik.io
-      helm repo update
-    failOnStderr: true
-  displayName: 'Add and update Helm repository'
+#- task: HelmInstaller@1
+#  inputs:
+#    helmVersionToInstall: 'latest'
+#    displayName: 'Install Helm'
+#
+#- task: Bash@3
+#  inputs:
+#    targetType: 'inline'
+#    script: |
+#      helm repo add authentik https://charts.goauthentik.io
+#      helm repo update
+#    failOnStderr: true
+#  displayName: 'Add and update Helm repository'
 
 - task: replacetokens@3
   displayName: 'Prepare files'
@@ -42,8 +42,8 @@ steps:
     keepToken: true
     actionOnNoFiles: 'fail'
     enableTransforms: false
-    tokenPrefix: '{'
-    tokenSuffix: '}'
+    tokenPrefix: '!{'
+    tokenSuffix: '}!'
     enableRecursion: false
     useLegacyPattern: false
     enableTelemetry: true
