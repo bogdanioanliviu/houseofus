@@ -17,19 +17,19 @@ variables:
 
 steps:
 
-#- task: HelmInstaller@1
-#  inputs:
-#    helmVersionToInstall: 'latest'
-#    displayName: 'Install Helm'
-#
-#- task: Bash@3
-#  inputs:
-#    targetType: 'inline'
-#    script: |
-#      helm repo add authentik https://charts.goauthentik.io
-#      helm repo update
-#    failOnStderr: true
-#  displayName: 'Add and update Helm repository'
+- task: HelmInstaller@1
+  inputs:
+    helmVersionToInstall: 'latest'
+    displayName: 'Install Helm'
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      helm repo add authentik https://charts.goauthentik.io
+      helm repo update
+    failOnStderr: true
+  displayName: 'Add and update Helm repository'
 
 - task: replacetokens@6
   displayName: 'Prepare files'
@@ -45,23 +45,23 @@ steps:
     missingVarLog: 'error'
     ifNoFilesFound: 'error'
 
-#- task: Bash@3
-#  inputs:
-#    targetType: 'inline'
-#    script: |
-#      helm upgrade \
-#        --install authentik authentik/authentik \
-#        --create-namespace --namespace authentik \
-#        -f $(System.DefaultWorkingDirectory)/kube_apps/autentik/values.yaml \
-#        --version $(authentik_helm_version)
-#    failOnStderr: true
-#  displayName: 'Upgrade csi driver smb'
-#
-#- task: Bash@3
-#  inputs:
-#    targetType: 'inline'
-#    script: |
-#      kubectl get pods -n authentik
-#      kubectl wait --for=condition=Ready pods --all --namespace authentik --timeout=180s
-#    failOnStderr: true
-#  displayName: 'Validate all pods are running'
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      helm upgrade \
+        --install authentik authentik/authentik \
+        --create-namespace --namespace authentik \
+        -f $(System.DefaultWorkingDirectory)/kube_apps/autentik/values.yaml \
+        --version $(authentik_helm_version)
+    failOnStderr: true
+  displayName: 'Upgrade csi driver smb'
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      kubectl get pods -n authentik
+      kubectl wait --for=condition=Ready pods --all --namespace authentik --timeout=180s
+    failOnStderr: true
+  displayName: 'Validate all pods are running'
