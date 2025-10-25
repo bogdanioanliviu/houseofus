@@ -31,7 +31,7 @@ steps:
 #    failOnStderr: true
 #  displayName: 'Add and update Helm repository'
 
-- task: replacetokens@3
+- task: replacetokens@6
   displayName: 'Prepare files'
   inputs:
     rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/autentik/'
