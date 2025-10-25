@@ -34,19 +34,16 @@ steps:
 - task: replacetokens@6
   displayName: 'Prepare files'
   inputs:
-    rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/autentik/'
-    targetFiles: '**/*.yaml'
-    encoding: 'auto'
-    writeBOM: true
-    actionOnMissing: 'warn'
-    keepToken: true
-    actionOnNoFiles: 'fail'
-    enableTransforms: false
+    root: '$(System.DefaultWorkingDirectory)/kube_apps/autentik/'
+    sources: '**/*.yaml'
+    tokenPattern: 'custom'
     tokenPrefix: '{!'
     tokenSuffix: '}!'
-    enableRecursion: false
-    useLegacyPattern: false
-    enableTelemetry: true
+    includeDotPaths: false
+    addBOM: true
+    missingVarAction: 'keep'
+    missingVarLog: 'error'
+    ifNoFilesFound: 'error'
 
 #- task: Bash@3
 #  inputs:
