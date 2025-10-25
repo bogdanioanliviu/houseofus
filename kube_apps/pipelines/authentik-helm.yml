@@ -42,7 +42,7 @@ steps:
     keepToken: true
     actionOnNoFiles: 'fail'
     enableTransforms: false
-    tokenPrefix: '!{'
+    tokenPrefix: '{!'
     tokenSuffix: '}!'
     enableRecursion: false
     useLegacyPattern: false
