@@ -1,0 +1,70 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  paths:
+    include:
+      - kube_apps/autentik/values.yaml
+
+pool:
+  name: Default
+
+variables:
+  - template: /kube_apps/pipelines/variables/varibles.yaml
+  - group: Kube-Cluster
+
+steps:
+
+- task: HelmInstaller@1
+  inputs:
+    helmVersionToInstall: 'latest'
+    displayName: 'Install Helm'
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      helm repo add authentik https://charts.goauthentik.io
+      helm repo update
+    failOnStderr: true
+  displayName: 'Add and update Helm repository'
+
+- task: replacetokens@3
+  displayName: 'Prepare files'
+  inputs:
+    rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/autentik/'
+    targetFiles: '**/*.yaml'
+    encoding: 'auto'
+    writeBOM: true
+    actionOnMissing: 'warn'
+    keepToken: true
+    actionOnNoFiles: 'fail'
+    enableTransforms: false
+    tokenPrefix: '{'
+    tokenSuffix: '}'
+    enableRecursion: false
+    useLegacyPattern: false
+    enableTelemetry: true
+
+#- task: Bash@3
+#  inputs:
+#    targetType: 'inline'
+#    script: |
+#      helm upgrade \
+#        --install authentik authentik/authentik \
+#        --create-namespace --namespace authentik \
+#        -f $(System.DefaultWorkingDirectory)/kube_apps/autentik/values.yaml \
+#        --version $(authentik_helm_version)
+#    failOnStderr: true
+#  displayName: 'Upgrade csi driver smb'
+#
+#- task: Bash@3
+#  inputs:
+#    targetType: 'inline'
+#    script: |
+#      kubectl get pods -n authentik
+#      kubectl wait --for=condition=Ready pods --all --namespace authentik --timeout=180s
+#    failOnStderr: true
+#  displayName: 'Validate all pods are running'
