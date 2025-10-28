@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-semaphore
+  namespace: traefik1
+
+spec:
+  externalName: docker01.houseofus.eu
+  type: ExternalName
+  ports:
+    - port: 3000

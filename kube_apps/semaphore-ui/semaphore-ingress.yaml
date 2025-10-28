@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: semaphore-ingress
+  namespace: traefik1
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.tls.certresolver: file
+    traefik.ingress.kubernetes.io/router.tls.domains.0.sans: semaphore.houseofus.eu
+    traefik.ingress.kubernetes.io/service.serverscheme: http
+    traefik.ingress.kubernetes.io/service.passhostheader: "true"
+spec:
+  rules:
+    - host: semaphore.houseofus.eu
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: svc-semaphore
+                port:
+                  number: 3000
