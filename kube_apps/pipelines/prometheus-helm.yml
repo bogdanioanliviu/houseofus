@@ -46,7 +46,7 @@ steps:
         --namespace prometheus \
         --create-namespace \
         -f $(System.DefaultWorkingDirectory)/kube_apps/prometheus/values.yaml \
-        --version $(traefik_helm_version)
+        --version $(prometheus_helm_version)
         oci://ghcr.io/prometheus-community/charts/prometheus
     failOnStderr: false
   displayName: 'Upgrade Prometheus'
