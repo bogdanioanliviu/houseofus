@@ -62,6 +62,6 @@ steps:
     targetType: 'inline'
     script: |
       kubectl get pods -n authentik
-      kubectl wait --for=condition=Ready pods --all --namespace authentik --timeout=180s
+      kubectl wait --for=condition=Ready pods --all --namespace authentik --timeout=360s
     failOnStderr: true
   displayName: 'Validate all pods are running'

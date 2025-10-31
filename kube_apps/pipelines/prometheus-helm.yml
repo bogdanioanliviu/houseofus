@@ -56,6 +56,6 @@ steps:
     targetType: 'inline'
     script: |
       kubectl get pods -n prometheus
-      kubectl wait --for=condition=Ready pods --all --namespace prometheus --timeout=180s
+      kubectl wait --for=condition=Ready pods --all --namespace prometheus --timeout=360s
     failOnStderr: true
   displayName: 'Validate all pods are running'

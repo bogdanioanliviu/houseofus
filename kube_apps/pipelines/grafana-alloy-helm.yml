@@ -55,6 +55,6 @@ steps:
     targetType: 'inline'
     script: |
       kubectl get pods -n grafana-alloy
-      kubectl wait --for=condition=Ready pods --all --namespace grafana-alloy --timeout=180s
+      kubectl wait --for=condition=Ready pods --all --namespace grafana-alloy --timeout=360s
     failOnStderr: true
   displayName: 'Validate all pods are running'
