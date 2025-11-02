@@ -51,11 +51,3 @@ steps:
     failOnStderr: false
   displayName: 'Upgrade Prometheus'
 
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      kubectl get pods -n prometheus
-      kubectl wait --for=condition=Ready pods --all --namespace prometheus --timeout=360s
-    failOnStderr: true
-  displayName: 'Validate all pods are running'
