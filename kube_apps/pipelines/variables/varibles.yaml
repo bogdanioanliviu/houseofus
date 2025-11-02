@@ -12,4 +12,4 @@ variables:
   - name: authentik_helm_version
     value: 2025.10.0
   - name: prometheus_helm_version
-    value: 27.42.1
+    value: 27.42.2
