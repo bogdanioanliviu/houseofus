@@ -1,0 +1,31 @@
+- hosts: docker01
+  become: true
+  become_user: root
+  vars:
+    version: $(version)
+  tasks:
+    - name: download semaphore deb
+      ansible.builtin.get_url:
+        url: "https://github.com/semaphoreui/semaphore/releases/download/v{{ version }}/semaphore_{{ version }}_linux_amd64.deb"
+        dest: "/tmp/semaphore_{{ version }}_linux_amd64.deb"
+        mode: '0644'
+
+    - name: install semaphore deb
+      ansible.builtin.apt:
+        deb: "/tmp/semaphore_{{ version }}_linux_amd64.deb"
+        state: present
+        update_cache: no
+
+    - name: remove downloaded deb
+      ansible.builtin.file:
+        path: "/tmp/semaphore_{{ version }}_linux_amd64.deb"
+        state: absent
+
+    - name: reload systemd
+      ansible.builtin.command:
+        cmd: systemctl daemon-reload
+
+    - name: restart semaphore service
+      ansible.builtin.systemd:
+        name: semaphore.service
+        state: restarted

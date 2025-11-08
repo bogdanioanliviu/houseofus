@@ -17,10 +17,6 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        wget https://github.com/semaphoreui/semaphore/releases/download/v$(semaphore_ui_version)/semaphore_$(semaphore_ui_version)_linux_amd64.deb
-        sudo dpkg -i semaphore_$(semaphore_ui_version)_linux_amd64.deb
-        rm semaphore_$(semaphore_ui_version)_linux_amd64.deb
-        sudo systemctl daemon-reload
-        sudo systemctl restart semaphore.service
+        ansible-playbook kube_apps/semaphore-ui/semaphore_ui.yaml --extra-vars "version=$(semaphore_ui_version)"
       failOnStderr: true
     displayName: 'Install Semaphore UI version $(semaphore_ui_version)'
