@@ -22,5 +22,5 @@ steps:
         rm semaphore_$(semaphore_ui_version)_linux_amd64.deb
         sudo systemctl daemon-reload
         sudo systemctl restart semaphore.service
-    failOnStderr: true
+      failOnStderr: true
     displayName: 'Install Semaphore UI version $(semaphore_ui_version)'
