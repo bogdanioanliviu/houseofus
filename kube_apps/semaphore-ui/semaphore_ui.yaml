@@ -1,9 +1,9 @@
 - hosts: docker01
   become: true
   become_user: root
-  ansible_python_interpreter: /usr/bin/python3
   vars:
     version: $(version)
+    ansible_python_interpreter: /usr/bin/python3
   tasks:
     - name: download semaphore deb
       ansible.builtin.get_url:
