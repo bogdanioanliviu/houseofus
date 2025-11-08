@@ -10,6 +10,6 @@ variables:
   - name: grafana_alloy_helm_version
     value: 1.4.0
   - name: authentik_helm_version
-    value: 2025.10.0
+    value: 2025.10.1
   - name: prometheus_helm_version
     value: 27.42.2
