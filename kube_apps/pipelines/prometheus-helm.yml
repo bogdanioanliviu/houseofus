@@ -42,12 +42,13 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
+      echo "$(prometheus_helm_version)"
       helm upgrade --install prometheus \
-        --namespace prometheus \
-        --create-namespace \
-        -f $(System.DefaultWorkingDirectory)/kube_apps/prometheus/values.yaml \
-        --version $(prometheus_helm_version) \
-        oci://ghcr.io/prometheus-community/charts/prometheus
+      --namespace prometheus \
+      --create-namespace \
+      -f $(System.DefaultWorkingDirectory)/kube_apps/prometheus/values.yaml \
+      --version $(prometheus_helm_version) \
+      oci://ghcr.io/prometheus-community/charts/prometheus
     failOnStderr: false
   displayName: 'Upgrade Prometheus'
 
