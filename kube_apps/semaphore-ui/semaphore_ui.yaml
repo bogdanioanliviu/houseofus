@@ -1,6 +1,7 @@
 - hosts: docker01
   become: true
   become_user: root
+  ansible_python_interpreter: /usr/bin/python3
   vars:
     version: $(version)
   tasks:
