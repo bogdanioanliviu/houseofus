@@ -3,6 +3,7 @@ trigger:
     include:
       - kube_apps/semaphore-ui/semaphore-ingress.yaml
       - kube_apps/semaphore-ui/svc-semaphore.yaml
+      - kube_apps/semaphore-ui/semaphore_ui.yaml
       - kube_apps/semaphore-ui/variables.yaml
 
 
@@ -20,3 +21,13 @@ steps:
         ansible-playbook kube_apps/semaphore-ui/semaphore_ui.yaml --extra-vars "version=$(semaphore_ui_version)"
       failOnStderr: true
     displayName: 'Install Semaphore UI version $(semaphore_ui_version)'
+
+  - task: Bash@3
+    inputs:
+      targetType: 'inline'
+      script: |
+        kubectl apply -f kube_apps/semaphore-ui/svc-semaphore.yaml
+        kubectl apply -f kube_apps/semaphore-ui/semaphore-ingress.yaml
+      failOnStderr: true
+    displayName: 'Apply Semaphore UI Kubernetes manifests'
+
