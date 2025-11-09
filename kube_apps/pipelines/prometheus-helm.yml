@@ -8,12 +8,13 @@ trigger:
     include:
       - kube_apps/prometheus/values.yaml
       - kube_apps/prometheus/ingress-prometheus.yaml
+      - kube_apps/prometheus/variables.yaml
 
 pool:
   name: Default
 
 variables:
-  - template: /kube_apps/pipelines/variables/varibles.yaml
+  - template: /kube_apps/prometheus/variables.yaml
 
 steps:
 
