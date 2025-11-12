@@ -2,12 +2,14 @@ trigger:
   paths:
     include:
       - kube_apps/traeffik/values.yaml
+      - kube_apps/traeffik/variables.yaml
 
 pool:
   name: Default
 
 variables:
-  - template: /kube_apps/pipelines/variables/varibles.yaml
+  - template: /kube_apps/traeffik/variables.yaml
+  - group: Kube-Cluster
 
 steps:
 - task: replacetokens@5
@@ -56,6 +58,6 @@ steps:
     targetType: 'inline'
     script: |
       kubectl get pods -n traefik1
-      kubectl wait --for=condition=Ready pods --all --namespace traefik1 --timeout=180s
+      kubectl wait --for=condition=Ready pods --all --namespace traefik1 --timeout=360s
     failOnStderr: true
   displayName: 'Validate all pods are running'
