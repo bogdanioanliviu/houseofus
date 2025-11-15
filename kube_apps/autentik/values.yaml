@@ -376,9 +376,9 @@ server:
   resources:
      requests:
        cpu: 100m
-       memory: 512Mi
+       memory: 560Mi
      limits:
-       memory: 1512Mi
+       memory: 750Mi
 
   # authentik server container ports
   containerPorts:
@@ -821,7 +821,7 @@ worker:
        cpu: 100m
        memory: 512Mi
      limits:
-       memory: 1512Mi
+       memory: 650Mi
 
   # authentik worker container ports
   containerPorts:
