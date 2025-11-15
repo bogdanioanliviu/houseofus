@@ -1,6 +1,4 @@
 variables:
-  - name: csi_nfs_helm_version
-    value: 4.12.1
   - name: csi_smb_helm_version
     value: 1.19.1
   - name: grafana_alloy_helm_version

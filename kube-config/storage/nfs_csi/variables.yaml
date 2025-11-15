@@ -1,0 +1,3 @@
+variables:
+  - name: csi_nfs_helm_version
+    value: 4.12.1

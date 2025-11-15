@@ -83,31 +83,31 @@ controller:
   resources:
     csiProvisioner:
       limits:
-        memory: 400Mi
+        memory: 100Mi
       requests:
         cpu: 10m
         memory: 20Mi
     csiResizer:
       limits:
-        memory: 400Mi
+        memory: 100Mi
       requests:
         cpu: 10m
         memory: 20Mi
     csiSnapshotter:
       limits:
-        memory: 200Mi
+        memory: 100Mi
       requests:
         cpu: 10m
         memory: 20Mi
     livenessProbe:
       limits:
-        memory: 100Mi
+        memory: 50Mi
       requests:
         cpu: 10m
         memory: 20Mi
     nfs:
       limits:
-        memory: 200Mi
+        memory: 100Mi
       requests:
         cpu: 10m
         memory: 20Mi
