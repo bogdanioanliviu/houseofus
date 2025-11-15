@@ -55,13 +55,13 @@ controller:
   resources:
     csiProvisioner:
       limits:
-        memory: 400Mi
+        memory: 100Mi
       requests:
         cpu: 10m
         memory: 20Mi
     csiResizer:
       limits:
-        memory: 400Mi
+        memory: 100Mi
       requests:
         cpu: 10m
         memory: 20Mi
@@ -73,7 +73,7 @@ controller:
         memory: 20Mi
     smb:
       limits:
-        memory: 200Mi
+        memory: 100Mi
       requests:
         cpu: 10m
         memory: 20Mi
