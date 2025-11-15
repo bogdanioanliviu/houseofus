@@ -5,5 +5,3 @@ variables:
     value: 1.19.1
   - name: grafana_alloy_helm_version
     value: 1.4.0
-  - name: authentik_helm_version
-    value: 2025.10.1
