@@ -8,12 +8,13 @@ trigger:
     include:
       - kube_apps/grafana_alloy/values.yaml
       - kube_apps/grafana_alloy/configmap_alloy.yaml
+      - kube_apps/grafana_alloy/variables.yaml
 
 pool:
   name: Default
 
 variables:
-  - template: /kube_apps/pipelines/variables/varibles.yaml
+  - template: kube_apps/grafana_alloy/variables.yaml
 steps:
 
 - task: HelmInstaller@1
