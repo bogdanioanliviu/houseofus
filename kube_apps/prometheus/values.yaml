@@ -784,6 +784,7 @@ server:
 
     loadBalancerIP: ""
     loadBalancerSourceRanges: []
+    loadBalancerClass: ""
     servicePort: 80
     sessionAffinity: None
     type: ClusterIP
