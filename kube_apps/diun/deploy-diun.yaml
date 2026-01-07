@@ -25,7 +25,7 @@ spec:
         supplementalGroups: [ 0 ]
       containers:
         - name: diun
-          image: crazymax/diun:4.30.0
+          image: crazymax/diun:4.31.0
           securityContext:
             runAsUser: 977
           imagePullPolicy: "IfNotPresent"
