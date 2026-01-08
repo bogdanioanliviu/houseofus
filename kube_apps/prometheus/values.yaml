@@ -833,20 +833,25 @@ server:
 scrapeConfigs:
   prometheus:
     enabled: true
-      - job_name: "prometheus"
-        static_configs:
-          - targets:
-              - localhost:9090
-
-      - job_name: 'grafana-alloy-pve'
-        static_configs:
-            - targets: [ 'pve.houseofus.eu:12345' ]
-      - job_name: 'grafana-alloy-asrack'
-        static_configs:
-          - targets: [ 'asrack.houseofus.eu:12345' ]
-      - job_name: 'smartctl_asrack'
-        static_configs:
-          - targets: [ 'asrack.houseofus.eu:9633' ]
+    job_name: ""
+    static_configs:
+      - targets:
+          - localhost:9090
+  grafana-alloy-pve:
+    enabled: true
+    job_name: ''
+    static_configs:
+        - targets: [ 'pve.houseofus.eu:12345' ]
+  grafana-alloy-asrack:
+    enabled: true
+    job_name: ''
+    static_configs:
+      - targets: [ 'asrack.houseofus.eu:12345' ]
+  smartctl_asrack:
+    enabled: true
+    job_name: ''
+    static_configs:
+      - targets: [ 'asrack.houseofus.eu:9633' ]
   kubernetes-api-servers:
     enabled: true
     job_name: ""
