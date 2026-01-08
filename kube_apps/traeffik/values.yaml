@@ -1219,6 +1219,8 @@ podSecurityContext:
   runAsGroup: 988
   runAsNonRoot: true
   runAsUser: 977
+  seccompProfile:
+    type: RuntimeDefault
 
 #
 # -- Extra objects to deploy (value evaluated as a template)
