@@ -18,9 +18,9 @@ variables:
 
 steps:
 
-- task: HelmInstaller@1
-  inputs:
-    helmVersionToInstall: 'latest'
+#- task: HelmInstaller@1
+#  inputs:
+#    helmVersionToInstall: 'latest'
 - task: Bash@3
   inputs:
     targetType: 'inline'
