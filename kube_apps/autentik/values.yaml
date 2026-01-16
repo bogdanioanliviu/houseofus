@@ -160,6 +160,11 @@ authentik:
   # -- Secret key used for cookie singing and unique user IDs,
   # don't change this after the first install
   secret_key: "{!auth-secret_key}!"
+  ## use existing secret for authentik configuration instead of creating one
+  ## WARNING: when set, authentik.* secret values are ignored
+  existingSecret:
+    # -- name of an existing secret to use for authentik configuration
+    secretName: ""
   events:
     context_processors:
       # -- Path for the GeoIP City database. If the file doesn't exist, GeoIP features are disabled.
@@ -1152,7 +1157,13 @@ postgresql:
     #   accessModes:
     #     - ReadWriteOnce
     containerSecurityContext:
-      readOnlyRootFilesystem: false
+      readOnlyRootFilesystem: true
+    extraVolumeMounts:
+      - name: postgresql-socket
+        mountPath: /var/run/postgresql
+    extraVolumes:
+      - name: postgresql-socket
+        emptyDir: { }
   readReplicas:
     resourcesPreset: "none"
   backup:
@@ -1161,8 +1172,14 @@ postgresql:
     resourcesPreset: "none"
   volumePermissions:
     resourcesPreset: "none"
+    image:
+      repository: debian
+      tag: 13-slim
   metrics:
     resourcesPreset: "none"
+    image:
+      repository: prometheuscommunity/postgres-exporter
+      tag: v0.18.1
 
 # -- additional resources to deploy. Those objects are templated.
 additionalObjects: []
