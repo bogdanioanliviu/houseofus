@@ -1,16 +1,16 @@
 image:
   baseRepo: registry.k8s.io/sig-storage
   smb:
-    repository: gcr.io/k8s-staging-sig-storage/smbplugin
-    tag: v1.19.1
+    repository: registry.k8s.io/sig-storage/smbplugin
+    tag: v1.20.0
     pullPolicy: IfNotPresent
   csiProvisioner:
     repository: /csi-provisioner
-    tag: v5.3.0
+    tag: v6.0.0
     pullPolicy: IfNotPresent
   csiResizer:
     repository: registry.k8s.io/sig-storage/csi-resizer
-    tag: v1.14.0
+    tag: v2.0.0
     pullPolicy: IfNotPresent
   livenessProbe:
     repository: /livenessprobe
@@ -36,6 +36,7 @@ rbac:
 
 driver:
   name: smb.csi.k8s.io
+  labels: {}
 
 feature:
   enableGetVolumeStats: true
