@@ -3,7 +3,7 @@ image:
     baseRepo: registry.k8s.io
     nfs:
       repository: registry.k8s.io/sig-storage/nfsplugin
-      tag: v4.12.1
+      tag: v4.13.0
       pullPolicy: IfNotPresent
     csiProvisioner:
       repository: /sig-storage/csi-provisioner
@@ -57,6 +57,7 @@ controller:
   runOnMaster: false
   runOnControlPlane: false
   enableSnapshotter: true
+  enableSnapshotCompression: true
   useTarCommandInSnapshot: false
   livenessProbe:
     healthPort: 29652
