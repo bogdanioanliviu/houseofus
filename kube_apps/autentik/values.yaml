@@ -149,7 +149,8 @@ global:
     #   emptyDir: {}
 
 
-## Authentik configuration
+# -- Authentik configuration. See the [authentik configuration docs] for details about which values are accepted here. See the note at the top of that page for details about transforming environment variable names into values here.
+# @default -- See [values.yaml]
 authentik:
   #bootstrap_token: test
   #bootstrap_password: test
@@ -216,7 +217,9 @@ authentik:
     # -- postgresql Username
     # @default -- `authentik`
     user: "{!auth-db-user}!"
+    # -- postgresql password
     password: {!auth-db-sb}!
+    # -- postgresql port
     port: 5432
 
 blueprints:
@@ -374,10 +377,10 @@ server:
   # -- Resource limits and requests for the authentik server
   resources:
      requests:
-       cpu: 100m
-       memory: 560Mi
+       cpu: 20m
+       memory: 400Mi
      limits:
-       memory: 750Mi
+       memory: 550Mi
 
   # authentik server container ports
   containerPorts:
@@ -817,10 +820,10 @@ worker:
   # -- Resource limits and requests for the authentik worker
   resources:
      requests:
-       cpu: 100m
-       memory: 512Mi
+       cpu: 50m
+       memory: 640Mi
      limits:
-       memory: 650Mi
+       memory: 800Mi
 
   # authentik worker container ports
   containerPorts:
