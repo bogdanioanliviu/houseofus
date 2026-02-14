@@ -30,14 +30,14 @@ spec:
         - name: postgres
           securityContext:
             runAsUser: 977
-          image: postgres:15.15-alpine3.23
+          image: postgres:15.16-alpine3.23
           imagePullPolicy: "Always"
           resources:
             limits:
               memory: "512Mi"
             requests:
-              memory: "224Mi"
-              cpu: "10m"
+              memory: "300Mi"
+              cpu: "15m"
           ports:
             - containerPort: 5432
           envFrom:
