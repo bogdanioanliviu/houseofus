@@ -248,7 +248,7 @@ configReloader:
   # -- Resource requests and limits to apply to the config reloader container.
   resources:
     requests:
-      cpu: "20m"
+      cpu: "33m"
       memory: "400Mi"
   # -- Security context to apply to the Grafana configReloader container.
   securityContext: {}
