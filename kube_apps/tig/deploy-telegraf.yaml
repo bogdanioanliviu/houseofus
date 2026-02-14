@@ -37,7 +37,7 @@ spec:
       - name: telegraf
         securityContext:
           runAsUser: 977
-        image: telegraf:1.37.1
+        image: telegraf:1.37.2
         imagePullPolicy: "IfNotPresent"
         env:
         - name: TZ
@@ -51,8 +51,8 @@ spec:
           limits:
             memory: 120Mi
           requests:
-            cpu: 10m
-            memory: 40Mi
+            cpu: 15m
+            memory: 80Mi
         ports:
           - containerPort: 9100
             protocol: TCP
