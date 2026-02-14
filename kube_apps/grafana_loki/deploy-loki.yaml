@@ -31,7 +31,7 @@ spec:
           securityContext:
             runAsUser: 977
           image: grafana/loki:3.6.5
-          imagePullPolicy: "IfNotPresent"
+          imagePullPolicy: "Always"
           args: ["-config.file", "/mnt/config/loki-config.yml"]
           resources:
             limits:
