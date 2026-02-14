@@ -28,14 +28,14 @@ spec:
         - name: grafana
           securityContext:
             runAsUser: 977
-          image: grafana/grafana:12.3.2
+          image: grafana/grafana:12.3.3
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
               memory: "512Mi"
             requests:
-              memory: "50Mi"
-              cpu: "10m"
+              memory: "300Mi"
+              cpu: "20m"
           env:
             - name: TZ
               value: "Europe/Madrid"
