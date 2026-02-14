@@ -31,13 +31,13 @@ spec:
           securityContext:
             runAsUser: 977
           image: grafana/loki:3.6.5
-          imagePullPolicy: "Always"
+          imagePullPolicy: "IfNotPresent"
           args: ["-config.file", "/mnt/config/loki-config.yml"]
           resources:
             limits:
               memory: "400Mi"
             requests:
-              memory: "120Mi"
+              memory: "144Mi"
               cpu: "10m"
           env:
             - name: TZ
