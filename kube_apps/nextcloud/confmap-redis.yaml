@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: redis-config
-  namespace: nextcloud
-data:
-  redis-config: |
-    maxmemory 4mb
-    maxmemory-policy allkeys-lru
