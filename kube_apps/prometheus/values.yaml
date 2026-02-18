@@ -855,8 +855,8 @@ scrapeConfigs:
   kubernetes-api-servers:
     enabled: true
     job_name: ""
-    kubernetes_sd_configs:
-      - role: endpoints
+    discovery.k8s.io/v1:
+      - role: endpointslice
     scheme: https
     tls_config:
       ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
@@ -865,7 +865,7 @@ scrapeConfigs:
       - source_labels:
         - __meta_kubernetes_namespace
         - __meta_kubernetes_service_name
-        - __meta_kubernetes_endpoint_port_name
+        - __meta_kubernetes_endpointslice_port_name
         action: keep
         regex: default;kubernetes;https
   kubernetes-nodes:
