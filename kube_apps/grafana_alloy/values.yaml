@@ -164,7 +164,7 @@ rbac:
   rules:
     # -- Rules required for the `discovery.kubernetes` component.
     - apiGroups: ["", "discovery.k8s.io", "networking.k8s.io"]
-      resources: ["endpoints", "endpointslices", "ingresses", "pods", "services"]
+      resources: ["endpointslices", "ingresses", "pods", "services"]
       verbs: ["get", "list", "watch"]
     # -- Rules required for the `loki.source.kubernetes` component.
     - apiGroups: [""]
