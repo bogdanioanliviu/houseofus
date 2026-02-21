@@ -1,0 +1,25 @@
+trigger:
+  paths:
+    include:
+      - Ansible_docker/semaphore-ui.yaml
+
+
+pool:
+  name: Default
+
+variables:
+  - template: /Ansible_docker/semaphore-ui.yaml
+
+steps:
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      wget https://github.com/semaphoreui/semaphore/releases/download/v$(semaphore_version)/semaphore_$(semaphore_version)_linux_amd64.deb
+      sudo dpkg -i semaphore_$(semaphore_version)_linux_amd64.deb
+      sudo systemctl daemon-reload
+      sudo systemctl restart semaphore.service
+    failOnStderr: true
+  displayName: 'Update Semaphore UI'
+
