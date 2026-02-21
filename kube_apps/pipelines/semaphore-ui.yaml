@@ -16,11 +16,15 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      id
-      wget https://github.com/semaphoreui/semaphore/releases/download/v$(semaphore_version)/semaphore_$(semaphore_version)_linux_amd64.deb
-      sudo dpkg -i semaphore_$(semaphore_version)_linux_amd64.deb
-      sudo systemctl daemon-reload
-      sudo systemctl restart semaphore.service
+      SEMAPHORE_DEB="/tmp/semaphore_$(semaphore_version)_linux_amd64.deb"
+      wget -q https://github.com/semaphoreui/semaphore/releases/download/v$(semaphore_version)/semaphore_$(semaphore_version)_linux_amd64.deb -O $SEMAPHORE_DEB
+      echo "Running dpkg install with sudo..."
+      sudo -n dpkg -i $SEMAPHORE_DEB
+      echo "Reloading systemd daemon..."
+      sudo -n systemctl daemon-reload
+      echo "Restarting semaphore service..."
+      sudo -n systemctl restart semaphore.service
+      rm -f $SEMAPHORE_DEB
     failOnStderr: true
   displayName: 'Update Semaphore UI'
 
