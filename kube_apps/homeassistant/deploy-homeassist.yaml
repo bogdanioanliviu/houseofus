@@ -53,7 +53,7 @@ spec:
               cpu: "50m"
             requests:
               memory: "460Mi"
-              cpu: "3m"
+              cpu: "5m"
           env:
             - name: TZ
               value: Europe/Madrid
