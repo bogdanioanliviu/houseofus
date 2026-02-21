@@ -50,10 +50,9 @@ spec:
           resources:
             limits:
               memory: "600Mi"
-              cpu: "50m"
             requests:
               memory: "460Mi"
-              cpu: "5m"
+              cpu: "10m"
           env:
             - name: TZ
               value: Europe/Madrid
