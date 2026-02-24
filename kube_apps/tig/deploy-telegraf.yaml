@@ -37,7 +37,7 @@ spec:
       - name: telegraf
         securityContext:
           runAsUser: 977
-        image: telegraf:1.37.2
+        image: telegraf:1.37.3
         imagePullPolicy: "IfNotPresent"
         env:
         - name: TZ
