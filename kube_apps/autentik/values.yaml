@@ -758,7 +758,32 @@ worker:
   # -- Environment variables to pass to the authentik worker. Does not apply to GeoIP
   # See configuration options at https://goauthentik.io/docs/installation/configuration/
   # @default -- `[]` (See [values.yaml])
-  env: []
+  env:
+    - name: AUTHENTIK_POSTGRESQL__HOST
+      valueFrom:
+       secretKeyRef:
+         name: authentik
+         key: AUTHENTIK_POSTGRESQL__HOST
+    - name: AUTHENTIK_POSTGRESQL__NAME
+      valueFrom:
+        secretKeyRef:
+        name: authentik
+        key: AUTHENTIK_POSTGRESQL__NAME
+    - name: AUTHENTIK_POSTGRESQL__PORT
+      valueFrom:
+        secretKeyRef:
+        name: authentik
+        key: AUTHENTIK_POSTGRESQL__PORT
+    - name: AUTHENTIK_POSTGRESQL__USER
+      valueFrom:
+        secretKeyRef:
+        name: authentik
+        key: AUTHENTIK_POSTGRESQL__USER
+    - name: AUTHENTIK_POSTGRESQL__PASSWORD
+      valueFrom:
+        secretKeyRef:
+        name: authentik
+        key: AUTHENTIK_POSTGRESQL__PASSWORD
     # - name: AUTHENTIK_VAR_NAME
     #   value: VALUE
     # - name: AUTHENTIK_VAR_OTHER
@@ -774,11 +799,11 @@ worker:
 
   # -- envFrom to pass to the authentik worker. Does not apply to GeoIP
   # @default -- `[]` (See [values.yaml])
-  envFrom:
+  envFrom: []
     # - configMapRef:
     #     name: config-map-name
-     - secretRef:
-         name: authentik
+#     - secretRef:
+#         name: authentik
 
   # -- Specify postStart and preStop lifecycle hooks for you authentik worker container
   lifecycle: {}
