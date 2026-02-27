@@ -30,7 +30,7 @@ spec:
         - name: postgres
           securityContext:
             runAsUser: 977
-          image: postgres:15.16-alpine3.23
+          image: postgres:15.17-alpine3.23
           imagePullPolicy: "Always"
           resources:
             limits:
