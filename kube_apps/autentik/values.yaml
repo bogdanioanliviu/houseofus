@@ -210,7 +210,7 @@ authentik:
     # -- set the postgresql hostname to talk to
     # if unset and .Values.postgresql.enabled == true, will generate the default
     # @default -- `{{ .Release.Name }}-postgresql`
-    host: "postgres15.postgres.svc.cluster.local"
+    host: "postgresql-rw.postgresql-db.svc.cluster.local"
     # -- postgresql Database name
     # @default -- `authentik`
     name: "authentik"
