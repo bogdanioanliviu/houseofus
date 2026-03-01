@@ -164,15 +164,15 @@ metadata:
   labels:
     app: cnpg
 spec:
-  selector:
-    cnpg.io/cluster: postgresql
-    role: primary
   type: NodePort
+  selector:
+    cnpg.io/poolerName: postgresql-pgbouncer
   ports:
-   - port: 5432
-     targetPort: 5432
-     nodePort: 31959
-     name: postgres
+    - name: postgres
+      port: 5432
+      targetPort: 5432
+      nodePort: 31959
+
 ---
 apiVersion: postgresql.cnpg.io/v1
 kind: Pooler
