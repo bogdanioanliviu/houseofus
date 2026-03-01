@@ -35,7 +35,9 @@ spec:
             - |
               until pg_isready \
                 -h postgresql-pgbouncer.postgresql-db.svc.cluster.local \
-                -p 5432; do
+                -p 5432 \
+                -d postgres \
+                -U postgres; do
                 echo "Waiting for PostgreSQL (via PgBouncer)..."
                 sleep 2
               done
