@@ -913,7 +913,10 @@ worker:
   resources:
      requests:
        cpu: 50m
-       memory: 640Mi
+       memory: 1Gi
+     limits:
+       memory: 2Gi
+
 
   # authentik worker container ports
   containerPorts:
