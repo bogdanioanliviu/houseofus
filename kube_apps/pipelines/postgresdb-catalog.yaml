@@ -1,0 +1,21 @@
+trigger:
+  schedule:
+    - cron: "0 0 * * *"
+      displayName: Daily midnight build
+      branches:
+        include:
+          - main
+      always: true
+pool:
+  name: Default
+
+steps:
+  - task: Bash@3
+    displayName: 'Update CNPG Catalog'
+    inputs:
+      targetType: 'inline'
+      script: |
+        kubectl apply -f \
+          https://raw.githubusercontent.com/cloudnative-pg/artifacts/refs/heads/main/image-catalogs/catalog-standard-trixie.yaml
+      failOnStderr: true
+      noProfile: false
