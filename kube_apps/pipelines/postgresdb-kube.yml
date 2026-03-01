@@ -1,0 +1,46 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+ paths:
+   include:
+     - kube_apps/postgres15/*
+
+pool:
+  name: Default
+
+steps:
+
+- task: replacetokens@3
+  displayName: 'Prepare manifests'
+  inputs:
+    rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/postgres-db/'
+    targetFiles: '**/*.yaml'
+    encoding: 'auto'
+    writeBOM: true
+    actionOnMissing: 'warn'
+    keepToken: true
+    actionOnNoFiles: 'fail'
+    enableTransforms: false
+    tokenPrefix: '{'
+    tokenSuffix: '}'
+    enableRecursion: false
+    useLegacyPattern: false
+    enableTelemetry: true
+- task: Bash@3
+  displayName: 'deploy secrets'
+  inputs:
+    targetType: 'inline'
+    script: 'kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/postgres-db/secret.yaml'
+    failOnStderr: true
+    noProfile: false
+- task: Bash@3
+  displayName: 'Deploy CNPG postgres'
+  inputs:
+    targetType: 'inline'
+    script: |
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/postgres-db/postgres-cluster.yaml
+    failOnStderr: true
+    noProfile: false

@@ -1,0 +1,190 @@
+---
+# CloudNativePG Cluster Definition
+# Version: 1.28
+# Description: High Availability PostgreSQL cluster with 3 instances (1 primary + 2 replicas)
+# Storage: NFS with UID 977 and GID 988
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgresql
+  namespace: postgresql-db
+spec:
+  description: "HA PostgreSQL Cluster with CloudNativePG 1.28"
+
+  # Number of instances in the cluster (1 primary + 2 replicas)
+  instances: 3
+
+  # PostgreSQL version and image
+  imageCatalogRef:
+    apiGroup: postgresql.cnpg.io
+    kind: ClusterImageCatalog
+    name: postgresql-standard-trixie
+    major: 17
+  imagePullPolicy: IfNotPresent
+
+  # Primary Update Strategy
+  primaryUpdateStrategy: unsupervised
+  primaryUpdateMethod: switchover
+
+  # PostgreSQL configuration
+  postgresql:
+    synchronous:
+      method: any
+      number: 1
+      dataDurability: required
+    parameters:
+      # Replication settings
+      max_connections: "100"
+      max_wal_senders: "10"
+      wal_level: "logical" # must be like this for logical replication
+      wal_keep_size: "1GB"
+      max_slot_wal_keep_size: "10GB"
+      wal_retrieve_retry_interval: "5s"
+
+      # Streaming replication timeout
+      wal_receiver_timeout: "5s"
+      wal_receiver_status_interval: "1s"
+
+      # Synchronous replication
+      synchronous_commit: "on"
+      full_page_writes: "on"
+      hot_standby_feedback: 'on'
+      sync_replication_slots: 'on'
+
+      # Performance settings
+      shared_buffers: "256MB"
+      effective_cache_size: "1GB"
+      work_mem: "4MB"
+      maintenance_work_mem: "64MB"
+
+      # Checkpoint settings
+      checkpoint_timeout: "5min"
+      checkpoint_completion_target: "0.9"
+
+      # Log settings
+      log_statement: "none"
+      log_duration: "off"
+      log_min_duration_statement: "500ms"
+
+      # Metrics insted of logs
+      pg_stat_statements.max: "10000"
+      pg_stat_statements.track: "all"
+#      log_line_prefix: "%m [%p] %u@%d "
+#      log_connections: "off"
+#      log_disconnections: "off"
+
+      # Locales setings
+      lc_messages: "en_US.UTF-8"
+      lc_monetary: "en_US.UTF-8"
+      lc_numeric: "en_US.UTF-8"
+      lc_time: "en_US.UTF-8"
+
+    # This is for metrics collection, not for logging
+    shared_preload_libraries:
+      - "pg_stat_statements"
+
+
+  # Bootstrap configuration
+  bootstrap:
+    initdb:
+      database: postgres
+      owner: postgres
+      secret:
+        name: postgresql-superuser
+# Only use for init to import db's
+#      import:
+#        type: monolith
+#        databases:
+#          - "*"
+#        roles:
+#          - "*"
+#        source:
+#          externalCluster: old-cluster
+
+  # Storage configuration with NFS
+  storage:
+    size: 100Gi
+    storageClass: smb-postgres
+
+# Only use for init to import db's
+#  externalClusters:
+#    - name: old-cluster
+#      connectionParameters:
+#        host: postgres15.postgres.svc.cluster.local
+#        user: postgres
+#        dbname: postgres
+#      password:
+#        name: postgresql-superuser
+#        key: password
+
+  superuserSecret:
+    name: postgresql-superuser
+  enableSuperuserAccess: true
+
+  # Resource requests and limits
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "1Gi"
+      cpu: "1"
+
+  # Replication slots configuration
+  replicationSlots:
+    highAvailability:
+      enabled: true
+    updateInterval: 30
+
+  # Prometheus metrics annotations for monitoring
+  monitoring:
+    enablePodMonitor: false
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql-metrics
+  namespace: postgresql-db
+  labels:
+    app: cnpg
+spec:
+  selector:
+    cnpg.io/cluster: postgresql
+  ports:
+    - name: metrics
+      port: 9187
+      targetPort: 9187
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-rw-node
+  namespace: postgresql-db
+  labels:
+    app: cnpg
+spec:
+  selector:
+    cnpg.io/cluster: postgresql
+    role: primary
+  type: NodePort
+  ports:
+   - port: 5432
+     targetPort: 5432
+     nodePort: 31959
+     name: postgres
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Pooler
+metadata:
+  name: postgresql-pgbouncer
+  namespace: postgresql-db
+spec:
+  cluster:
+    name: postgresql
+  instances: 2
+  type: rw            # connect to primary only
+  pgbouncer: {}
+  serviceTemplate:
+    metadata:
+      name: postgresql-pgbouncer
