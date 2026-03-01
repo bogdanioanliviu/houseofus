@@ -13,22 +13,35 @@ pool:
 
 steps:
 
-- task: replacetokens@3
-  displayName: 'Prepare manifests'
+- task: replacetokens@6
+  displayName: 'Prepare files'
   inputs:
-    rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/postgres-db/'
-    targetFiles: '**/*.yaml'
-    encoding: 'auto'
-    writeBOM: true
-    actionOnMissing: 'warn'
-    keepToken: true
-    actionOnNoFiles: 'fail'
-    enableTransforms: false
-    tokenPrefix: '{'
-    tokenSuffix: '}'
-    enableRecursion: false
-    useLegacyPattern: false
-    enableTelemetry: true
+    root: '$(System.DefaultWorkingDirectory)/kube_apps/postgres-db/'
+    sources: '**/*.yaml'
+    tokenPattern: 'custom'
+    tokenPrefix: '{!'
+    tokenSuffix: '}!'
+    includeDotPaths: false
+    addBOM: true
+    missingVarAction: 'keep'
+    missingVarLog: 'error'
+    ifNoFilesFound: 'error'
+#- task: replacetokens@3
+#  displayName: 'Prepare manifests'
+#  inputs:
+#    rootDirectory: '$(System.DefaultWorkingDirectory)/kube_apps/postgres-db/'
+#    targetFiles: '**/*.yaml'
+#    encoding: 'auto'
+#    writeBOM: true
+#    actionOnMissing: 'warn'
+#    keepToken: true
+#    actionOnNoFiles: 'fail'
+#    enableTransforms: false
+#    tokenPrefix: '{'
+#    tokenSuffix: '}'
+#    enableRecursion: false
+#    useLegacyPattern: false
+#    enableTelemetry: true
 - task: Bash@3
   displayName: 'deploy secrets'
   inputs:
