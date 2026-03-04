@@ -245,29 +245,29 @@ server:
   ## authentik server Horizontal Pod Autoscaler
   autoscaling:
     # -- Enable Horizontal Pod Autoscaler ([HPA]) for the authentik server
-    enabled: false
+    enabled: true
     # -- Minimum number of replicas for the authentik server [HPA]
     minReplicas: 1
     # -- Maximum number of replicas for the authentik server [HPA]
     maxReplicas: 5
     # -- Average CPU utilization percentage for the authentik server [HPA]
-    targetCPUUtilizationPercentage: 50
+    targetCPUUtilizationPercentage: 70
     # -- Average memory utilization percentage for the authentik server [HPA]
-    targetMemoryUtilizationPercentage: ~
+    targetMemoryUtilizationPercentage: 80
     # -- Configures the scaling behavior of the target in both Up and Down directions.
-    behavior: {}
-      # scaleDown:
-      #   stabilizationWindowSeconds: 300
-      #   policies:
-      #     - type: Pods
-      #       value: 1
-      #       periodSeconds: 180
-      # scaleUp:
-      #   stabilizationWindowSeconds: 300
-      #   policies:
-      #     - type: Pods
-      #       value: 2
-      #       periodSeconds: 60
+    behavior:
+      scaleDown:
+       stabilizationWindowSeconds: 300
+       policies:
+         - type: Pods
+           value: 1
+           periodSeconds: 180
+      scaleUp:
+       stabilizationWindowSeconds: 300
+       policies:
+         - type: Pods
+           value: 2
+           periodSeconds: 60
     # -- Configures custom HPA metrics for the authentik server
     # Ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
     metrics: []
@@ -276,14 +276,14 @@ server:
   ## Ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
   pdb:
     # -- Deploy a [PodDistrubtionBudget] for the authentik server
-    enabled: false
+    enabled: true
     # -- Labels to be added to the authentik server pdb
     labels: {}
     # -- Annotations to be added to the authentik server pdb
     annotations: {}
     # -- Number of pods that are available after eviction as number or percentage (eg.: 50%)
     # @default -- `""` (defaults to 0 if not specified)
-    minAvailable: ""
+    minAvailable: "50%"
     # -- Number of pods that are unavailable after eviction as number or percentage (eg.: 50%)
     ## Has higher precedence over `server.pdb.minAvailable`
     maxUnavailable: ""
@@ -745,9 +745,9 @@ worker:
     # -- Maximum number of replicas for the authentik worker [HPA]
     maxReplicas: 3
     # -- Average CPU utilization percentage for the authentik worker [HPA]
-    targetCPUUtilizationPercentage: 80
+    targetCPUUtilizationPercentage: 70
     # -- Average memory utilization percentage for the authentik worker [HPA]
-    targetMemoryUtilizationPercentage: ~
+    targetMemoryUtilizationPercentage: 80
     # -- Configures the scaling behavior of the target in both Up and Down directions.
     behavior:
       scaleDown:
@@ -770,14 +770,14 @@ worker:
   ## Ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
   pdb:
     # -- Deploy a [PodDistrubtionBudget] for the authentik worker
-    enabled: false
+    enabled: true
     # -- Labels to be added to the authentik worker pdb
     labels: {}
     # -- Annotations to be added to the authentik worker pdb
     annotations: {}
     # -- Number of pods that are available after eviction as number or percentage (eg.: 50%)
     # @default -- `""` (defaults to 0 if not specified)
-    minAvailable: ""
+    minAvailable: "50%"
     # -- Number of pods that are unavailable after eviction as number or percentage (eg.: 50%)
     ## Has higher precedence over `worker.pdb.minAvailable`
     maxUnavailable: ""
@@ -914,7 +914,7 @@ worker:
   # -- Resource limits and requests for the authentik worker
   resources:
      requests:
-       cpu: 50m
+       cpu: 60m
        memory: 1Gi
      limits:
        memory: 2Gi
