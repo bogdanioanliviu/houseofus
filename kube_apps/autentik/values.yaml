@@ -1213,7 +1213,7 @@ postgresql:
   image:
     registry: docker.io
     repository: library/postgres
-    tag: "17.7-bookworm"
+    tag: "17.9-bookworm"
   auth:
     username: authentik
     database: authentik
@@ -1275,7 +1275,7 @@ postgresql:
     resourcesPreset: "none"
     image:
       repository: prometheuscommunity/postgres-exporter
-      tag: v0.18.1
+      tag: v0.19.1
 
 # -- additional resources to deploy. Those objects are templated.
 additionalObjects: []
