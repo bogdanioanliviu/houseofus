@@ -423,9 +423,11 @@ server:
 
   # -- Resource limits and requests for the authentik server
   resources:
-     requests:
-       cpu: 20m
-       memory: 400Mi
+    requests:
+     cpu: 20m
+     memory: 800Mi
+    limits:
+      memory: 1500Mi
 
   # authentik server container ports
   containerPorts:
