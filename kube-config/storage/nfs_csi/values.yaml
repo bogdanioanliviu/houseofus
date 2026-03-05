@@ -84,33 +84,33 @@ controller:
   resources:
     csiProvisioner:
       limits:
-        memory: 100Mi
+        memory: 150Mi
       requests:
-        cpu: 3m
+        cpu: 1m
         memory: 20Mi
     csiResizer:
       limits:
         memory: 100Mi
       requests:
-        cpu: 3m
+        cpu: 1m
         memory: 20Mi
     csiSnapshotter:
       limits:
         memory: 100Mi
       requests:
-        cpu: 3m
+        cpu: 1m
         memory: 20Mi
     livenessProbe:
       limits:
         memory: 50Mi
       requests:
-        cpu: 3m
+        cpu: 1m
         memory: 20Mi
     nfs:
       limits:
-        memory: 100Mi
+        memory: 150Mi
       requests:
-        cpu: 3m
+        cpu: 1m
         memory: 20Mi
 
 nodeDriverRegistrar:
@@ -139,19 +139,19 @@ node:
       limits:
         memory: 100Mi
       requests:
-        cpu: 3m
+        cpu: 1m
         memory: 20Mi
     nodeDriverRegistrar:
       limits:
         memory: 100Mi
       requests:
-        cpu: 3m
+        cpu: 1m
         memory: 20Mi
     nfs:
       limits:
         memory: 300Mi
       requests:
-        cpu: 3m
+        cpu: 1m
         memory: 20Mi
 
 externalSnapshotter:
