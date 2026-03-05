@@ -34,7 +34,7 @@ spec:
             limits:
               memory: "512Mi"
             requests:
-              memory: "300Mi"
+              memory: "200Mi"
               cpu: "20m"
           env:
             - name: TZ
