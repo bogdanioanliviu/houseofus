@@ -49,10 +49,10 @@ spec:
               key: token
         resources:
           limits:
-            memory: 120Mi
+            memory: 150Mi
           requests:
             cpu: 15m
-            memory: 80Mi
+            memory: 100Mi
         ports:
           - containerPort: 9100
             protocol: TCP
