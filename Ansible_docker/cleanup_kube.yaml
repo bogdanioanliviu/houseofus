@@ -18,7 +18,7 @@
 
     - name: Extract deleted images
       set_fact:
-        deleted_images: "{{ image_cleanup.stdout | regex_findall('^Deleted: (.+), multiline=true) }}"
+        deleted_images: "{{ image_cleanup.stdout | regex_findall('^Deleted: (.+)', multiline=true) }}"
 
     - name: Send cleanup report to Telegram
       telegram:
