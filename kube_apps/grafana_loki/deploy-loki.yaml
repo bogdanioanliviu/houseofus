@@ -37,8 +37,8 @@ spec:
             limits:
               memory: "400Mi"
             requests:
-              memory: "144Mi"
-              cpu: "10m"
+              memory: "244Mi"
+              cpu: "20m"
           env:
             - name: TZ
               value: "Europe/Madrid"
