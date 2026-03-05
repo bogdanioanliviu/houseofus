@@ -36,8 +36,8 @@ spec:
             limits:
               memory: "1024Mi"
             requests:
-              memory: "300Mi"
-              cpu: "17m"
+              memory: "400Mi"
+              cpu: "2m"
           env:
             - name: NODE_NAME
               valueFrom:
