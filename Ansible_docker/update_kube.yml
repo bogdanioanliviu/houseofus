@@ -1,53 +1,31 @@
----
 - hosts: kube_cluster
   become: true
   become_method: sudo
   become_user: root
   vars:
-    yum_name: "*"
-    yum_state: latest
-    yum_exclude: ""
-    telegram_token: "{{ tele_token }}"
+    telegram_token: "{{ vault_telegram_token }}"
+    telegram_chat_id: "{{ vault_telegram_chat_id }}"
+
   tasks:
-    - name: upgrade packages via yum
-      yum:
-        name: "{{ yum_name }}"
-        state: "{{ yum_state }}"
-        exclude: "{{ yum_exclude }}"
-      become: "yes"
-      register: yumcommandout
-      when:
-        - (ansible_facts['distribution_major_version'] == '6') or
-          (ansible_facts['distribution_major_version'] == '7')
-    - name: Print errors if yum failed
-      debug:
-        msg: "yum command produced errors"
-      when: yumcommandout is not defined
-    - name: check to see if we need a reboot
-      command: needs-restarting -r
-      register: result
-      ignore_errors: yes
+    - name: upgrade packages via apt
+      apt:
+        update_cache=yes
+        force_apt_get=yes
+        cache_valid_time=3600
+    - name: Upgrade all packages on servers
+      apt: upgrade=dist force_apt_get=yes
+    - name: Check if a reboot is needed on all servers
+      register: reboot_required_file
+      stat: path=/var/run/reboot-required
+    - name: Remove dependencies that are no longer required
+      apt: autoremove=yes force_apt_get=yes
+    - name: Remove useless packages from cache
+      apt: autoclean=yes force_apt_get=yes
     - name: Send message to telegram Group if restart needed
       telegram:
         token: '{{ telegram_token }}'
-        chat_id: '-320842825'
-        msg: "E nevoie de un reinicio pentru {{ inventory_hostname }}"
-      when: result.rc == 1
-    #- name: Reboot Server if Necessary
-    #  command: shutdown -r now "Ansible Updates Triggered"
-    #  become: true
-    #  async: 30
-    #  poll: 0
-    #  when: result.rc == 1
-    # This pause is mandatory, otherwise the existing control connection
-    # gets reused!
-    # (https://gist.github.com/infernix/a968f23c4f4e1d6723e4)
-    #- name: Pausing to allow server to shutdown and terminate our SSH connection
-    #  pause: seconds=30
-    #  when: result.rc == 1
-    #- name: Wait for reboot to complete and SSH to become available
-    #  local_action: wait_for host={{ inventory_hostname }} port=22
-    #    state=started delay=30 timeout=600
-    #  retries: 30
-    #  delay: 10
-    #  when: result.rc == 1
+        api_args:
+          chat_id: '{{ telegram_chat_id }}'
+          parse_mode: "markdown"
+          text: "E nevoie de un reinicio pentru {{ inventory_hostname }}"
+      when: reboot_required_file.stat.exists
