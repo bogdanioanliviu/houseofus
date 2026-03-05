@@ -27,7 +27,7 @@ spec:
           resources:
             requests:
               memory: "15Mi"
-              cpu: "10m"
+              cpu: "2m"
             limits:
               memory: "45Mi"
           env:
