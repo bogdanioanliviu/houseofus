@@ -58,26 +58,26 @@ controller:
       limits:
         memory: 100Mi
       requests:
-        cpu: 10m
-        memory: 20Mi
+        cpu: 3m
+        memory: 60Mi
     csiResizer:
       limits:
         memory: 100Mi
       requests:
-        cpu: 10m
+        cpu: 3m
         memory: 20Mi
     livenessProbe:
       limits:
         memory: 100Mi
       requests:
-        cpu: 10m
+        cpu: 3m
         memory: 20Mi
     smb:
       limits:
         memory: 100Mi
       requests:
-        cpu: 10m
-        memory: 20Mi
+        cpu: 3m
+        memory: 60Mi
   affinity: {}
   nodeSelector: {}
   tolerations:
@@ -116,20 +116,20 @@ linux:
       limits:
         memory: 100Mi
       requests:
-        cpu: 10m
+        cpu: 1m
         memory: 20Mi
     nodeDriverRegistrar:
       limits:
         memory: 100Mi
       requests:
-        cpu: 10m
-        memory: 20Mi
+        cpu: 1m
+        memory: 30Mi
     smb:
       limits:
         memory: 200Mi
       requests:
-        cpu: 10m
-        memory: 20Mi
+        cpu: 1m
+        memory: 30Mi
 
 windows:
   enabled: false
