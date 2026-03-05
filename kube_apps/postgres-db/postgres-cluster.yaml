@@ -36,7 +36,7 @@ spec:
       # Replication settings
       max_connections: "100"
       max_wal_senders: "10"
-      wal_level: "logical" # must be like this for logical replication
+      wal_level: "replica" # must be logical for logical replication
       wal_keep_size: "1GB"
       max_slot_wal_keep_size: "10GB"
       wal_retrieve_retry_interval: "5s"
@@ -46,10 +46,11 @@ spec:
       wal_receiver_status_interval: "1s"
 
       # Synchronous replication
-      synchronous_commit: "on"
+      synchronous_commit: "local"
+      synchronous_standby_names: 'ANY 1 ("postgresql-2", "postgresql-3")'
       full_page_writes: "on"
       hot_standby_feedback: 'on'
-      sync_replication_slots: 'on'
+      sync_replication_slots: 'off'
 
       # Performance settings
       shared_buffers: "256MB"
@@ -58,7 +59,7 @@ spec:
       maintenance_work_mem: "64MB"
 
       # Checkpoint settings
-      checkpoint_timeout: "5min"
+      checkpoint_timeout: "15min"
       checkpoint_completion_target: "0.9"
 
       # Log settings
@@ -124,8 +125,8 @@ spec:
   # Resource requests and limits
   resources:
     requests:
-      memory: "256Mi"
-      cpu: "250m"
+      memory: "600Mi"
+      cpu: "50m"
     limits:
       memory: "1Gi"
       cpu: "1"
