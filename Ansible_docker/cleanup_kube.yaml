@@ -8,7 +8,7 @@
 
   tasks:
     - name: Clean up stopped containers
-      shell: 'crictl rm $(sudo crictl ps -a --state exited -q) 2>/dev/null || true'
+      shell: 'containers=$(sudo crictl ps -a --state exited -q); if [ -n "$containers" ]; then sudo crictl rm $containers; else echo "No stopped containers found"; fi'
       register: container_cleanup
 
     - name: Prune unused images
