@@ -33,8 +33,8 @@ spec:
             limits:
               memory: "100Mi"
             requests:
-              memory: "40Mi"
-              cpu: "114m"
+              memory: "60Mi"
+              cpu: "4m"
           env:
             - name: TZ
               value: "Europe/Madrid"
