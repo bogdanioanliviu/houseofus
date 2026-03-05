@@ -54,8 +54,6 @@ spec:
               value: "-320842825"
             - name: DIUN_PROVIDERS_KUBERNETES
               value: "true"
-            - name: PROVIDERS_KUBERNETES_NAMESPACES
-              value: default,gandi-dns,postgres,psono,home-assist,traefik
             - name: DIUN_REGOPTS_DOKER_NAME
               value: docker.io
             - name: DIUN_REGOPTS_DOKER_SELECTOR
