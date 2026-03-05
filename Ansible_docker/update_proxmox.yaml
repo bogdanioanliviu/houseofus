@@ -1,0 +1,27 @@
+---
+- hosts: proxmox
+  vars:
+    telegram_token: "{{ vault_telegram_token }}"
+    telegram_chat_id: "{{ vault_telegram_chat_id }}"
+
+  tasks:
+    - name: Update apt repo and cache on all Debian/Ubuntu boxes
+      apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+    - name: Upgrade all packages on servers
+      apt: upgrade=dist force_apt_get=yes
+    - name: Check if a reboot is needed on all servers
+      register: reboot_required_file
+      stat: path=/var/run/reboot-required
+    - name: Remove dependencies that are no longer required
+      apt: autoremove=yes force_apt_get=yes
+    - name: Remove useless packages from cache
+      apt: autoclean=yes force_apt_get=yes
+    - name: Send message to telegram Group if server need reboot
+      telegram:
+        token: '{{ telegram_token }}'
+        api_args:
+          chat_id: '{{ telegram_chat_id }}'
+          parse_mode: "markdown"
+          text: "Trebuie restartat {{ inventory_hostname }}"
+          disable_web_page_preview: true
+      when: reboot_required_file.stat.exists
