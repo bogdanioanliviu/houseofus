@@ -86,31 +86,31 @@ controller:
       limits:
         memory: 100Mi
       requests:
-        cpu: 10m
+        cpu: 3m
         memory: 20Mi
     csiResizer:
       limits:
         memory: 100Mi
       requests:
-        cpu: 10m
+        cpu: 3m
         memory: 20Mi
     csiSnapshotter:
       limits:
         memory: 100Mi
       requests:
-        cpu: 10m
+        cpu: 3m
         memory: 20Mi
     livenessProbe:
       limits:
         memory: 50Mi
       requests:
-        cpu: 10m
+        cpu: 3m
         memory: 20Mi
     nfs:
       limits:
         memory: 100Mi
       requests:
-        cpu: 10m
+        cpu: 3m
         memory: 20Mi
 
 nodeDriverRegistrar:
@@ -139,19 +139,19 @@ node:
       limits:
         memory: 100Mi
       requests:
-        cpu: 10m
+        cpu: 3m
         memory: 20Mi
     nodeDriverRegistrar:
       limits:
         memory: 100Mi
       requests:
-        cpu: 10m
+        cpu: 3m
         memory: 20Mi
     nfs:
       limits:
         memory: 300Mi
       requests:
-        cpu: 10m
+        cpu: 3m
         memory: 20Mi
 
 externalSnapshotter:
@@ -165,7 +165,7 @@ externalSnapshotter:
     limits:
       memory: 300Mi
     requests:
-      cpu: 10m
+      cpu: 3m
       memory: 20Mi
   # Create volume snapshot CRDs.
   customResourceDefinitions:
