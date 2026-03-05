@@ -47,7 +47,6 @@ spec:
 
       # Synchronous replication
       synchronous_commit: "local"
-      synchronous_standby_names: 'ANY 1 ("postgresql-2", "postgresql-3")'
       full_page_writes: "on"
       hot_standby_feedback: 'on'
       sync_replication_slots: 'off'
