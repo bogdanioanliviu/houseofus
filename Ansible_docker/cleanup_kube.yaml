@@ -1,0 +1,43 @@
+- hosts: kube_cluster
+  become: true
+  become_method: sudo
+  become_user: root
+  vars:
+    telegram_token: "{{ vault_telegram_token }}"
+    telegram_chat_id: "{{ vault_telegram_chat_id }}"
+
+  tasks:
+    - name: Clean up stopped containers
+      shell: 'crictl rm $(sudo crictl ps -a --state exited -q) 2>/dev/null || true'
+      register: container_cleanup
+
+    - name: Prune unused images
+      shell: 'sudo crictl rmi --prune 2>&1'
+      register: image_cleanup
+      failed_when: false
+
+    - name: Extract deleted images
+      set_fact:
+        deleted_images: "{{ image_cleanup.stdout | regex_findall('^Deleted: (.+), multiline=true) }}"
+
+    - name: Send cleanup report to Telegram
+      telegram:
+        token: '{{ telegram_token }}'
+        api_args:
+          chat_id: '{{ telegram_chat_id }}'
+          parse_mode: "markdown"
+          text: |
+            {% if image_cleanup.rc == 0 %}
+            ✅ *Image Cleanup Report - {{ inventory_hostname }}*
+            {% if deleted_images | length > 0 %}
+            🗑️ *Deleted Images ({{ deleted_images | length }}):*
+            {% for image in deleted_images %}
+            • `{{ image }}`
+            {% endfor %}
+            {% else %}
+            ℹ️ *Deleted Images:* None
+            {% endif %}
+            {% else %}
+            ❌ *Image Cleanup Failed - {{ inventory_hostname }}*
+            Error: {{ image_cleanup.stderr | default(image_cleanup.stdout) }}
+            {% endif %}
