@@ -880,7 +880,7 @@ scrapeConfigs:
           - __meta_kubernetes_pod_label_cnpg_io_role
         target_label: role
   kubernetes-api-servers:
-    enabled: true
+    enabled: false
     job_name: ""
     kubernetes_sd_configs:
       - role: endpointslice
