@@ -1004,6 +1004,72 @@ ports:
       tracing:  # @schema type:[boolean, null]; default: true
       # -- Defines the tracing verbosity level for this entryPoint.
       traceVerbosity:  # @schema enum:[minimal, detailed, null]; type:[string, null]; default: minimal
+  # ==========================================
+  # NEW: Internal-only entryPoint for Psono
+  # ==========================================
+  webinternal:
+    ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
+    asDefault:
+    port: 8444
+    hostPort:
+    containerPort:
+    expose:
+      default: true  # ✅ NOT EXPOSED - Internal only
+    exposedPort: 8444
+    targetPort:
+    protocol: TCP
+    nodePort: 30501 # Leave empty - not exposed as NodePort
+    appProtocol:
+    allowACMEByPass: false
+    http:
+      encodedCharacters:
+        allowEncodedSlash:
+        allowEncodedBackSlash:
+        allowEncodedNullCharacter:
+        allowEncodedSemicolon:
+        allowEncodedPercent:
+        allowEncodedQuestionMark:
+        allowEncodedHash:
+      maxHeaderBytes:
+      middlewares: [ ]
+      sanitizePath:
+      tls:
+        enabled: true
+        options: ""
+        certResolver:  # ✅ Use Let's Encrypt with DNS challenge
+        domains: [ ]
+    http3:
+      enabled: false
+      advertisedPort:
+    forwardedHeaders:
+      trustedIPs:
+        - 127.0.0.0/8
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+      insecure: false
+    proxyProtocol:
+      trustedIPs:
+        - 127.0.0.0/8
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+      insecure: false
+    transport:
+      respondingTimeouts:
+        readTimeout:
+        writeTimeout:
+        idleTimeout:
+      lifeCycle:
+        requestAcceptGraceTimeout:
+        graceTimeOut:
+      keepAliveMaxRequests:
+      keepAliveMaxTime:
+    observability:
+      metrics:
+      accessLogs:
+      tracing:
+      traceVerbosity:
   metrics:
     # -- When using hostNetwork, use another port to avoid conflict with node exporter:
     # https://github.com/prometheus/prometheus/wiki/Default-port-allocations
