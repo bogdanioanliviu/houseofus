@@ -40,25 +40,6 @@ spec:
     addVaryHeader: true
     accessControlAllowCredentials: true
 ---
-# IP Whitelist Middleware - Using SAME IPs from your Traefik ports configuration
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-  name: psono-ip-whitelist
-  namespace: psono
-
-spec:
-  ipWhiteList:
-    sourceRange:
-      # Internal networks (same as websecure.forwardedHeaders.trustedIPs)
-      - "127.0.0.1/32"           # Localhost
-      - "192.168.1.2/32"         # Your specific trusted IP
-      - "10.0.0.0/8"             # Kubernetes cluster network
-      - "192.168.1.0/23"         # Additional private networks
-    ipStrategy:
-      depth: 1  # Use the direct client IP
-
----
 # ServersTransport configuration
 apiVersion: traefik.io/v1alpha1
 kind: ServersTransport
@@ -107,9 +88,6 @@ spec:
   - kind: Rule
     match: Host(`psonoadmin.houseofus.eu`)
     middlewares:
-      # ✅ IP Whitelist - only allows trusted IPs from Traefik config
-#      - name: psono-ip-whitelist
-#        namespace: psono
       - name: psono-cors  # ✅ NEW CORS middleware
         namespace: psono
     services:
