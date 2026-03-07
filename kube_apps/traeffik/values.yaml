@@ -1036,7 +1036,7 @@ ports:
       tls:
         enabled: true
         options: ""
-        certResolver:  # ✅ Use Let's Encrypt with DNS challenge
+        certResolver: "" # ✅ Use Let's Encrypt with DNS challenge
         domains: [ ]
     http3:
       enabled: false
