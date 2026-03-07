@@ -20,7 +20,7 @@ steps:
     targetType: 'inline'
     script: |
       kubectl apply -f ./kube_apps/psono/svc-nginx-proxy-cluster.yaml
-      kubectl apply -f ./kube_apps/psono/ingress-psono-admin.yaml
+      kubectl apply -f ./kube_apps/psono/psono-admin-trafik-ingress.yaml
       kubectl apply -f ./kube_apps/psono/deploy-nginx.yaml
     failOnStderr: true
     noProfile: false
