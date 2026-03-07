@@ -1,0 +1,128 @@
+---
+# CORS Middleware for psonoadmin
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: psono-cors
+  namespace: psono
+
+spec:
+  headers:
+    accessControlAllowMethods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - PATCH
+      - OPTIONS
+      - HEAD
+    accessControlAllowOriginList:
+      - "https://psonoadmin.houseofus.eu"
+      - "https://psono.houseofus.eu"
+#      - "https://ha.houseofus.eu"
+#      - "https://grafana.houseofus.eu"
+#      - "https://authentik.houseofus.eu"
+#      - "https://semaphore.houseofus.eu"
+    accessControlAllowHeaders:
+      - Content-Type
+      - Authorization
+      - Accept
+      - Origin
+      - Access-Control-Request-Method
+      - Access-Control-Request-Headers
+      - X-Requested-With
+      - X-CSRF-Token
+    accessControlExposeHeaders:
+      - Content-Type
+      - Content-Length
+      - X-JSON-Response
+    accessControlMaxAge: 86400
+    addVaryHeader: true
+    accessControlAllowCredentials: true
+---
+# IP Whitelist Middleware - Using SAME IPs from your Traefik ports configuration
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: psono-ip-whitelist
+  namespace: psono
+
+spec:
+  ipWhiteList:
+    sourceRange:
+      # Internal networks (same as websecure.forwardedHeaders.trustedIPs)
+      - "127.0.0.1/32"           # Localhost
+      - "192.168.1.2/32"         # Your specific trusted IP
+      - "10.0.0.0/8"             # Kubernetes cluster network
+      - "192.168.1.0/23"         # Additional private networks
+    ipStrategy:
+      depth: 1  # Use the direct client IP
+
+---
+# ServersTransport configuration
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: psono-transport
+  namespace: psono
+
+spec:
+  insecureSkipVerify: true
+  serverName: "psono"
+
+---
+# TLS Options configuration
+apiVersion: traefik.io/v1alpha1
+kind: TLSOption
+metadata:
+  name: psono-tls
+  namespace: psono
+
+spec:
+  minVersion: VersionTLS12
+  maxVersion: VersionTLS13
+  curvePreferences:
+    - CurveP521
+    - CurveP384
+  cipherSuites:
+    - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+    - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+    - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+
+---
+# IngressRoute for Psono Admin (Internal Only with IP Whitelist)
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: psono-admin-ingressroute
+  namespace: psono
+  labels:
+    app: psono-admin
+
+spec:
+  entryPoints:
+    - webinternal  # ✅ Internal-only entryPoint (port 8444, NOT exposed)
+
+  routes:
+  - kind: Rule
+    match: Host(`psonoadmin.houseofus.eu`)
+    middlewares:
+      # ✅ IP Whitelist - only allows trusted IPs from Traefik config
+#      - name: psono-ip-whitelist
+#        namespace: psono
+      - name: psono-cors  # ✅ NEW CORS middleware
+        namespace: psono
+    services:
+    - kind: Service
+      name: svc-psono-admin-cluster
+      port: 10102
+      namespace: psono
+      scheme: http
+      serversTransport: psono-transport
+
+  tls:
+    # ✅ Let's Encrypt DNS-01 challenge (automatic renewal)
+    certResolver: file
+    options:
+      name: psono-tls
+      namespace: psono
