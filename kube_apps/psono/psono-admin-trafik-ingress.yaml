@@ -19,10 +19,7 @@ spec:
     accessControlAllowOriginList:
       - "https://psonoadmin.houseofus.eu"
       - "https://psono.houseofus.eu"
-#      - "https://ha.houseofus.eu"
-#      - "https://grafana.houseofus.eu"
-#      - "https://authentik.houseofus.eu"
-#      - "https://semaphore.houseofus.eu"
+      - "192.168.1.0/23"
     accessControlAllowHeaders:
       - Content-Type
       - Authorization
