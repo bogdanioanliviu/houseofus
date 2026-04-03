@@ -52,7 +52,7 @@ spec:
         - name: homeassist
           securityContext:
             runAsUser: 977
-          image: ghcr.io/home-assistant/home-assistant:2026.3.4
+          image: ghcr.io/home-assistant/home-assistant:2026.4.0
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
