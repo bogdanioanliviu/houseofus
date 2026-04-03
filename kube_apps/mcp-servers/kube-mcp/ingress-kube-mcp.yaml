@@ -1,0 +1,22 @@
+
+# Traefik IngressRoute Configuration (Alternative to standard Ingress)
+# This is a Traefik-specific CRD that provides more advanced routing capabilities
+
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: kube-mcp-ingressroute
+  namespace: kube-mcp
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`kube-mcp.houseofus.eu`) && (PathPrefix(`/mcp`) || PathPrefix(`/`))
+      kind: Rule
+      services:
+        - name: kube-mcp
+          port: 8080
+  tls:
+    certResolver: file
+    domains:
+      - main: kube-mcp.houseofus.eu
