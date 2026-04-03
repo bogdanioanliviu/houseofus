@@ -117,10 +117,10 @@ nodeDriverRegistrar:
   healthPort: 19809
   livenessProbe:
     enabled: false
-    initialDelaySeconds: 20
+    initialDelaySeconds: 30
     timeoutSeconds: 10
     periodSeconds: 5
-    failureThreshold: 2
+    failureThreshold: 5
 
 node:
   name: csi-nfs-node
@@ -129,6 +129,9 @@ node:
   logLevel: 5
   livenessProbe:
     healthPort: 29653
+    failureThreshold: 5
+    initialDelaySeconds: 60
+    timeoutSeconds: 15
   affinity: {}
   nodeSelector: {}
   priorityClassName: system-cluster-critical
@@ -149,10 +152,10 @@ node:
         memory: 20Mi
     nfs:
       limits:
-        memory: 300Mi
+        memory: 400Mi
       requests:
-        cpu: 1m
-        memory: 20Mi
+        cpu: 5m
+        memory: 50Mi
 
 externalSnapshotter:
   enabled: false
