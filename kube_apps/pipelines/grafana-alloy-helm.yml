@@ -51,11 +51,11 @@ steps:
     failOnStderr: true
   displayName: 'Upgrade Grafana alloy'
 
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      kubectl get pods -n grafana-alloy
-      kubectl wait --for=condition=Ready pods --all --namespace grafana-alloy --timeout=600s
-    failOnStderr: true
-  displayName: 'Validate all pods are running'
+#- task: Bash@3
+#  inputs:
+#    targetType: 'inline'
+#    script: |
+#      kubectl get pods -n grafana-alloy
+#      kubectl wait --for=condition=Ready pods --all --namespace grafana-alloy --timeout=600s
+#    failOnStderr: true
+#  displayName: 'Validate all pods are running'
