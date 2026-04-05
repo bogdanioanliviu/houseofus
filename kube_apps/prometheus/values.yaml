@@ -1283,6 +1283,9 @@ prometheus-node-exporter:
   ##
   enabled: true
 
+  extraArgs:
+    - --no-collector.kernel
+
   rbac:
     pspEnabled: false
 
