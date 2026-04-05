@@ -1283,8 +1283,20 @@ prometheus-node-exporter:
   ##
   enabled: true
 
-  extraArgs:
-    - --no-collector.kernel
+  initContainers:
+    - name: create-kernel-files
+      image: busybox:latest
+      command:
+        - sh
+        - -c
+        - |
+          mkdir -p /host/proc/sys/kernel
+          touch /host/proc/sys/kernel/hung_task_detect_count
+          echo "0" > /host/proc/sys/kernel/hung_task_detect_count
+      volumeMounts:
+        - name: proc
+          mountPath: /host/proc
+          mountPropagation: HostToContainer
 
   rbac:
     pspEnabled: false
