@@ -1283,8 +1283,8 @@ prometheus-node-exporter:
   ##
   enabled: true
 
-  image:
-    tag: "v1.11.1"
+#  image:
+#    tag: "v1.11.1"
 
   rbac:
     pspEnabled: false
