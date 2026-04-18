@@ -3,7 +3,7 @@ image:
     baseRepo: registry.k8s.io
     nfs:
       repository: registry.k8s.io/sig-storage/nfsplugin
-      tag: v4.13.1
+      tag: v4.13.2
       pullPolicy: IfNotPresent
     csiProvisioner:
       repository: /sig-storage/csi-provisioner
@@ -84,7 +84,7 @@ controller:
   resources:
     csiProvisioner:
       limits:
-        memory: 150Mi
+        memory: 200Mi
       requests:
         cpu: 1m
         memory: 20Mi
@@ -108,7 +108,7 @@ controller:
         memory: 20Mi
     nfs:
       limits:
-        memory: 150Mi
+        memory: 200Mi
       requests:
         cpu: 1m
         memory: 20Mi
@@ -152,7 +152,7 @@ node:
         memory: 20Mi
     nfs:
       limits:
-        memory: 400Mi
+        memory: 450Mi
       requests:
         cpu: 5m
         memory: 50Mi
