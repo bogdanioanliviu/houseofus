@@ -1,0 +1,3 @@
+variables:
+  - name: pulse-helm_version
+    value: 5.1.28

@@ -1,0 +1,175 @@
+# Default values for the Pulse Helm chart.
+# This file can be used as-is for a minimal installation or as a reference when
+# overriding values (for example with `-f custom-values.yaml`).
+
+replicaCount: 1
+
+# Deployment strategy. Default is RollingUpdate, but Recreate is recommended
+# when using ReadWriteOnce (RWO) persistent volumes to avoid Multi-Attach errors.
+strategy:
+  type: Recreate
+
+image:
+  repository: rcourtman/pulse
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext:
+  enabled: true
+  fsGroup: 1000
+
+containerSecurityContext:
+  enabled: true
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+
+
+service:
+  type: ClusterIP
+  port: 7655
+  annotations: {}
+  loadBalancerIP: ""
+  externalTrafficPolicy: Cluster
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: pulse.houseofus.eu
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+persistence:
+  enabled: true
+  existingClaim: ""
+  storageClass: ""
+  accessModes:
+    - ReadWriteOnce
+  size: 8Gi
+  annotations: {}
+
+server:
+  env:
+    - name: TZ
+      value: UTC
+  envFrom: []
+  extraEnv: []
+  extraEnvFrom: []
+  secretEnv:
+    create: false
+    name: ""
+    data: {}
+    keys: []
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext: {}
+  securityContext: {}
+  extraVolumes: []
+  extraVolumeMounts: []
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  livenessProbe:
+    enabled: true
+    path: /
+    initialDelaySeconds: 20
+    periodSeconds: 30
+    timeoutSeconds: 5
+    failureThreshold: 3
+  readinessProbe:
+    enabled: true
+    path: /
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+
+agent:
+  # Legacy: this deploys the deprecated `pulse-docker-agent`.
+  # For new deployments, prefer installing the unified agent (`pulse-agent`) on the hosts you want to monitor.
+  enabled: false
+  kind: DaemonSet # Supported: DaemonSet | Deployment
+  replicaCount: 1
+  serviceAccount:
+    create: false
+    name: ""
+    annotations: {}
+  image:
+    repository: ghcr.io/rcourtman/pulse-docker-agent
+    tag: ""
+    pullPolicy: IfNotPresent
+  env:
+    - name: PULSE_URL
+      value: http://pulse:7655
+  envFrom: []
+  extraEnv: []
+  extraEnvFrom: []
+  secretEnv:
+    create: false
+    name: ""
+    data: {}
+    keys: []
+  args: []
+  resources: {}
+  podAnnotations: {}
+  podLabels: {}
+  podSecurityContext: {}
+  securityContext:
+    runAsUser: 0
+    runAsGroup: 0
+    privileged: false
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+  dockerSocket:
+    enabled: true
+    path: /var/run/docker.sock
+    hostPathType: Socket
+  extraVolumes: []
+  extraVolumeMounts: []
+  healthPort: 9191
+  livenessProbe:
+    enabled: true
+    path: /healthz
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 3
+    failureThreshold: 3
+  readinessProbe:
+    enabled: true
+    path: /readyz
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3
+
+# Monitoring configuration
+# Note: The ServiceMonitor targets the main HTTP service (7655). Prometheus metrics are
+# served on 9091 by the Pulse server, so scraping requires an additional Service.
+monitoring:
+  serviceMonitor:
+    enabled: false
+    interval: 30s
+    scrapeTimeout: 10s
+    path: /metrics
+    labels: {}
+    relabelings: []
+    metricRelabelings: []
