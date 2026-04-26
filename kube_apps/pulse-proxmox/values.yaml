@@ -68,7 +68,7 @@ persistence:
 server:
   env:
     - name: TZ
-      value: UTC
+      value: Europe/Madrid
   envFrom: []
   extraEnv: []
   extraEnvFrom: []
