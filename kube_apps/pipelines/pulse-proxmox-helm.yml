@@ -48,7 +48,7 @@ steps:
       --namespace pulse \
       --create-namespace \
       -f $(System.DefaultWorkingDirectory)/kube_apps/pulse-proxmox/values.yaml \
-      --version $(pulse-helm_version) \
+      --version $(pulse-helm_version)
     failOnStderr: false
   displayName: 'Upgrade Pulse helm chart'
 
