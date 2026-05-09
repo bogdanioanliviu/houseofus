@@ -44,7 +44,7 @@ steps:
     targetType: 'inline'
     script: |
       echo "$(pulse-helm_version)"
-      helm upgrade --install pulse \
+      helm upgrade --install pulse pulse/pulse \
         --namespace pulse \
         --create-namespace \
         -f $(System.DefaultWorkingDirectory)/kube_apps/pulse-proxmox/values.yaml \
