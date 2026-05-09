@@ -43,7 +43,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      echo "$(pulse_helm_version)"
+      echo "$(pulse-helm_version)"
       helm upgrade --install pulse \
       --namespace pulse \
       --create-namespace \
