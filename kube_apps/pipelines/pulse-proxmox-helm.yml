@@ -45,10 +45,10 @@ steps:
     script: |
       echo "$(pulse-helm_version)"
       helm upgrade --install pulse \
-      --namespace pulse \
-      --create-namespace \
-      -f $(System.DefaultWorkingDirectory)/kube_apps/pulse-proxmox/values.yaml \
-      --version $(pulse-helm_version)
+        --namespace pulse \
+        --create-namespace \
+        -f $(System.DefaultWorkingDirectory)/kube_apps/pulse-proxmox/values.yaml \
+        --version $(pulse-helm_version)
     failOnStderr: false
   displayName: 'Upgrade Pulse helm chart'
 
