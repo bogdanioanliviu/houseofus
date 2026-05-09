@@ -1,0 +1,54 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  paths:
+    include:
+      - kube_apps/pulse-proxmox/values.yaml
+      - kube_apps/pulse-proxmox/ingress-pulse.yaml
+      - kube_apps/pulse-proxmox/variables.yaml
+
+pool:
+  name: Default
+
+variables:
+  - template: /kube_apps/pulse-proxmox/variables.yaml
+
+steps:
+
+#- task: HelmInstaller@1
+#  inputs:
+#    helmVersionToInstall: 'latest'
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      helm repo add pulse https://rcourtman.github.io/Pulse
+      helm repo update
+    failOnStderr: true
+  displayName: 'Add and update Helm repository'
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      kubectl apply -f $(System.DefaultWorkingDirectory)/kube_apps/pulse-proxmox/ingress-pulse.yaml
+    failOnStderr: true
+    noProfile: false
+  displayName: "Update ingress for pulse."
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      echo "$(pulse_helm_version)"
+      helm upgrade --install pulse \
+      --namespace pulse \
+      --create-namespace \
+      -f $(System.DefaultWorkingDirectory)/kube_apps/pulse-proxmox/values.yaml \
+      --version $(pulse-helm_version) \
+    failOnStderr: false
+  displayName: 'Upgrade Pulse helm chart'
+
