@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: psono-nginx-proxy
-          image: nginx:1.31.1
+          image: nginx:1.31.0-alpine
           imagePullPolicy: "Always"
           resources:
             requests:
