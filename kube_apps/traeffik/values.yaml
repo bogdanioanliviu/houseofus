@@ -598,7 +598,7 @@ log:
 # -- See [access logs reference](https://doc.traefik.io/traefik/reference/install-configuration/observability/logs-and-accesslogs/)
 accessLog:
   # -- To enable access logs
-  enabled: false
+  enabled: true
   # -- Set [access log format](https://doc.traefik.io/traefik/reference/install-configuration/observability/logs-and-accesslogs/#opt-accesslog-format)
   format:  # @schema enum:["common", "genericCLF", "json", null]; type:[string, null]; default: "common"
   # filePath: "/var/log/traefik/access.log
@@ -633,7 +633,7 @@ accessLog:
       defaultMode:  # @schema enum:[keep, drop, null]; type:[string, null]; default: null
   otlp:
     # -- Set to true in order to enable OpenTelemetry on access logs. Note that experimental.otlpLogs needs to be enabled.
-    enabled: true
+    enabled: false
     # -- Service name used in OTLP backend. Default: traefik.
     serviceName:  # @schema type:[string, null]
     http:
