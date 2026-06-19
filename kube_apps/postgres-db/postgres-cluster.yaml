@@ -37,13 +37,13 @@ spec:
       max_connections: "100"
       max_wal_senders: "10"
       wal_level: "replica" # must be logical for logical replication
-      wal_keep_size: "1GB"
-      max_slot_wal_keep_size: "10GB"
+      wal_keep_size: "2GB"
+      max_slot_wal_keep_size: "20GB"
       wal_retrieve_retry_interval: "5s"
 
       # Streaming replication timeout
-      wal_receiver_timeout: "5s"
-      wal_receiver_status_interval: "1s"
+      wal_receiver_timeout: "60s"
+      wal_receiver_status_interval: "10s"
 
       # Synchronous replication
       synchronous_commit: "local"
