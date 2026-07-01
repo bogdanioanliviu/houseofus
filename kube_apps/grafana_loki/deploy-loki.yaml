@@ -35,10 +35,11 @@ spec:
           args: ["-config.file", "/mnt/config/loki-config.yml"]
           resources:
             limits:
-              memory: "400Mi"
+              memory: "800Mi"
+              cpu: "500m"
             requests:
-              memory: "244Mi"
-              cpu: "20m"
+              memory: "512Mi"
+              cpu: "100m"
           env:
             - name: TZ
               value: "Europe/Madrid"
