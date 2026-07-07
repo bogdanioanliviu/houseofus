@@ -1,3 +1,3 @@
 variables:
   - name: traefik_helm_version
-    value: 41.0.1
+    value: 41.0.2
