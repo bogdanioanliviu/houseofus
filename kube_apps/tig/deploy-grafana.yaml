@@ -22,7 +22,7 @@ spec:
       securityContext:
         runAsUser: 977
         runAsGroup: 988
-        #fsGroup: 0
+        fsGroup: 988
         supplementalGroups: [ 0 ]
       containers:
         - name: grafana
