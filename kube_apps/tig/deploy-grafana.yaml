@@ -51,7 +51,7 @@ spec:
               protocol: TCP
               name: http
           volumeMounts:
-            - mountPath: /var/lib/grafana
+            - mountPath: /usr/share/grafana
               name: grafana-volume
               subPath: data/
             -  mountPath: /etc/grafana/provisioning
