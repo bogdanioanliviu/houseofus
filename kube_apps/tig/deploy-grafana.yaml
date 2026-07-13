@@ -40,8 +40,8 @@ spec:
           env:
             - name: TZ
               value: "Europe/Madrid"
-            - name: GF_INSTALL_PLUGINS
-              value: novatec-sdg-panel, grafana-clock-panel
+            #- name: GF_INSTALL_PLUGINS
+            #  value: novatec-sdg-panel, grafana-clock-panel
             - name: GF_SECURITY_ADMIN_PASSWORD
               value: {Grafana-Admin-Pass}
             - name: GF_SERVER_ROOT_URL
@@ -51,9 +51,9 @@ spec:
               protocol: TCP
               name: http
           volumeMounts:
-            - mountPath: /usr/share/grafana
-              name: grafana-volume
-              subPath: data/
+#            - mountPath: /usr/share/grafana
+#              name: grafana-volume
+#              subPath: data/
             -  mountPath: /etc/grafana/provisioning
                name: grafana-volume
                subPath: provisioning/
