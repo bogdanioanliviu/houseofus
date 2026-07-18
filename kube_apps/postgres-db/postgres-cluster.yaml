@@ -103,7 +103,7 @@ spec:
 
   # Storage configuration with NFS
   storage:
-    size: 100Gi
+    size: 200Gi
     storageClass: smb-postgres
 
 # Only use for init to import db's
