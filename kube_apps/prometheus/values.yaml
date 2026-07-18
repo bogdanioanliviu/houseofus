@@ -918,7 +918,9 @@ scrapeConfigs:
     bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
     metrics_path: /metrics/cadvisor
     kubernetes_sd_configs:
-      - role: node
+      - role: nodes
+      - role: nodes/proxy
+      - role: nodes/metrics
     relabel_configs:
       - action: labelmap
         regex: __meta_kubernetes_node_label_(.+)
