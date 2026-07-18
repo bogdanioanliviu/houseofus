@@ -860,6 +860,13 @@ scrapeConfigs:
     kubernetes_sd_configs:
       - role: endpointslice
     relabel_configs:
+      # Drop pgbouncer services if present to avoid scraping non-existent metrics
+      - source_labels:
+          - __meta_kubernetes_service_name
+        action: drop
+        # case-insensitive match for any service name containing 'pgbouncer'
+        regex: (?i)pgbouncer
+
       # Only keep the CNPG metrics service
       - source_labels:
           - __meta_kubernetes_namespace
