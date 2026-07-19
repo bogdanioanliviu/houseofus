@@ -839,6 +839,14 @@ scrapeConfigs:
     static_configs:
       - targets:
           - localhost:9090
+  etcd-k8s:
+    enabled: true
+    job_name: 'etcd'
+    static_configs:
+      - targets:
+          - kmaster01.houseofus.eu:2379
+          - kmaster02.houseofus.eu:2379
+          - kmaster03.houseofus.eu:2379
   grafana-alloy-pve:
     enabled: true
     job_name: ''
