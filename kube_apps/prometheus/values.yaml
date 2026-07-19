@@ -842,6 +842,10 @@ scrapeConfigs:
   etcd-k8s:
     enabled: true
     job_name: 'etcd'
+    scheme: https
+    tls_config:
+      ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
     static_configs:
       - targets:
           - 192.168.1.3:2379
