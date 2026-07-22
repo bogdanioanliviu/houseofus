@@ -7,22 +7,58 @@
     telegram_chat_id: "{{ vault_telegram_chat_id }}"
 
   tasks:
-    - name: Update apt repo and cache on all Debian/Ubuntu boxes
-      apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
-    - name: Upgrade all packages on servers
-      apt: upgrade=dist force_apt_get=yes
-    - name: Check if a reboot is needed on all servers
+    - name: Wait for apt lock to be released
+      shell: "while fuser /var/lib/dpkg/lockd >/dev/null 2>&1; do sleep 5; done"
+      changed_when: false
+      register: apt_lock_wait
+      ignore_errors: true
+
+    - name: Update and Upgrade Packages
+      block:
+        - name: Update apt repo and cache
+          apt:
+            update_cache: yes
+            force_apt_get: yes
+            cache_valid_time: 3600
+
+        - name: Upgrade all packages
+          apt:
+            upgrade: dist
+            force_apt_get: yes
+
+        - name: Remove dependencies and clean cache
+          apt:
+            autoremove: yes
+            autoclean: yes
+            force_apt_get: yes
+
+        - name: Notify success
+          telegram:
+            token: '{{ telegram_token }}'
+            api_args:
+              chat_id: '{{ telegram_chat_id }}'
+              parse_mode: "markdown"
+              text: "✅ Update successful on {{ inventory_hostname }}"
+
+      rescue:
+        - name: Notify failure
+          telegram:
+            token: '{{ telegram_token }}'
+            api_args:
+              chat_id: '{{ telegram_chat_id }}'
+              parse_mode: "markdown"
+              text: "❌ Update FAILED on {{ inventory_hostname }}"
+
+    - name: Check if a reboot is needed
       register: reboot_required_file
-      stat: path=/var/run/reboot-required
-    - name: Remove dependencies that are no longer required
-      apt: autoremove=yes force_apt_get=yes
-    - name: Remove useless packages from cache
-      apt: autoclean=yes force_apt_get=yes
-    - name: Send message to telegram Group if server need reboot
+      stat:
+        path: /var/run/reboot-required
+
+    - name: Notify reboot required
       telegram:
         token: '{{ telegram_token }}'
         api_args:
           chat_id: '{{ telegram_chat_id }}'
           parse_mode: "markdown"
-          text: "Trebuie restartat {{ inventory_hostname }}"
+          text: "⚠️ Trebuie restartat {{ inventory_hostname }}"
       when: reboot_required_file.stat.exists
