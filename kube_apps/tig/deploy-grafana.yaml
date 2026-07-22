@@ -29,7 +29,7 @@ spec:
           securityContext:
             runAsUser: 977
             runAsGroup: 988
-          image: grafana/grafana:13.1.0-ubuntu
+          image: grafana/grafana:13.1.1-ubuntu
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
