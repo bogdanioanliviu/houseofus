@@ -471,7 +471,7 @@ server:
     # runAsNonRoot: true
     # readOnlyRootFilesystem: true
     # allowPrivilegeEscalation: false
-    # seccomProfile:
+    # seccompProfile:
     #   type: RuntimeDefault
     # capabilities:
     #   drop:
@@ -963,7 +963,7 @@ worker:
     # runAsNonRoot: true
     # readOnlyRootFilesystem: true
     # allowPrivilegeEscalation: false
-    # seccomProfile:
+    # seccompProfile:
     #   type: RuntimeDefault
     # capabilities:
     #   drop:
@@ -1187,7 +1187,7 @@ geoip:
     # runAsNonRoot: true
     # readOnlyRootFilesystem: true
     # allowPrivilegeEscalation: false
-    # seccomProfile:
+    # seccompProfile:
     #   type: RuntimeDefault
     # capabilities:
     #   drop:
