@@ -993,7 +993,6 @@ ports:
     forwardedHeaders:
       # -- Trust forwarded headers information (X-Forwarded-*).
       trustedIPs:
-        - 192.168.1.2
         - 192.168.10.2
       insecure: false
       # -- Disable appending RemoteAddr to X-Forwarded-For header (v3.7+).
@@ -1001,7 +1000,6 @@ ports:
     proxyProtocol:
       # -- Enable the Proxy Protocol header parsing for the entry point
       trustedIPs:
-        - 192.168.1.2
         - 192.168.10.2
       insecure: false
     # -- Set transport settings for the entrypoint
@@ -1086,7 +1084,6 @@ ports:
     forwardedHeaders:
         # -- Trust forwarded headers information (X-Forwarded-*).
       trustedIPs:
-        - 192.168.1.2
         - 192.168.10.2
         - 127.0.0.0/8
         - 10.0.0.0/8
@@ -1098,7 +1095,6 @@ ports:
     proxyProtocol:
       # -- Enable the Proxy Protocol header parsing for the entry point
       trustedIPs:
-        - 192.168.1.2
         - 192.168.10.2
         - 127.0.0.0/8
         - 10.0.0.0/8
