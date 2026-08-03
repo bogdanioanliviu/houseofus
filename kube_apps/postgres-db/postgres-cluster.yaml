@@ -14,6 +14,11 @@ spec:
   # Number of instances in the cluster (1 primary + 2 replicas)
   instances: 3
 
+  affinity:
+    enablePodAntiAffinity: true
+    podAntiAffinityType: required
+    topologyKey: kubernetes.io/hostname
+
   # PostgreSQL version and image
   imageCatalogRef:
     apiGroup: postgresql.cnpg.io
