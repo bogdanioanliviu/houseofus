@@ -14,3 +14,20 @@ spec:
       port: 8123
       targetPort: 8123
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: home-assistant-coiot
+  namespace: home-assist
+  labels:
+    app: homeassist
+spec:
+  type: NodePort
+  selector:
+    app: homeassist
+  ports:
+    - protocol: UDP
+      port: 5683
+      targetPort: 5683
+      nodePort: 30683
