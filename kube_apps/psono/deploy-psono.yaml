@@ -26,14 +26,14 @@ spec:
             value: "65535"
       containers:
         - name: psono-server
-          image: psono/psono-server-enterprise:7.2.5
+          image: psono/psono-server-enterprise:7.3.0
           imagePullPolicy: "IfNotPresent"
           resources:
             requests:
               memory: "200Mi"
               cpu: "2m"
             limits:
-              memory: "1024Mi"
+              memory: "512Mi"
           env:
             - name: TZ
               value: "Europe/Madrid"
